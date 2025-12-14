@@ -41,7 +41,7 @@ export default function Home() {
               href="https://www.linkedin.com/in/smriti-reddy"
               target="_blank"
               rel="noopener noreferrer"
-              style={styles.secondaryButton}
+              style={styles.primaryButton}
               onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-2px)'}
               onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
             >
@@ -74,15 +74,37 @@ export default function Home() {
           </div>
         </div>
 
+        {/* Scroll Down Button */}
+        <button
+          onClick={() => {
+            const skillsSection = document.querySelector('#skills-section');
+            if (skillsSection) {
+              skillsSection.scrollIntoView({ behavior: 'smooth' });
+            }
+          }}
+          style={styles.scrollButton}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.transform = 'translateY(4px)';
+            e.currentTarget.style.borderColor = 'rgba(99, 102, 241, 0.4)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.transform = 'translateY(0)';
+            e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.2)';
+          }}
+        >
+          <span style={styles.scrollIcon}>↓</span>
+          <span style={styles.scrollText}>Scroll Down</span>
+        </button>
+
         {/* Floating gradient orbs */}
         <div style={styles.orb1}></div>
         <div style={styles.orb2}></div>
       </section>
 
       {/* Skills Section */}
-      <section style={styles.section}>
+      <section id="skills-section" style={styles.section}>
         <h2 style={styles.sectionTitle}>
-          <span style={styles.titleAccent}>—</span> Technical Skills
+          <span style={styles.titleAccent}></span> Technical Skills
         </h2>
 
         <div style={styles.skillsList}>
@@ -112,7 +134,7 @@ export default function Home() {
       {/* Projects Section with Filter */}
       <section style={styles.section}>
         <h2 style={styles.sectionTitle}>
-          <span style={styles.titleAccent}>—</span> Featured Projects
+          <span style={styles.titleAccent}></span> Featured Projects
         </h2>
 
         {/* Category Filter */}
@@ -726,6 +748,36 @@ const styles = {
     background: "radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, transparent 70%)",
     filter: "blur(60px)",
     zIndex: 1,
+  },
+
+  scrollButton: {
+    position: "absolute" as const,
+    bottom: "40px",
+    left: "50%",
+    transform: "translateX(-50%)",
+    display: "flex",
+    flexDirection: "column" as const,
+    alignItems: "center",
+    gap: "8px",
+    padding: "16px 24px",
+    borderRadius: "12px",
+    backgroundColor: "rgba(255, 255, 255, 0.03)",
+    border: "1px solid rgba(255, 255, 255, 0.2)",
+    color: "#ffffff",
+    cursor: "pointer",
+    transition: "all 0.3s ease",
+    zIndex: 3,
+  },
+
+  scrollIcon: {
+    fontSize: "1.5rem",
+    animation: "bounce 2s infinite",
+  },
+
+  scrollText: {
+    fontSize: "0.85rem",
+    fontWeight: 500,
+    color: "#9ca3af",
   },
 
   section: {
