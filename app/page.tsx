@@ -1,3 +1,5 @@
+'use client';
+
 import { useState } from 'react';
 
 export default function Home() {
@@ -17,8 +19,8 @@ export default function Home() {
       <section style={styles.hero}>
         <div style={styles.heroContent}>
           <div style={styles.statusBadge}>
-          <span style={styles.statusDot}></span>&nbsp;
-          Available for opportunities
+            <span style={styles.statusDot}></span>
+            Available for opportunities
           </div>
           
           <h1 style={styles.name}>
@@ -568,7 +570,7 @@ export default function Home() {
 
           <div style={styles.locationBadge}>
             <span style={styles.locationIcon}>📍</span>
-            Boston, MA • Open to relocation
+            <span>Boston, MA • Open to relocation</span>
           </div>
         </div>
       </section>
