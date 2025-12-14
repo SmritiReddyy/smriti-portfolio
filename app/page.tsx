@@ -16,7 +16,7 @@ export default function Home() {
     { id: 'ds', label: 'Data Science' },
     { id: 'research', label: 'Research' }
   ];
-
+  
   return (
     <main style={styles.container}>
       {/* Animated Hero Section */}
