@@ -41,7 +41,7 @@ export default function Home() {
               href="https://www.linkedin.com/in/smriti-reddy"
               target="_blank"
               rel="noopener noreferrer"
-              style={styles.primaryButton}
+              style={styles.secondaryButton}
               onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-2px)'}
               onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
             >
