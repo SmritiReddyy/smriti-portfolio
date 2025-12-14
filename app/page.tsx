@@ -1,9 +1,13 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function Home() {
   const [activeCategory, setActiveCategory] = useState('all');
+
+  useEffect(() => {
+    document.title = "Smriti's Portfolio";
+  }, []);
 
   const categories = [
     { id: 'all', label: 'All Projects' },
