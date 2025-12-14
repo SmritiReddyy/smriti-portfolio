@@ -17,8 +17,8 @@ export default function Home() {
       <section style={styles.hero}>
         <div style={styles.heroContent}>
           <div style={styles.statusBadge}>
-            <span style={styles.statusDot}></span>
-            Available for opportunities
+          <span style={styles.statusDot}></span>&nbsp;
+          Available for opportunities
           </div>
           
           <h1 style={styles.name}>
@@ -482,6 +482,97 @@ export default function Home() {
         )}
       </section>
 
+      {/* Contact Section */}
+      <section style={styles.contactSection}>
+        <div style={styles.contactContainer}>
+          <h2 style={styles.contactTitle}>Let's Connect</h2>
+          <p style={styles.contactSubtitle}>
+            I'm actively seeking opportunities in Software Engineering, Machine Learning, 
+            and Data Science. Let's discuss how I can contribute to your team!
+          </p>
+
+          <div style={styles.contactGrid}>
+            <a 
+              href="mailto:u.smritireddy@gmail.com"
+              style={styles.contactCard}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = 'translateY(-4px)';
+                e.currentTarget.style.borderColor = 'rgba(99, 102, 241, 0.4)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+              }}
+            >
+              <div style={styles.contactIcon}>📧</div>
+              <h3 style={styles.contactCardTitle}>Email</h3>
+              <p style={styles.contactCardText}>u.smritireddy@gmail.com</p>
+            </a>
+
+            <a 
+              href="https://www.linkedin.com/in/smriti-reddy"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={styles.contactCard}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = 'translateY(-4px)';
+                e.currentTarget.style.borderColor = 'rgba(99, 102, 241, 0.4)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+              }}
+            >
+              <div style={styles.contactIcon}>💼</div>
+              <h3 style={styles.contactCardTitle}>LinkedIn</h3>
+              <p style={styles.contactCardText}>Connect with me</p>
+            </a>
+
+            <a 
+              href="https://github.com/SmritiReddyy"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={styles.contactCard}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = 'translateY(-4px)';
+                e.currentTarget.style.borderColor = 'rgba(99, 102, 241, 0.4)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+              }}
+            >
+              <div style={styles.contactIcon}>💻</div>
+              <h3 style={styles.contactCardTitle}>GitHub</h3>
+              <p style={styles.contactCardText}>View my code</p>
+            </a>
+
+            <a 
+              href="/Smriti_Reddy_Resume.pdf"
+              target="_blank"
+              style={styles.contactCard}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = 'translateY(-4px)';
+                e.currentTarget.style.borderColor = 'rgba(99, 102, 241, 0.4)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+              }}
+            >
+              <div style={styles.contactIcon}>📄</div>
+              <h3 style={styles.contactCardTitle}>Resume</h3>
+              <p style={styles.contactCardText}>Download PDF</p>
+            </a>
+          </div>
+
+          <div style={styles.locationBadge}>
+            <span style={styles.locationIcon}>📍</span>
+            Boston, MA • Open to relocation
+          </div>
+        </div>
+      </section>
+
       {/* Footer */}
       <footer style={styles.footer}>
         <p style={styles.footerText}>
@@ -867,5 +958,92 @@ const styles = {
     color: "#6b7280",
     fontSize: "0.9rem",
     lineHeight: 1.6,
+  },
+
+  contactSection: {
+    backgroundColor: "rgba(99, 102, 241, 0.03)",
+    borderTop: "1px solid rgba(99, 102, 241, 0.1)",
+    padding: "80px 40px",
+  },
+
+  contactContainer: {
+    maxWidth: "1000px",
+    margin: "0 auto",
+    textAlign: "center" as const,
+  },
+
+  contactTitle: {
+    fontSize: "2.5rem",
+    fontWeight: 700,
+    marginBottom: "16px",
+    background: "linear-gradient(135deg, #ffffff 0%, #a0a0a0 100%)",
+    WebkitBackgroundClip: "text",
+    WebkitTextFillColor: "transparent",
+    backgroundClip: "text",
+  },
+
+  contactSubtitle: {
+    fontSize: "1.1rem",
+    color: "#9ca3af",
+    marginBottom: "48px",
+    lineHeight: 1.6,
+    maxWidth: "700px",
+    margin: "0 auto 48px",
+  },
+
+  contactGrid: {
+    display: "grid",
+    gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+    gap: "24px",
+    marginBottom: "40px",
+  },
+
+  contactCard: {
+    padding: "32px 24px",
+    borderRadius: "16px",
+    backgroundColor: "rgba(255, 255, 255, 0.03)",
+    border: "1px solid rgba(255, 255, 255, 0.1)",
+    textDecoration: "none",
+    display: "flex",
+    flexDirection: "column" as const,
+    alignItems: "center",
+    gap: "12px",
+    transition: "all 0.3s ease",
+    cursor: "pointer",
+  },
+
+  contactIcon: {
+    fontSize: "2.5rem",
+    marginBottom: "8px",
+  },
+
+  contactCardTitle: {
+    fontSize: "1.1rem",
+    fontWeight: 600,
+    color: "#ffffff",
+    margin: 0,
+  },
+
+  contactCardText: {
+    fontSize: "0.9rem",
+    color: "#9ca3af",
+    margin: 0,
+  },
+
+  locationBadge: {
+    display: "inline-flex",
+    alignItems: "center",
+    gap: "8px",
+    padding: "12px 24px",
+    borderRadius: "24px",
+    backgroundColor: "rgba(99, 102, 241, 0.1)",
+    border: "1px solid rgba(99, 102, 241, 0.2)",
+    color: "#a5b4fc",
+    fontSize: "0.95rem",
+    fontWeight: 500,
+  },
+
+  locationIcon: {
+    fontSize: "1.2rem",
   },
 };
