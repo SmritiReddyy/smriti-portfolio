@@ -74,8 +74,16 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Scroll Down Button */}
-        <button
+        
+
+        {/* Floating gradient orbs */}
+        <div style={styles.orb1}></div>
+        <div style={styles.orb2}></div>
+      </section>
+
+      <section>
+      {/* Scroll Down Button */}
+      <button
           onClick={() => {
             const skillsSection = document.querySelector('#skills-section');
             if (skillsSection) {
@@ -84,21 +92,16 @@ export default function Home() {
           }}
           style={styles.scrollButton}
           onMouseEnter={(e) => {
-            e.currentTarget.style.transform = 'translateY(4px)';
             e.currentTarget.style.borderColor = 'rgba(99, 102, 241, 0.4)';
           }}
           onMouseLeave={(e) => {
-            e.currentTarget.style.transform = 'translateY(0)';
             e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.2)';
           }}
         >
           <span style={styles.scrollIcon}>↓</span>
           <span style={styles.scrollText}>Scroll Down</span>
         </button>
-
-        {/* Floating gradient orbs */}
-        <div style={styles.orb1}></div>
-        <div style={styles.orb2}></div>
+      
       </section>
 
       {/* Skills Section */}
@@ -134,7 +137,7 @@ export default function Home() {
       {/* Projects Section with Filter */}
       <section style={styles.section}>
         <h2 style={styles.sectionTitle}>
-          <span style={styles.titleAccent}></span> Featured Projects
+          <span style={styles.titleAccent}></span>Projects
         </h2>
 
         {/* Category Filter */}
@@ -243,7 +246,7 @@ export default function Home() {
         )}
 
         {/* ML Projects */}
-        {(activeCategory === 'all' || activeCategory === 'ml') && (
+        {activeCategory === 'ml' && (
           <div style={styles.projectsGrid}>
             <div style={styles.projectCard}>
               <div style={styles.projectHeader}>
@@ -617,7 +620,7 @@ const styles = {
   },
 
   hero: {
-    minHeight: "100vh",
+    minHeight: "90vh",
     display: "flex",
     flexDirection: "column" as const,
     justifyContent: "center",
@@ -752,7 +755,7 @@ const styles = {
 
   scrollButton: {
     position: "absolute" as const,
-    bottom: "40px",
+    bottom: "80px",
     left: "50%",
     transform: "translateX(-50%)",
     display: "flex",
