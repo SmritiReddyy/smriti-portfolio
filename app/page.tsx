@@ -85,7 +85,7 @@ export default function Home() {
       {/* Scroll Down Button */}
       <button
           onClick={() => {
-            const skillsSection = document.querySelector('#skills-section');
+            const skillsSection = document.querySelector('#about-section');
             if (skillsSection) {
               skillsSection.scrollIntoView({ behavior: 'smooth' });
             }
@@ -102,6 +102,38 @@ export default function Home() {
           <span style={styles.scrollText}>Scroll Down</span>
         </button>
       
+      </section>
+
+
+      {/* About Me Section */}
+      <section id="about-section"style={styles.aboutSection}>
+        <div style={styles.aboutContainer}>
+          <h2 style={styles.sectionTitle}>
+            <span style={styles.titleAccent}></span> About Me
+          </h2>
+          <div style={styles.aboutContent}>
+            <p style={styles.aboutText}>
+              I'm a Computer Science graduate student at Northeastern University, focused on building 
+              distributed systems and intelligent ML solutions with real-world impact. What drives me 
+              is working on technology that affects millions of lives daily whether that's building 
+              cloud infrastructures that power the services we all use or creating predictive models 
+              that tackle meaningful challenges.
+            </p>
+            <p style={styles.aboutText}>
+              I love being at the intersection of engineering and data science, where I can build 
+              things people actually depend on. The opportunity to work on infrastructure that millions 
+              rely on daily like optimizing systems, developing intelligent solutions, and solving complex 
+              problems at scale is what excites me the most about this field.
+            </p>
+            <p style={styles.aboutText}>
+              My work spans fault-tolerant distributed architectures, healthcare ML applications, 
+              and cloud-native solutions. I've published research on edge computing optimization 
+              and environmental monitoring using satellite imagery, and I'm always looking for the 
+              next challenge that pushes the boundaries of what's possible with scalable, 
+              intelligent systems.
+            </p>
+          </div>
+        </div>
       </section>
 
       {/* Skills Section */}
@@ -189,7 +221,7 @@ export default function Home() {
 
             <div style={styles.projectCard}>
               <div style={styles.projectHeader}>
-                <span style={styles.projectBadge}>Performance Analysis</span>
+                <span style={styles.projectBadge}>Distributed Systems</span>
                 <span style={styles.projectLang}>C++</span>
               </div>
               <h3 style={styles.projectCardTitle}>
@@ -520,7 +552,7 @@ export default function Home() {
 
           <div style={styles.contactGrid}>
             <a 
-              href="mailto:u.smritireddy@gmail.com"
+              href="mailto:uravakonda.s@northeastern.edu"
               style={styles.contactCard}
               onMouseEnter={(e) => {
                 e.currentTarget.style.transform = 'translateY(-4px)';
@@ -1103,4 +1135,40 @@ const styles = {
   locationIcon: {
     fontSize: "1.2rem",
   },
+
+  aboutSection: {
+    backgroundColor: "rgba(99, 102, 241, 0.02)",
+    padding: "80px 40px",
+  },
+  
+  aboutTitle: {
+    fontSize: "2.5rem",
+    fontWeight: 700,
+    marginBottom: "48px",
+  },
+
+
+  aboutContainer: {
+    maxWidth: "1200px",
+    margin: "0 auto",
+    padding: "0 40px",
+  },
+  
+  aboutContent: {
+    display: "flex",
+    flexDirection: "column" as const,
+    gap: "24px",
+    maxWidth: "1000px",
+    margin: "0 auto",
+    paddingLeft: "60px",
+    paddingRight: "60px",
+  },
+  
+  aboutText: {
+    fontSize: "1.1rem",
+    color: "#d1d5db",
+    lineHeight: 1.8,
+    margin: 0,
+    textAlign: "justify" as const 
+    },
 };
