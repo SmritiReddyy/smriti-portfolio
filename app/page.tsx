@@ -565,7 +565,7 @@ export default function Home() {
             >
               <div style={styles.contactIcon}>📧</div>
               <h3 style={styles.contactCardTitle}>Email</h3>
-              <p style={styles.contactCardText}>u.smritireddy@gmail.com</p>
+              <p style={styles.contactCardText}>uravakonda.s@northeastern.edu</p>
             </a>
 
             <a 
