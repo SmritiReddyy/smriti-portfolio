@@ -165,7 +165,7 @@ export default function Home() {
           </div>
           <div style={styles.skillRow}>
             <span style={styles.skillLabel}>Other</span>
-            <span style={styles.skillValue}>AI • Algorithms • Data Structures • Object Oriented Programming • Software Development • MS Office Suite • Google Suite</span>
+            <span style={styles.skillValue}> Algorithms • Data Structures • Object Oriented Programming • Software Development • MS Office Suite • Google Suite</span>
           </div>
         </div>
       </section>
