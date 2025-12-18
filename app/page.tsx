@@ -163,6 +163,10 @@ export default function Home() {
             <span style={styles.skillLabel}>Databases</span>
             <span style={styles.skillValue}>MySQL • MSSQL • MongoDB</span>
           </div>
+          <div style={styles.skillRow}>
+            <span style={styles.skillLabel}>Other</span>
+            <span style={styles.skillValue}>AI • Algorithms • Data Structures • Object Oriented Programming • Software Development • MS Office Suite • Google Suite</span>
+          </div>
         </div>
       </section>
 
