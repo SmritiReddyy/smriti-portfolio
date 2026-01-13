@@ -625,7 +625,7 @@ export default function Home() {
             >
               <div style={styles.contactIcon}>📄</div>
               <h3 style={styles.contactCardTitle}>Resume</h3>
-              <p style={styles.contactCardText}>Download PDF</p>
+              <p style={styles.contactCardText}>View PDF</p>
             </a>
           </div>
 
@@ -639,7 +639,7 @@ export default function Home() {
       {/* Footer */}
       <footer style={styles.footer}>
         <p style={styles.footerText}>
-          Built with React & Next.js • Open to opportunities in Software Engineering, 
+          Built by Smriti • Open to opportunities in Software Engineering, 
           Machine Learning, and Data Science
         </p>
       </footer>
