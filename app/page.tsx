@@ -1,6 +1,8 @@
 'use client';
 
 import { useState } from 'react';
+import './globals.css';
+
 
 export default function Home() {
   const [activeCategory, setActiveCategory] = useState('all');
@@ -14,16 +16,16 @@ export default function Home() {
   ];
   
   return (
-    <main style={styles.container}>
+    <main style={styles.container} className="page-root">
       {/* Animated Hero Section */}
-      <section style={styles.hero}>
+      <section style={styles.hero} className="hero">
         <div style={styles.heroContent}>
           <div style={styles.statusBadge}>
             <span style={styles.statusDot}></span>
             Available for opportunities
           </div>
           
-          <h1 style={styles.name}>
+          <h1 style={styles.name} className="hero-name">
             Smriti Reddy Uravakonda
           </h1>
 
@@ -36,7 +38,7 @@ export default function Home() {
             Passionate about cloud computing, full-stack development, and data-driven innovation.
           </p>
 
-          <div style={styles.links}>
+          <div style={styles.links} className="hero-links">
             <a
               href="https://www.linkedin.com/in/smriti-reddy"
               target="_blank"
@@ -84,6 +86,7 @@ export default function Home() {
       <section>
       {/* Scroll Down Button */}
       <button
+        className="scroll-button"
           onClick={() => {
             const skillsSection = document.querySelector('#about-section');
             if (skillsSection) {

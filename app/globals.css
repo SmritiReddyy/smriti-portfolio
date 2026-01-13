@@ -25,86 +25,50 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-/* ---------- Base Mobile Styles ---------- */
+/* =========================
+   MOBILE FIXES – HERO
+   ========================= */
 
-main {
-  overflow-x: hidden;
-}
-
-.section,
-.aboutSection,
-.contactSection {
-  padding: 48px 16px !important;
-}
-
-.hero {
-  padding: 32px 16px !important;
-  min-height: auto !important;
-}
-
-h1 {
-  font-size: 2.2rem !important;
-  line-height: 1.25;
-}
-
-h2 {
-  font-size: 1.9rem !important;
-}
-
-p {
-  font-size: 1rem !important;
-}
-
-/* Buttons stack on mobile */
-.links {
-  flex-direction: column !important;
-}
-
-.links a {
-  width: 100%;
-  justify-content: center;
-}
-
-/* Kill scroll button on mobile */
-.scrollButton {
-  display: none !important;
-}
-
-/* Remove side padding causing overflow */
-.aboutContent {
-  padding-left: 0 !important;
-  padding-right: 0 !important;
-  text-align: left !important;
-}
-
-/* Projects grid → single column */
-.projectsGrid {
-  grid-template-columns: 1fr !important;
-}
-
-/* Skill rows stack */
-.skillRow {
-  flex-direction: column !important;
-  gap: 8px !important;
-}
-
-.skillLabel {
-  min-width: auto !important;
-}
-
-/* Research cards stack */
-.researchCard {
-  flex-direction: column !important;
-}
-
-/* Contact cards stack tighter */
-.contactGrid {
-  grid-template-columns: 1fr !important;
-}
-
-/* Hide scroll-down button on mobile */
-@media (max-width: 768px) {
-  .scrollButton {
-    display: none !important;
+   .page-root {
+    overflow-x: hidden;
   }
-}
+  
+  /* Hide scroll button on mobile (prevents overlap) */
+  @media (max-width: 768px) {
+    .scroll-button {
+      display: none !important;
+    }
+  
+    .hero {
+      min-height: auto !important;
+      padding-top: 48px !important;
+      padding-bottom: 48px !important;
+    }
+  
+    .hero-links {
+      flex-direction: column !important;
+      gap: 14px !important;
+    }
+  
+    .hero-links a {
+      width: 100% !important;
+      justify-content: center !important;
+    }
+  
+    .hero-name {
+      font-size: 2.2rem !important;
+      margin-bottom: 12px !important;
+      line-height: 1.25;
+    }
+  
+    .hero-subtitle {
+      font-size: 1rem !important;
+      margin-bottom: 16px !important;
+    }
+  
+    .hero-description {
+      font-size: 0.95rem !important;
+      margin-bottom: 28px !important;
+    }
+  }
+  
