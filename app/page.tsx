@@ -114,22 +114,19 @@ export default function Home() {
           <h2 style={styles.sectionTitle}>
             <span style={styles.titleAccent}></span> About Me
           </h2>
-          <div style={styles.aboutContent}>
-            <p style={styles.aboutText}>
-              I'm a Computer Science graduate student at Northeastern University, focused on building 
+          <div style={styles.aboutContent} className="about-content">
+            <p style={styles.aboutText} className="about-text">              I'm a Computer Science graduate student at Northeastern University, focused on building 
               distributed systems and intelligent ML solutions with real-world impact. What drives me 
               is working on technology that affects millions of lives daily whether that's building 
               cloud infrastructures that power the services we all use or creating predictive models 
               that tackle meaningful challenges.
             </p>
-            <p style={styles.aboutText}>
-              I love being at the intersection of engineering and data science, where I can build 
+            <p style={styles.aboutText} className="about-text">              I love being at the intersection of engineering and data science, where I can build 
               things people actually depend on. The opportunity to work on infrastructure that millions 
               rely on daily like optimizing systems, developing intelligent solutions, and solving complex 
               problems at scale is what excites me the most about this field.
             </p>
-            <p style={styles.aboutText}>
-              My work spans fault-tolerant distributed architectures, healthcare ML applications, 
+            <p style={styles.aboutText} className="about-text">              My work spans fault-tolerant distributed architectures, healthcare ML applications, 
               and cloud-native solutions. I've published research on edge computing optimization 
               and environmental monitoring using satellite imagery, and I'm always looking for the 
               next challenge that pushes the boundaries of what's possible with scalable, 
