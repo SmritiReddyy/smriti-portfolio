@@ -1,7 +1,4 @@
 ## Modifications to make: 
-- update resume
-- add certifications section
-- add new projects to profile
 - make UI changes
 - change tag - open to work/ looking for opportunities 
 
