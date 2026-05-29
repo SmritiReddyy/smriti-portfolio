@@ -3,7 +3,7 @@
 - add certifications section
 - add new projects to profile
 - make UI changes
-- 
+- change tag - open to work/ looking for opportunities 
 
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
