@@ -3,6 +3,38 @@
 import { useState, useEffect, useRef } from 'react';
 import './globals.css';
 
+const allSkills = [
+  { name: 'Python',         icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg' },
+  { name: 'Java',           icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg' },
+  { name: 'C++',            icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cplusplus/cplusplus-original.svg' },
+  { name: 'JavaScript',     icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg' },
+  { name: 'TypeScript',     icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg' },
+  { name: 'Node.js',        icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg' },
+  { name: 'SQL',            icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/azuresqldatabase/azuresqldatabase-original.svg' },
+  { name: 'React',          icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg' },
+  { name: 'Spring Boot',    icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/spring/spring-original.svg' },
+  { name: 'Django',         icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/django/django-plain.svg', invert: true },
+  { name: 'FastAPI',        icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/fastapi/fastapi-original.svg' },
+  { name: 'PyTorch',        icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pytorch/pytorch-original.svg' },
+  { name: 'TensorFlow',     icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tensorflow/tensorflow-original.svg' },
+  { name: 'Scikit-Learn',   icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/scikitlearn/scikitlearn-original.svg' },
+  { name: 'Pandas',         icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pandas/pandas-original.svg' },
+  { name: 'NumPy',          icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/numpy/numpy-original.svg' },
+  { name: 'SQLAlchemy',     icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/sqlalchemy/sqlalchemy-original.svg' },
+  { name: 'AWS',            icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg', invert: true },
+  { name: 'GCP',            icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/googlecloud/googlecloud-original.svg' },
+  { name: 'Firebase',       icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/firebase/firebase-plain.svg' },
+  { name: 'Docker',         icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg' },
+  { name: 'Kubernetes',     icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/kubernetes/kubernetes-plain.svg' },
+  { name: 'GitHub Actions', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/githubactions/githubactions-original.svg' },
+  { name: 'MySQL',          icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg' },
+  { name: 'PostgreSQL',     icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg' },
+  { name: 'MongoDB',        icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mongodb/mongodb-original.svg' },
+  { name: 'Redis',          icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/redis/redis-original.svg' },
+];
+const row1 = allSkills.slice(0, 13);
+const row2 = allSkills.slice(13);
+
 const KEYFRAMES = `
   @keyframes floatUp {
     0%,100% { transform: translateY(0px); }
@@ -41,6 +73,14 @@ const KEYFRAMES = `
     from { opacity:0; transform:translateY(30px) scale(0.95); }
     to   { opacity:1; transform:translateY(0) scale(1); }
   }
+  @keyframes marqueeLeft {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+  @keyframes marqueeRight {
+    from { transform: translateX(-50%); }
+    to   { transform: translateX(0); }
+  }
   @keyframes orbDrift {
     0%   { transform:translate(0,0) scale(1); }
     33%  { transform:translate(40px,-30px) scale(1.08); }
@@ -54,6 +94,35 @@ const KEYFRAMES = `
     100% { transform:translate(0,0) scale(1); }
   }
 `;
+
+const LinkedInIcon = ({ size = 20 }: { size?: number }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor">
+    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+  </svg>
+);
+
+const GitHubIcon = ({ size = 20 }: { size?: number }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor">
+    <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+  </svg>
+);
+
+const EnvelopeIcon = ({ size = 20 }: { size?: number }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <rect x="2" y="4" width="20" height="16" rx="2"/>
+    <polyline points="2,4 12,13 22,4"/>
+  </svg>
+);
+
+const FileIcon = ({ size = 20 }: { size?: number }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+    <polyline points="14 2 14 8 20 8"/>
+    <line x1="16" y1="13" x2="8" y2="13"/>
+    <line x1="16" y1="17" x2="8" y2="17"/>
+    <line x1="10" y1="9" x2="8" y2="9"/>
+  </svg>
+);
 
 const techIcons = [
   // Left triangle — shifted down ~6%, closer to center at name height, spreading out above/below
@@ -95,13 +164,13 @@ export default function Home() {
     resize();
     window.addEventListener('resize', resize);
 
-    const particles = Array.from({ length: 90 }, () => ({
+    const particles = Array.from({ length: 160 }, () => ({
       x: Math.random() * canvas.width,
       y: Math.random() * canvas.height,
-      vx: (Math.random() - 0.5) * 0.5,
-      vy: (Math.random() - 0.5) * 0.5,
-      size: Math.random() * 1.8 + 0.4,
-      opacity: Math.random() * 0.45 + 0.08,
+      vx: (Math.random() - 0.5) * 0.6,
+      vy: (Math.random() - 0.5) * 0.6,
+      size: Math.random() * 2.2 + 0.6,
+      opacity: Math.random() * 0.7 + 0.2,
     }));
 
     let id: number;
@@ -113,22 +182,22 @@ export default function Home() {
         if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(99,102,241,${p.opacity})`;
+        ctx.fillStyle = `rgba(139,92,246,${p.opacity})`;
         ctx.fill();
       });
 
-      // draw faint connecting lines between nearby particles
+      // connecting lines between nearby particles
       for (let i = 0; i < particles.length; i++) {
         for (let j = i + 1; j < particles.length; j++) {
           const dx = particles[i].x - particles[j].x;
           const dy = particles[i].y - particles[j].y;
           const dist = Math.sqrt(dx*dx + dy*dy);
-          if (dist < 100) {
+          if (dist < 150) {
             ctx.beginPath();
             ctx.moveTo(particles[i].x, particles[i].y);
             ctx.lineTo(particles[j].x, particles[j].y);
-            ctx.strokeStyle = `rgba(99,102,241,${0.12 * (1 - dist/100)})`;
-            ctx.lineWidth = 0.5;
+            ctx.strokeStyle = `rgba(99,102,241,${0.40 * (1 - dist/150)})`;
+            ctx.lineWidth = 0.8;
             ctx.stroke();
           }
         }
@@ -198,7 +267,7 @@ export default function Home() {
           fontSize: '1.1rem', fontWeight: 700, color: '#fff', cursor: 'pointer', letterSpacing: '-0.5px'
         }}>Smriti Reddy</span>
         <ul style={{ display: 'flex', gap: '32px', listStyle: 'none', margin: 0, padding: 0, alignItems: 'center' }}>
-          {[['About','#about-section'],['Projects','#projects-section'],['Skills','#skills-section'],['Certifications','#certifications-section'],['Research','#research-section'],['Contact','#contact-section']].map(([label, id]) => (
+          {[['Projects','#projects-section'],['Skills','#skills-section'],['Certifications','#certifications-section'],['Research','#research-section'],['Contact','#contact-section']].map(([label, id]) => (
             <li key={id}><span onClick={() => scrollTo(id)} style={{
               color: '#9ca3af', cursor: 'pointer', fontSize: '0.9rem', fontWeight: 500,
               transition: 'color 0.2s', textDecoration: 'none'
@@ -221,43 +290,6 @@ export default function Home() {
         {/* Particle canvas */}
         <canvas ref={canvasRef} style={{ position: 'absolute', inset: 0, zIndex: 1, pointerEvents: 'none' }} />
 
-        {/* Floating tech icons */}
-        {techIcons.map((icon, i) => (
-          <div
-            key={i}
-            style={{
-              position: 'absolute',
-              top: icon.top,
-              left: icon.left,
-              animation: `${icon.reverse ? 'floatDown' : 'floatUp'} ${5 + i * 0.4}s ease-in-out infinite`,
-              animationDelay: icon.delay,
-              zIndex: 2,
-              userSelect: 'none' as const,
-            }}
-          >
-            <div style={{
-              width: '92px', height: '92px', borderRadius: '24px',
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              background: 'rgba(22, 22, 28, 0.92)',
-              boxShadow: '0 8px 32px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.06)',
-              border: '1px solid rgba(255,255,255,0.08)',
-              backdropFilter: 'blur(12px)',
-              padding: '18px',
-              transition: 'transform 0.3s ease, box-shadow 0.3s ease',
-            }}
-            onMouseEnter={e => {
-              (e.currentTarget as HTMLElement).style.transform = 'scale(1.1)';
-              (e.currentTarget as HTMLElement).style.boxShadow = '0 12px 40px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.1)';
-            }}
-            onMouseLeave={e => {
-              (e.currentTarget as HTMLElement).style.transform = 'scale(1)';
-              (e.currentTarget as HTMLElement).style.boxShadow = '0 8px 32px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.06)';
-            }}
-            >
-              <img src={icon.src} alt={icon.label} style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
-            </div>
-          </div>
-        ))}
 
         <div style={styles.heroContent}>
           <div style={{...styles.statusBadge, animation: 'fadeUp 0.6s ease 0.1s both'}}>
@@ -273,9 +305,17 @@ export default function Home() {
             MS Computer Science @ Northeastern University
           </p>
 
+          <p style={{...styles.tagline, animation: 'fadeUp 0.7s ease 0.52s both'}}>
+            Software Engineer · ML · Data Science
+          </p>
+
           <p style={{...styles.description, animation: 'fadeUp 0.7s ease 0.6s both'}}>
-            Building scalable distributed systems and intelligent ML solutions.
-            Passionate about cloud computing, full-stack development, and data-driven innovation.
+            I build systems that scale, models that ship, and sometimes both at the same time.<br />
+          </p>
+
+          <p style={{...styles.descriptionSecond, animation: 'fadeUp 0.7s ease 0.72s both'}}>
+            From fault-tolerant distributed stores to real-time legal translation pipelines — I've built across the stack.
+            I build reliable systems, ship ML models end to end, and make data tell a story.
           </p>
 
           <div style={styles.links} className="hero-links">
@@ -287,7 +327,7 @@ export default function Home() {
               onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-2px)'}
               onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
             >
-              <span style={styles.buttonIcon}>💼</span>
+              <LinkedInIcon size={18} />
               LinkedIn
             </a>
 
@@ -299,7 +339,7 @@ export default function Home() {
               onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-2px)'}
               onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
             >
-              <span style={styles.buttonIcon}>💻</span>
+              <GitHubIcon size={18} />
               GitHub
             </a>
 
@@ -310,7 +350,7 @@ export default function Home() {
               onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-2px)'}
               onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
             >
-              <span style={styles.buttonIcon}>📄</span>
+              <FileIcon size={18} />
               Resume
             </a>
           </div>
@@ -318,9 +358,6 @@ export default function Home() {
 
         
 
-        {/* Floating gradient orbs */}
-        <div style={{...styles.orb1, animation: 'orbDrift 20s ease-in-out infinite'}}></div>
-        <div style={{...styles.orb2, animation: 'orbDrift2 26s ease-in-out infinite'}}></div>
       </section>
 
       <section>
@@ -328,7 +365,7 @@ export default function Home() {
       <button
         className="scroll-button"
           onClick={() => {
-            const skillsSection = document.querySelector('#about-section');
+            const skillsSection = document.querySelector('#projects-section');
             if (skillsSection) {
               skillsSection.scrollIntoView({ behavior: 'smooth' });
             }
@@ -347,36 +384,6 @@ export default function Home() {
       
       </section>
 
-
-      {/* About Me Section */}
-      <section id="about-section" style={styles.aboutSection}>
-        <div style={styles.aboutContainer}>
-          <div data-animate="up">
-          <h2 style={styles.sectionTitle}>
-            <span style={styles.titleAccent}></span> About Me
-          </h2>
-          <div style={styles.aboutContent} className="about-content">
-            <p style={styles.aboutText} className="about-text">              I'm a Computer Science graduate student at Northeastern University, focused on building 
-              distributed systems and intelligent ML solutions with real-world impact. What drives me 
-              is working on technology that affects millions of lives daily whether that's building 
-              cloud infrastructures that power the services we all use or creating predictive models 
-              that tackle meaningful challenges.
-            </p>
-            <p style={styles.aboutText} className="about-text">              I love being at the intersection of engineering and data science, where I can build 
-              things people actually depend on. The opportunity to work on infrastructure that millions 
-              rely on daily like optimizing systems, developing intelligent solutions, and solving complex 
-              problems at scale is what excites me the most about this field.
-            </p>
-            <p style={styles.aboutText} className="about-text">              My work spans fault-tolerant distributed architectures, healthcare ML applications, 
-              and cloud-native solutions. I've published research on edge computing optimization 
-              and environmental monitoring using satellite imagery, and I'm always looking for the 
-              next challenge that pushes the boundaries of what's possible with scalable, 
-              intelligent systems.
-            </p>
-          </div>
-          </div>
-        </div>
-      </section>
 
       {/* Projects Section with Filter */}
       <section id="projects-section" style={styles.section}>
@@ -459,7 +466,12 @@ export default function Home() {
                 <div style={styles.projectTags}>
                   {p.tags.map(t => <span key={t} style={styles.tag}>{t}</span>)}
                 </div>
-                <a href={p.link} target="_blank" rel="noopener noreferrer" style={styles.projectLink}>View Project →</a>
+                <div style={styles.projectBottom}>
+                  <a href={p.link} target="_blank" rel="noopener noreferrer" style={styles.projectLink}
+                    onMouseEnter={e => { e.currentTarget.style.backgroundColor = 'rgba(99,102,241,0.35)'; }}
+                    onMouseLeave={e => { e.currentTarget.style.backgroundColor = 'rgba(99,102,241,0.2)'; }}
+                  >View Project →</a>
+                </div>
               </div>
             ))}
           </div>
@@ -518,7 +530,12 @@ export default function Home() {
                 <div style={styles.projectTags}>
                   {p.tags.map(t => <span key={t} style={styles.tag}>{t}</span>)}
                 </div>
-                <a href={p.link} target="_blank" rel="noopener noreferrer" style={styles.projectLink}>View Project →</a>
+                <div style={styles.projectBottom}>
+                  <a href={p.link} target="_blank" rel="noopener noreferrer" style={styles.projectLink}
+                    onMouseEnter={e => { e.currentTarget.style.backgroundColor = 'rgba(99,102,241,0.35)'; }}
+                    onMouseLeave={e => { e.currentTarget.style.backgroundColor = 'rgba(99,102,241,0.2)'; }}
+                  >View Project →</a>
+                </div>
               </div>
             ))}
           </div>
@@ -595,17 +612,33 @@ export default function Home() {
       {/* Skills Section */}
       <section id="skills-section" style={styles.section}>
         <div data-animate="up">
-        <h2 style={styles.sectionTitle}>
-          <span style={styles.titleAccent}></span> Technical Skills
-        </h2>
-        <div style={styles.skillsList}>
-          <div style={styles.skillRow}><span style={styles.skillLabel}>Languages</span><span style={styles.skillValue}>Python • Java • C++ • JavaScript • TypeScript • SQL</span></div>
-          <div style={styles.skillRow}><span style={styles.skillLabel}>Frameworks</span><span style={styles.skillValue}>React • Node.js • Express • Spring Boot • FastAPI</span></div>
-          <div style={styles.skillRow}><span style={styles.skillLabel}>ML / Data</span><span style={styles.skillValue}>Scikit-Learn • TensorFlow • PyTorch • Pandas • NumPy</span></div>
-          <div style={styles.skillRow}><span style={styles.skillLabel}>Cloud</span><span style={styles.skillValue}>AWS (EC2, S3, Lambda) • GCP • Azure</span></div>
-          <div style={styles.skillRow}><span style={styles.skillLabel}>Databases</span><span style={styles.skillValue}>MySQL • MSSQL • MongoDB</span></div>
-          <div style={styles.skillRow}><span style={styles.skillLabel}>Other</span><span style={styles.skillValue}>Algorithms • Data Structures • OOP • Software Development</span></div>
+          <h2 style={styles.sectionTitle}>
+            <span style={styles.titleAccent}></span> Tech Stack
+          </h2>
         </div>
+
+        {/* Marquee row 1 — scrolls left */}
+        <div style={styles.marqueeWrapper}>
+          <div style={{ ...styles.marqueeTrack, animation: 'marqueeLeft 28s linear infinite' }}>
+            {[...row1, ...row1].map((item, i) => (
+              <div key={i} style={styles.marqueeCard}>
+                <img src={item.icon} alt={item.name} style={{ width: '36px', height: '36px', objectFit: 'contain', ...(item.invert ? { filter: 'brightness(0) invert(1)' } : {}) }} />
+                <span style={styles.marqueeLabel}>{item.name}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Marquee row 2 — scrolls right */}
+        <div style={{ ...styles.marqueeWrapper, marginTop: '16px' }}>
+          <div style={{ ...styles.marqueeTrack, animation: 'marqueeRight 32s linear infinite' }}>
+            {[...row2, ...row2].map((item, i) => (
+              <div key={i} style={styles.marqueeCard}>
+                <img src={item.icon} alt={item.name} style={{ width: '36px', height: '36px', objectFit: 'contain', ...(item.invert ? { filter: 'brightness(0) invert(1)' } : {}) }} />
+                <span style={styles.marqueeLabel}>{item.name}</span>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -648,7 +681,7 @@ export default function Home() {
           </h2>
           <div style={styles.researchSection}>
             <div data-animate="left" data-delay="0.1s" style={styles.researchCard}>
-              <div style={styles.researchIcon}>📄</div>
+              <div style={styles.researchIcon}><FileIcon size={32} /></div>
               <div style={styles.researchContent}>
                 <h4 style={styles.researchCardTitle}>Environmental Impact Analysis using Satellite Image Processing</h4>
                 <p style={styles.researchVenue}>IEEE 4th ASIANCON 2024</p>
@@ -656,7 +689,7 @@ export default function Home() {
               </div>
             </div>
             <div data-animate="right" data-delay="0.2s" style={styles.researchCard}>
-              <div style={styles.researchIcon}>📄</div>
+              <div style={styles.researchIcon}><FileIcon size={32} /></div>
               <div style={styles.researchContent}>
                 <h4 style={styles.researchCardTitle}>Optimising Computation Offloading for Mobile Edge Devices</h4>
                 <p style={styles.researchVenue}>ICAECT 2024</p>
@@ -670,88 +703,64 @@ export default function Home() {
       {/* Contact Section */}
       <section id="contact-section" style={styles.contactSection}>
         <div style={styles.contactContainer}>
-          <h2 style={styles.contactTitle}>Let's Connect</h2>
-          <p style={styles.contactSubtitle}>
+          <h2 data-animate="up" style={styles.contactTitle}>Let's Connect</h2>
+          <p data-animate="up" data-delay="0.05s" style={styles.contactSubtitle}>
             I'm actively seeking opportunities in Software Engineering, Machine Learning, 
             and Data Science. Let's discuss how I can contribute to your team!
           </p>
 
           <div style={styles.contactGrid}>
-            <a 
+            <a
+              data-animate="up" data-delay="0.0s"
               href="mailto:uravakonda.s@northeastern.edu"
               style={styles.contactCard}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = 'translateY(-4px)';
-                e.currentTarget.style.borderColor = 'rgba(99, 102, 241, 0.4)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.1)';
-              }}
+              className="contact-card-hover"
             >
-              <div style={styles.contactIcon}>📧</div>
+              <div style={styles.contactIcon}><EnvelopeIcon size={40} /></div>
               <h3 style={styles.contactCardTitle}>Email</h3>
               <p style={styles.contactCardText}>u.smritireddy@gmail.com</p>
             </a>
 
-            <a 
+            <a
+              data-animate="up" data-delay="0.1s"
               href="https://www.linkedin.com/in/smriti-reddy"
               target="_blank"
               rel="noopener noreferrer"
               style={styles.contactCard}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = 'translateY(-4px)';
-                e.currentTarget.style.borderColor = 'rgba(99, 102, 241, 0.4)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.1)';
-              }}
+              className="contact-card-hover"
             >
-              <div style={styles.contactIcon}>💼</div>
+              <div style={styles.contactIcon}><LinkedInIcon size={40} /></div>
               <h3 style={styles.contactCardTitle}>LinkedIn</h3>
               <p style={styles.contactCardText}>Connect with me</p>
             </a>
 
-            <a 
+            <a
+              data-animate="up" data-delay="0.2s"
               href="https://github.com/SmritiReddyy"
               target="_blank"
               rel="noopener noreferrer"
               style={styles.contactCard}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = 'translateY(-4px)';
-                e.currentTarget.style.borderColor = 'rgba(99, 102, 241, 0.4)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.1)';
-              }}
+              className="contact-card-hover"
             >
-              <div style={styles.contactIcon}>💻</div>
+              <div style={styles.contactIcon}><GitHubIcon size={40} /></div>
               <h3 style={styles.contactCardTitle}>GitHub</h3>
               <p style={styles.contactCardText}>View my code</p>
             </a>
 
-            <a 
+            <a
+              data-animate="up" data-delay="0.3s"
               href="/Smriti_Reddy_Resume.pdf"
               target="_blank"
               style={styles.contactCard}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = 'translateY(-4px)';
-                e.currentTarget.style.borderColor = 'rgba(99, 102, 241, 0.4)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.1)';
-              }}
+              className="contact-card-hover"
             >
-              <div style={styles.contactIcon}>📄</div>
+              <div style={styles.contactIcon}><FileIcon size={40} /></div>
               <h3 style={styles.contactCardTitle}>Resume</h3>
               <p style={styles.contactCardText}>View PDF</p>
             </a>
           </div>
 
-          <div style={styles.locationBadge}>
+          <div data-animate="up" data-delay="0.4s" style={styles.locationBadge}>
             <span style={styles.locationIcon}>📍</span>
             <span>Boston, MA • Open to relocation</span>
           </div>
@@ -792,7 +801,8 @@ const styles = {
   heroContent: {
     position: "relative" as const,
     zIndex: 2,
-    maxWidth: "800px",
+    maxWidth: "1000px",
+    width: "100%",
   },
 
   statusBadge: {
@@ -818,9 +828,9 @@ const styles = {
   },
 
   name: {
-    fontSize: "3.5rem",
+    fontSize: "4rem",
     fontWeight: 700,
-    background: "linear-gradient(135deg, #ffffff 0%, #a0a0a0 100%)",
+    background: "linear-gradient(135deg, #ffffff 0%, #c4b5fd 50%, #818cf8 100%)",
     WebkitBackgroundClip: "text",
     WebkitTextFillColor: "transparent",
     backgroundClip: "text",
@@ -829,18 +839,34 @@ const styles = {
   },
 
   subtitle: {
-    fontSize: "1.25rem",
+    fontSize: "1.15rem",
     color: "#9ca3af",
-    marginBottom: "24px",
+    marginBottom: "10px",
     fontWeight: 400,
+  },
+
+  tagline: {
+    fontSize: "0.9rem",
+    color: "#a5b4fc",
+    fontWeight: 700,
+    letterSpacing: "3px",
+    textTransform: "uppercase" as const,
+    marginBottom: "28px",
   },
 
   description: {
     fontSize: "1.1rem",
-    color: "#d1d5db",
-    lineHeight: 1.7,
-    marginBottom: "40px",
-    maxWidth: "650px",
+    color: "#e2e8f0",
+    lineHeight: 1.9,
+    maxWidth: "900px",
+    margin: "0 auto 16px",
+  },
+
+  descriptionSecond: {
+    fontSize: "1rem",
+    color: "#e2e8f0",
+    lineHeight: 1.75,
+    maxWidth: "760px",
     margin: "0 auto 40px",
   },
 
@@ -913,17 +939,17 @@ const styles = {
 
   scrollButton: {
     position: "absolute" as const,
-    bottom: "80px",
+    bottom: "32px",
     left: "50%",
     transform: "translateX(-50%)",
     display: "flex",
     flexDirection: "column" as const,
     alignItems: "center",
-    gap: "8px",
-    padding: "16px 24px",
-    borderRadius: "12px",
+    gap: "4px",
+    padding: "8px 16px",
+    borderRadius: "10px",
     backgroundColor: "rgba(255, 255, 255, 0.03)",
-    border: "1px solid rgba(255, 255, 255, 0.2)",
+    border: "1px solid rgba(255, 255, 255, 0.12)",
     color: "#ffffff",
     cursor: "pointer",
     transition: "all 0.3s ease",
@@ -931,14 +957,14 @@ const styles = {
   },
 
   scrollIcon: {
-    fontSize: "1.5rem",
+    fontSize: "1rem",
     animation: "bounce 2s infinite",
   },
 
   scrollText: {
-    fontSize: "0.85rem",
+    fontSize: "0.72rem",
     fontWeight: 500,
-    color: "#9ca3af",
+    color: "#6b7280",
   },
 
   section: {
@@ -961,35 +987,37 @@ const styles = {
     fontSize: "2rem",
   },
 
-  skillsList: {
+  marqueeWrapper: {
+    overflow: "hidden",
+    width: "100%",
+    maskImage: "linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)",
+    WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)",
+  },
+
+  marqueeTrack: {
     display: "flex",
+    gap: "16px",
+    width: "max-content",
+  },
+
+  marqueeCard: {
+    display: "inline-flex",
     flexDirection: "column" as const,
-    gap: "24px",
-    maxWidth: "900px",
-    margin: "0 auto",
-  },
-
-  skillRow: {
-    display: "flex",
-    alignItems: "flex-start",
-    gap: "32px",
-    padding: "20px 0",
-    borderBottom: "1px solid rgba(255, 255, 255, 0.08)",
-  },
-
-  skillLabel: {
-    fontSize: "1rem",
-    fontWeight: 600,
-    color: "#6366f1",
-    minWidth: "140px",
+    alignItems: "center",
+    gap: "10px",
+    padding: "18px 22px",
+    borderRadius: "16px",
+    backgroundColor: "rgba(255,255,255,0.04)",
+    border: "1px solid rgba(255,255,255,0.08)",
+    minWidth: "96px",
     flexShrink: 0,
   },
 
-  skillValue: {
-    fontSize: "1rem",
+  marqueeLabel: {
+    fontSize: "0.78rem",
     color: "#d1d5db",
-    lineHeight: 1.7,
-    flex: 1,
+    fontWeight: 500,
+    whiteSpace: "nowrap" as const,
   },
 
   categoryFilter: {
@@ -1078,17 +1106,22 @@ const styles = {
 
   projectCardDesc: {
     fontSize: "0.95rem",
-    color: "#9ca3af",
+    color: "#d1d5db",
     lineHeight: 1.7,
-    marginBottom: "20px",
-    flex: 1,
+    marginBottom: "16px",
   },
 
   projectTags: {
     display: "flex",
     gap: "8px",
     flexWrap: "wrap" as const,
-    marginBottom: "20px",
+    marginBottom: "16px",
+  },
+
+  projectBottom: {
+    display: "flex",
+    justifyContent: "flex-end",
+    marginTop: "auto",
   },
 
   tag: {
@@ -1102,14 +1135,20 @@ const styles = {
   },
 
   projectLink: {
-    color: "#6366f1",
+    color: "#ffffff",
     textDecoration: "none",
     fontWeight: 600,
-    fontSize: "0.95rem",
+    fontSize: "0.875rem",
     display: "inline-flex",
     alignItems: "center",
     gap: "6px",
     transition: "all 0.3s ease",
+    alignSelf: "flex-end" as const,
+    marginTop: "auto",
+    padding: "6px 14px",
+    borderRadius: "8px",
+    backgroundColor: "rgba(99,102,241,0.2)",
+    border: "1px solid rgba(99,102,241,0.3)",
   },
 
   researchSection: {

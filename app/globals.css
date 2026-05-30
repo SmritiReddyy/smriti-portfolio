@@ -253,8 +253,8 @@ body {
 
 .project-card-hover:hover {
   transform: translateY(-6px) !important;
-  border-color: rgba(99, 102, 241, 0.35) !important;
-  box-shadow: 0 8px 40px rgba(99, 102, 241, 0.15) !important;
+  border-color: rgba(99, 102, 241, 0.8) !important;
+  box-shadow: 0 0 0 1px rgba(99, 102, 241, 0.5), 0 8px 40px rgba(99, 102, 241, 0.3) !important;
 }
 
 /* =========================
@@ -267,8 +267,22 @@ body {
 
 .cert-card-hover:hover {
   transform: translateY(-4px) !important;
-  border-color: rgba(99, 102, 241, 0.3) !important;
-  box-shadow: 0 6px 30px rgba(99, 102, 241, 0.12) !important;
+  border-color: rgba(99, 102, 241, 0.8) !important;
+  box-shadow: 0 0 0 1px rgba(99, 102, 241, 0.5), 0 6px 30px rgba(99, 102, 241, 0.25) !important;
+}
+
+/* =========================
+   CONTACT CARD HOVER
+   ========================= */
+
+.contact-card-hover {
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease !important;
+}
+
+.contact-card-hover:hover {
+  transform: translateY(-4px) !important;
+  border-color: rgba(99, 102, 241, 0.8) !important;
+  box-shadow: 0 0 0 1px rgba(99, 102, 241, 0.5), 0 8px 36px rgba(99, 102, 241, 0.3) !important;
 }
 
 /* =========================
@@ -307,6 +321,20 @@ body {
 .skill-row-hover:hover {
   background: rgba(99, 102, 241, 0.04);
   padding-left: 12px;
+}
+
+/* =========================
+   SKILL CHIP HOVER
+   ========================= */
+
+.skill-chip-hover {
+  transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease !important;
+}
+
+.skill-chip-hover:hover {
+  border-color: rgba(99, 102, 241, 0.5) !important;
+  background: rgba(99, 102, 241, 0.1) !important;
+  transform: translateY(-2px) !important;
 }
 
 /* =========================
