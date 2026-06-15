@@ -1,0 +1,92 @@
+{
+  "projects": [
+    {
+      "repoName": "distributed-cluster-monitoring-system",
+      "title": "Fault-Tolerant Distributed Key-Value Store",
+      "desc": "Fault-tolerant replicated key-value store in C++ supporting concurrent reads/writes across a 5-node cluster. Implemented RAFT consensus from scratch — leader election, log replication, state machine replication — achieving 8,000+ ops/sec under 30% node failure. Reduced failover recovery to under 200ms.",
+      "category": "systems-cloud",
+      "badge": "Distributed Systems",
+      "badgeStyle": null,
+      "badges": null,
+      "lang": "C++",
+      "tags": ["RAFT Consensus", "Fault Tolerance", "Replication"]
+    },
+    {
+      "repoName": "secure-payment-microservices",
+      "title": "Secure Payment Microservice",
+      "desc": "Dual-service microservices architecture — Spring Boot REST API for transaction management and Django fraud-scoring service — containerized with Docker, orchestrated via docker-compose. OAuth2/JWT auth, MySQL for transactions, MongoDB for session/audit logs, deployed on AWS EC2.",
+      "category": "systems-cloud",
+      "badge": "Microservices",
+      "badgeStyle": null,
+      "badges": null,
+      "lang": "Java · Python",
+      "tags": ["Spring Boot", "Docker", "AWS EC2", "OAuth2/JWT"]
+    },
+    {
+      "repoName": "Distributed-ClientServer-Performance",
+      "title": "Distributed Client-Server Performance Analysis",
+      "desc": "Implemented a distributed client-server architecture to analyze performance metrics under varying loads. Conducted comprehensive benchmarking of throughput, latency, and resource utilization.",
+      "category": "systems-cloud",
+      "badge": "Distributed Systems",
+      "badgeStyle": null,
+      "badges": null,
+      "lang": "C++",
+      "tags": ["Benchmarking", "Load Testing", "Optimization"]
+    },
+    {
+      "repoName": "ImageProcessingApplication",
+      "title": "Image Manipulation Application",
+      "desc": "Developed a modular image-processing application using Java MVC architecture supporting CLI, GUI, and batch execution modes with advanced filters like blur, sharpen, resize, and dithering.",
+      "category": "systems-cloud",
+      "badge": "Software Engineering",
+      "badgeStyle": null,
+      "badges": null,
+      "lang": "Java",
+      "tags": ["MVC", "Design Patterns", "GUI"]
+    },
+    {
+      "repoName": "Alzheimer-s-Disease-Detection-with-ML",
+      "title": "Alzheimer's Disease Detection with ML",
+      "desc": "Built binary classification models using clinical datasets to predict early-stage Alzheimer's disease. Compared five supervised learning algorithms with comprehensive evaluation metrics and statistical analysis.",
+      "category": "ml-data-science",
+      "badge": null,
+      "badgeStyle": null,
+      "badges": ["ML", "Data Science"],
+      "lang": "Python",
+      "tags": ["Classification", "Healthcare Analytics", "Model Comparison"]
+    },
+    {
+      "repoName": "Cardio-Risk-Predictor",
+      "title": "Cardio Risk Predictor",
+      "desc": "Predicting heart disease risk using ensemble learning methods. Implemented multiple classification algorithms with comprehensive model evaluation and feature importance analysis for healthcare analytics.",
+      "category": "ml-data-science",
+      "badge": null,
+      "badgeStyle": null,
+      "badges": ["ML", "Data Science"],
+      "lang": "Python",
+      "tags": ["Ensemble Methods", "Feature Engineering", "Predictive Analytics"]
+    },
+    {
+      "repoName": "Stellar-Classifier",
+      "title": "Stellar Classifier",
+      "desc": "Predicting star types using supervised machine learning models. Built classification models to categorize stars based on astronomical features with multi-class classification and exploratory data analysis.",
+      "category": "ml-data-science",
+      "badge": null,
+      "badgeStyle": null,
+      "badges": ["ML", "Data Science"],
+      "lang": "Python",
+      "tags": ["Multi-class Classification", "Scientific Data", "Data Analysis"]
+    },
+    {
+      "repoName": "ConvolutionalAutoEncoders",
+      "title": "Convolutional AutoEncoders",
+      "desc": "Implemented convolutional autoencoders for unsupervised feature learning and dimensionality reduction. Explored deep learning architectures for image reconstruction and denoising.",
+      "category": "ml-data-science",
+      "badge": null,
+      "badgeStyle": null,
+      "badges": ["ML"],
+      "lang": "Python",
+      "tags": ["Deep Learning", "Unsupervised", "Computer Vision"]
+    }
+  ]
+}
