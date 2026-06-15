@@ -9,7 +9,11 @@
       "badgeStyle": null,
       "badges": null,
       "lang": "C++",
-      "tags": ["RAFT Consensus", "Fault Tolerance", "Replication"]
+      "tags": [
+        "RAFT Consensus",
+        "Fault Tolerance",
+        "Replication"
+      ]
     },
     {
       "repoName": "secure-payment-microservices",
@@ -20,7 +24,12 @@
       "badgeStyle": null,
       "badges": null,
       "lang": "Java · Python",
-      "tags": ["Spring Boot", "Docker", "AWS EC2", "OAuth2/JWT"]
+      "tags": [
+        "Spring Boot",
+        "Docker",
+        "AWS EC2",
+        "OAuth2/JWT"
+      ]
     },
     {
       "repoName": "Distributed-ClientServer-Performance",
@@ -31,7 +40,11 @@
       "badgeStyle": null,
       "badges": null,
       "lang": "C++",
-      "tags": ["Benchmarking", "Load Testing", "Optimization"]
+      "tags": [
+        "Benchmarking",
+        "Load Testing",
+        "Optimization"
+      ]
     },
     {
       "repoName": "ImageProcessingApplication",
@@ -42,7 +55,11 @@
       "badgeStyle": null,
       "badges": null,
       "lang": "Java",
-      "tags": ["MVC", "Design Patterns", "GUI"]
+      "tags": [
+        "MVC",
+        "Design Patterns",
+        "GUI"
+      ]
     },
     {
       "repoName": "Alzheimer-s-Disease-Detection-with-ML",
@@ -51,9 +68,16 @@
       "category": "ml-data-science",
       "badge": null,
       "badgeStyle": null,
-      "badges": ["ML", "Data Science"],
+      "badges": [
+        "ML",
+        "Data Science"
+      ],
       "lang": "Python",
-      "tags": ["Classification", "Healthcare Analytics", "Model Comparison"]
+      "tags": [
+        "Classification",
+        "Healthcare Analytics",
+        "Model Comparison"
+      ]
     },
     {
       "repoName": "Cardio-Risk-Predictor",
@@ -62,9 +86,16 @@
       "category": "ml-data-science",
       "badge": null,
       "badgeStyle": null,
-      "badges": ["ML", "Data Science"],
+      "badges": [
+        "ML",
+        "Data Science"
+      ],
       "lang": "Python",
-      "tags": ["Ensemble Methods", "Feature Engineering", "Predictive Analytics"]
+      "tags": [
+        "Ensemble Methods",
+        "Feature Engineering",
+        "Predictive Analytics"
+      ]
     },
     {
       "repoName": "Stellar-Classifier",
@@ -73,9 +104,16 @@
       "category": "ml-data-science",
       "badge": null,
       "badgeStyle": null,
-      "badges": ["ML", "Data Science"],
+      "badges": [
+        "ML",
+        "Data Science"
+      ],
       "lang": "Python",
-      "tags": ["Multi-class Classification", "Scientific Data", "Data Analysis"]
+      "tags": [
+        "Multi-class Classification",
+        "Scientific Data",
+        "Data Analysis"
+      ]
     },
     {
       "repoName": "ConvolutionalAutoEncoders",
@@ -84,9 +122,15 @@
       "category": "ml-data-science",
       "badge": null,
       "badgeStyle": null,
-      "badges": ["ML"],
+      "badges": [
+        "ML"
+      ],
       "lang": "Python",
-      "tags": ["Deep Learning", "Unsupervised", "Computer Vision"]
+      "tags": [
+        "Deep Learning",
+        "Unsupervised",
+        "Computer Vision"
+      ]
     }
   ]
 }
