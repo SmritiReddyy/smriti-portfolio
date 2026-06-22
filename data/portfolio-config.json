@@ -1,6 +1,17 @@
 {
   "projects": [
     {
+      "repoName": "Argus",
+      "title": "Argus",
+      "desc": "Self-hosted observability platform for microservices. Ingests logs, metrics, and traces via Kafka, processes them in real-time with Spark Streaming, and detects anomalies using Isolation Forest ML.",
+      "category": "systems-cloud",
+      "badge": "Observability",
+      "badgeStyle": null,
+      "badges": null,
+      "lang": "Python",
+      "tags": []
+    },
+    {
       "repoName": "distributed-cluster-monitoring-system",
       "title": "Fault-Tolerant Distributed Key-Value Store",
       "desc": "Fault-tolerant replicated key-value store in C++ supporting concurrent reads/writes across a 5-node cluster. Implemented RAFT consensus from scratch — leader election, log replication, state machine replication — achieving 8,000+ ops/sec under 30% node failure. Reduced failover recovery to under 200ms.",
@@ -30,6 +41,17 @@
         "AWS EC2",
         "OAuth2/JWT"
       ]
+    },
+    {
+      "repoName": "contractpilot",
+      "title": "Contractpilot",
+      "desc": " Full-stack contract lifecycle management platform with AI-powered risk analysis, e-signatures, tamper detection, and multi-party signing workflows.",
+      "category": "systems-cloud",
+      "badge": "ML, SDLC ",
+      "badgeStyle": null,
+      "badges": null,
+      "lang": "JavaScript",
+      "tags": []
     },
     {
       "repoName": "Distributed-ClientServer-Performance",
@@ -98,6 +120,17 @@
       ]
     },
     {
+      "repoName": "trustpaws",
+      "title": "Trustpaws",
+      "desc": "Pet grooming transparency platform for Heads Up For Tails — real-time appointment tracking, service updates & incident reporting for pet parents.",
+      "category": "systems-cloud",
+      "badge": "AI Tracking",
+      "badgeStyle": null,
+      "badges": null,
+      "lang": "JavaScript",
+      "tags": []
+    },
+    {
       "repoName": "Stellar-Classifier",
       "title": "Stellar Classifier",
       "desc": "Predicting star types using supervised machine learning models. Built classification models to categorize stars based on astronomical features with multi-class classification and exploratory data analysis.",
@@ -131,17 +164,6 @@
         "Unsupervised",
         "Computer Vision"
       ]
-    },
-    {
-      "repoName": "Argus",
-      "title": "Argus",
-      "desc": "Self-hosted observability platform for microservices. Ingests logs, metrics, and traces via Kafka, processes them in real-time with Spark Streaming, and detects anomalies using Isolation Forest ML.",
-      "category": "systems-cloud",
-      "badge": "Observability",
-      "badgeStyle": null,
-      "badges": null,
-      "lang": "Python",
-      "tags": []
     }
   ]
 }
