@@ -95,6 +95,30 @@ const KEYFRAMES = `
     66%  { transform:translate(25px,45px) scale(1.06); }
     100% { transform:translate(0,0) scale(1); }
   }
+
+  /* ── Mobile responsive ──────────────────────────────────── */
+  @media (max-width: 768px) {
+    /* Navbar: tighten padding, hide nav links, keep name + resume */
+    .page-root nav { padding: 12px 16px !important; }
+    .page-root nav ul { gap: 12px !important; }
+    .page-root nav ul li:not(:last-child) { display: none !important; }
+
+    /* Hero: tighten section padding */
+    .page-root .hero { padding: 100px 20px 40px !important; }
+
+    /* Hero name: smaller on very small screens */
+    .hero-name { font-size: clamp(1.8rem, 8vw, 3.5rem) !important; }
+
+    /* Hero buttons: keep on one row, shrink padding */
+    .hero-links { gap: 8px !important; flex-wrap: nowrap !important; }
+    .hero-links a { padding: 10px 14px !important; font-size: 0.82rem !important; }
+
+    /* Hide scroll-down button on mobile */
+    .scroll-button { display: none !important; }
+
+    /* General sections: reduce horizontal padding */
+    .page-root section { padding-left: 20px !important; padding-right: 20px !important; }
+  }
 `;
 
 const LinkedInIcon = ({ size = 20 }: { size?: number }) => (
