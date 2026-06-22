@@ -131,6 +131,17 @@
         "Unsupervised",
         "Computer Vision"
       ]
+    },
+    {
+      "repoName": "Argus",
+      "title": "Argus",
+      "desc": "Self-hosted observability platform for microservices. Ingests logs, metrics, and traces via Kafka, processes them in real-time with Spark Streaming, and detects anomalies using Isolation Forest ML.",
+      "category": "systems-cloud",
+      "badge": null,
+      "badgeStyle": null,
+      "badges": null,
+      "lang": "Python",
+      "tags": []
     }
   ]
 }
