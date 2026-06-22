@@ -79,10 +79,18 @@ function ProjectRow({
   entry,
   onChange,
   onRemove,
+  onMoveUp,
+  onMoveDown,
+  isFirst,
+  isLast,
 }: {
   entry: ProjectEntry;
   onChange: (updated: ProjectEntry) => void;
   onRemove: () => void;
+  onMoveUp: () => void;
+  onMoveDown: () => void;
+  isFirst: boolean;
+  isLast: boolean;
 }) {
   const [open, setOpen] = useState(false);
   const isML = entry.category === 'ml-data-science';
@@ -93,6 +101,10 @@ function ProjectRow({
   return (
     <div style={s.repoCard}>
       <div style={s.repoCardHeader}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexShrink: 0 }}>
+          <button onClick={onMoveUp} disabled={isFirst} style={{ ...s.arrowBtn, opacity: isFirst ? 0.25 : 1 }} title="Move up">↑</button>
+          <button onClick={onMoveDown} disabled={isLast} style={{ ...s.arrowBtn, opacity: isLast ? 0.25 : 1 }} title="Move down">↓</button>
+        </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flex: 1, minWidth: 0 }}>
           <div style={{ ...s.dot, backgroundColor: '#34d399' }} />
           <span style={s.repoName}>{entry.repoName}</span>
@@ -261,6 +273,16 @@ export default function AdminPage() {
     setSaveState('idle');
   };
 
+  const moveProject = (index: number, direction: 'up' | 'down') => {
+    setConfig(c => {
+      const projects = [...c.projects];
+      const target = direction === 'up' ? index - 1 : index + 1;
+      [projects[index], projects[target]] = [projects[target], projects[index]];
+      return { ...c, projects };
+    });
+    setSaveState('idle');
+  };
+
   const addRepo = (repo: Repo) => {
     const newEntry: ProjectEntry = {
       repoName: repo.name,
@@ -340,6 +362,10 @@ export default function AdminPage() {
               entry={entry}
               onChange={updated => updateProject(i, updated)}
               onRemove={() => removeProject(i)}
+              onMoveUp={() => moveProject(i, 'up')}
+              onMoveDown={() => moveProject(i, 'down')}
+              isFirst={i === 0}
+              isLast={i === config.projects.length - 1}
             />
           ))}
 
@@ -526,6 +552,20 @@ const s = {
     fontWeight: 500,
     fontSize: '0.8rem',
     cursor: 'pointer',
+  },
+  arrowBtn: {
+    width: '28px',
+    height: '28px',
+    borderRadius: '6px',
+    backgroundColor: 'rgba(255,255,255,0.05)',
+    border: '1px solid rgba(255,255,255,0.1)',
+    color: '#9ca3af',
+    fontSize: '0.85rem',
+    cursor: 'pointer',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 0,
   },
   removeBtn: {
     padding: '8px 14px',
