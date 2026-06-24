@@ -9,7 +9,9 @@
       "badgeStyle": null,
       "badges": null,
       "lang": "Python",
-      "tags": []
+      "tags": [
+        "Kafka"
+      ]
     },
     {
       "repoName": "distributed-cluster-monitoring-system",
