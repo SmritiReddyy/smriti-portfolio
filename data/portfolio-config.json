@@ -71,6 +71,17 @@
       ]
     },
     {
+      "repoName": "meridian",
+      "title": "Meridian",
+      "desc": "",
+      "category": "ml-data-science",
+      "badge": null,
+      "badgeStyle": null,
+      "badges": null,
+      "lang": "Python",
+      "tags": []
+    },
+    {
       "repoName": "ImageProcessingApplication",
       "title": "Image Manipulation Application",
       "desc": "Developed a modular image-processing application using Java MVC architecture supporting CLI, GUI, and batch execution modes with advanced filters like blur, sharpen, resize, and dithering.",
