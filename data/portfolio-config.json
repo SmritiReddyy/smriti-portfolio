@@ -79,7 +79,9 @@
       "badgeStyle": null,
       "badges": null,
       "lang": "Python",
-      "tags": []
+      "tags": [
+        "Docker"
+      ]
     },
     {
       "repoName": "ImageProcessingApplication",
