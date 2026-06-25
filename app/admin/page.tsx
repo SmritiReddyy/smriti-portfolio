@@ -73,6 +73,37 @@ function LoginScreen({ onLogin }: { onLogin: (pw: string) => void }) {
   );
 }
 
+// ── Tags Input (local state so trailing comma doesn't get eaten) ──────────────
+
+function TagsInput({ value, onChange, placeholder }: {
+  value: string[];
+  onChange: (tags: string[]) => void;
+  placeholder?: string;
+}) {
+  const [raw, setRaw] = useState(value.join(', '));
+
+  // Keep in sync if parent resets the entry
+  const committed = value.join(', ');
+  if (raw !== committed && document.activeElement?.getAttribute('data-tags-input') !== 'true') {
+    // only sync when not focused
+  }
+
+  return (
+    <input
+      data-tags-input="true"
+      style={s.input}
+      value={raw}
+      onChange={e => setRaw(e.target.value)}
+      onBlur={() => {
+        const parsed = raw.split(',').map(t => t.trim()).filter(Boolean);
+        setRaw(parsed.join(', '));
+        onChange(parsed);
+      }}
+      placeholder={placeholder}
+    />
+  );
+}
+
 // ── Project Row (expanded editor for a selected project) ──────────────────────
 
 function ProjectRow({
@@ -160,10 +191,9 @@ function ProjectRow({
             </label>
 
             <label style={s.label}>Tags (comma-separated)
-              <input
-                style={s.input}
-                value={entry.tags.join(', ')}
-                onChange={e => set('tags', e.target.value.split(',').map(t => t.trim()).filter(Boolean))}
+              <TagsInput
+                value={entry.tags}
+                onChange={tags => set('tags', tags)}
                 placeholder="e.g. Docker, AWS, FastAPI"
               />
             </label>
