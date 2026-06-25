@@ -146,20 +146,18 @@ function ProjectRow({
           </div>
 
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
-            {isML ? (
-              <label style={s.label}>Badges (comma-separated)
-                <input
-                  style={s.input}
-                  value={(entry.badges ?? []).join(', ')}
-                  onChange={e => set('badges', e.target.value.split(',').map(b => b.trim()).filter(Boolean))}
-                  placeholder="e.g. ML, Data Science"
-                />
-              </label>
-            ) : (
-              <label style={s.label}>Badge
-                <input style={s.input} value={entry.badge ?? ''} onChange={e => set('badge', e.target.value || null)} placeholder="e.g. Featured" />
-              </label>
-            )}
+            <label style={s.label}>Badges (comma-separated)
+              <input
+                style={s.input}
+                value={(entry.badges ?? (entry.badge ? [entry.badge] : [])).join(', ')}
+                onChange={e => {
+                  const vals = e.target.value.split(',').map(b => b.trim()).filter(Boolean);
+                  set('badges', vals.length > 0 ? vals : null);
+                  set('badge', null);
+                }}
+                placeholder="e.g. Featured, ML"
+              />
+            </label>
 
             <label style={s.label}>Tags (comma-separated)
               <input
