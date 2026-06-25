@@ -80,7 +80,9 @@
       "badges": null,
       "lang": "Python",
       "tags": [
-        "Docker"
+        "Docker",
+        "Container",
+        "Test"
       ]
     },
     {
