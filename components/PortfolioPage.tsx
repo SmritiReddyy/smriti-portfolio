@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import '../app/globals.css';
 import type { Project } from '../lib/types';
+import { asset } from '../lib/basePath';
 import ProjectsSection from './ProjectsSection';
 
 const allSkills = [
@@ -274,7 +275,7 @@ export default function PortfolioPage({ projects }: { projects: Project[] }) {
             onMouseLeave={e => (e.currentTarget.style.color = '#9ca3af')}
             >{label}</span></li>
           ))}
-          <li><a href="/Smriti_Reddy_Resume.pdf" target="_blank" style={{
+          <li><a href={asset('/Smriti_Reddy_Resume.pdf')} target="_blank" style={{
             padding: '8px 18px', borderRadius: '10px',
             background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
             color: '#fff', fontWeight: 600, fontSize: '0.875rem', textDecoration: 'none'
@@ -339,7 +340,7 @@ export default function PortfolioPage({ projects }: { projects: Project[] }) {
             </a>
 
             <a
-              href="/Smriti_Reddy_Resume.pdf"
+              href={asset('/Smriti_Reddy_Resume.pdf')}
               target="_blank"
               style={styles.secondaryButton}
               onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-2px)'}
@@ -380,7 +381,7 @@ export default function PortfolioPage({ projects }: { projects: Project[] }) {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: '28px', alignItems: 'stretch' }}>
           {[
             {
-              logo: '/NEU.png',
+              logo: asset('/NEU.png'),
               degree: 'Master of Science',
               field: 'Computer Science',
               school: 'Northeastern University',
@@ -391,7 +392,7 @@ export default function PortfolioPage({ projects }: { projects: Project[] }) {
               animate: 'left',
             },
             {
-              logo: '/DSU.png',
+              logo: asset('/DSU.png'),
               degree: 'Bachelor of Technology',
               field: 'Computer Science',
               school: 'Dayananda Sagar University',
@@ -551,7 +552,7 @@ export default function PortfolioPage({ projects }: { projects: Project[] }) {
               <h3 style={styles.contactCardTitle}>GitHub</h3>
               <p style={styles.contactCardText}>View my code</p>
             </a>
-            <a data-animate="up" data-delay="0.3s" href="/Smriti_Reddy_Resume.pdf" target="_blank" style={styles.contactCard} className="contact-card-hover">
+            <a data-animate="up" data-delay="0.3s" href={asset('/Smriti_Reddy_Resume.pdf')} target="_blank" style={styles.contactCard} className="contact-card-hover">
               <div style={styles.contactIcon}><FileIcon size={40} /></div>
               <h3 style={styles.contactCardTitle}>Resume</h3>
               <p style={styles.contactCardText}>View PDF</p>

@@ -29,7 +29,8 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         {children}
-        <Analytics />
+        {/* Vercel Analytics has no backend on the GitHub Pages mirror */}
+        {process.env.NEXT_PUBLIC_GITHUB_PAGES !== "true" && <Analytics />}
       </body>
     </html>
   );
