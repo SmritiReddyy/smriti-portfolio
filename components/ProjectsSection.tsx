@@ -112,7 +112,7 @@ export default function ProjectsSection({ projects }: { projects: Project[] }) {
       if (el.scrollLeft <= 1) directionRef.current = 1;
       const target = el.scrollLeft + directionRef.current * step();
       el.scrollTo({ left: Math.max(0, Math.min(maxScroll, target)), behavior: 'smooth' });
-    }, 4500);
+    }, 2600);
 
     return () => window.clearInterval(id);
   }, [autoPlay, paused, inView, maxIndex]);
