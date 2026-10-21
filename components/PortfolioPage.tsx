@@ -5,6 +5,7 @@ import '../app/globals.css';
 import type { Project } from '../lib/types';
 import { asset } from '../lib/basePath';
 import ProjectsSection from './ProjectsSection';
+import CertificationsCarousel from './CertificationsCarousel';
 
 const allSkills = [
   { name: 'Python',         icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg' },
@@ -476,33 +477,8 @@ export default function PortfolioPage({ projects }: { projects: Project[] }) {
             <h2 style={styles.sectionTitle}>
               <span style={styles.titleAccent}></span> Certifications
             </h2>
-            <div style={styles.certGrid}>
-              <div data-animate="left" data-delay="0.1s" style={styles.certCard} className="cert-card-hover">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg" alt="AWS" style={{width:'52px',height:'52px',flexShrink:0,filter:'brightness(0) invert(1)'}} />
-                <div style={styles.certContent}>
-                  <h3 style={styles.certTitle}>AWS Academy Graduate — Cloud Architecting</h3>
-                  <p style={styles.certIssuer}>Amazon Web Services</p>
-                  <p style={styles.certDate}>April 2026</p>
-                  <a href="https://www.credly.com/org/amazon-web-services/badge/aws-academy-graduate-aws-academy-cloud-architecting" target="_blank" rel="noopener noreferrer" style={styles.certBadgeLink} onMouseEnter={e=>e.currentTarget.style.color='#818cf8'} onMouseLeave={e=>e.currentTarget.style.color='#6366f1'}>View Badge →</a>
-                </div>
-              </div>
-              <div data-animate="right" data-delay="0.2s" style={styles.certCard} className="cert-card-hover">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg" alt="AWS" style={{width:'52px',height:'52px',flexShrink:0,filter:'brightness(0) invert(1)'}} />
-                <div style={styles.certContent}>
-                  <h3 style={styles.certTitle}>AWS Academy Graduate — Cloud Foundations</h3>
-                  <p style={styles.certIssuer}>Amazon Web Services</p>
-                  <p style={styles.certDate}>February 2026</p>
-                  <a href="https://www.credly.com/org/amazon-web-services/badge/aws-academy-graduate-aws-academy-cloud-foundations" target="_blank" rel="noopener noreferrer" style={styles.certBadgeLink} onMouseEnter={e=>e.currentTarget.style.color='#818cf8'} onMouseLeave={e=>e.currentTarget.style.color='#6366f1'}>View Badge →</a>
-                </div>
-              </div>
-              <div data-animate="up" data-delay="0.3s" style={styles.certCard} className="cert-card-hover">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/googlecloud/googlecloud-plain-wordmark.svg" alt="Google Cloud" style={{width:'52px',height:'52px',flexShrink:0,filter:'brightness(0) invert(1)'}} />
-                <div style={styles.certContent}>
-                  <h3 style={styles.certTitle}>The Basics of Google Cloud Compute — Skill Badge</h3>
-                  <p style={styles.certIssuer}>Google Cloud</p>
-                  <a href="https://www.credly.com/org/google-cloud/badge/the-basics-of-google-cloud-compute-skill-badge" target="_blank" rel="noopener noreferrer" style={styles.certBadgeLink} onMouseEnter={e=>e.currentTarget.style.color='#818cf8'} onMouseLeave={e=>e.currentTarget.style.color='#6366f1'}>View Badge →</a>
-                </div>
-              </div>
+            <div data-animate="up" data-delay="0.1s">
+              <CertificationsCarousel />
             </div>
           </div>
         </div>
@@ -883,51 +859,6 @@ const styles = {
   },
   locationIcon: {
     fontSize: "1.2rem",
-  },
-  certGrid: {
-    display: "grid",
-    gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
-    gap: "24px",
-    maxWidth: "1000px",
-    margin: "0 auto",
-  },
-  certCard: {
-    display: "flex",
-    gap: "20px",
-    alignItems: "flex-start",
-    padding: "28px",
-    borderRadius: "16px",
-    backgroundColor: "rgba(255, 255, 255, 0.03)",
-    border: "1px solid rgba(255, 255, 255, 0.08)",
-    transition: "all 0.3s ease",
-  },
-  certContent: {
-    flex: 1,
-  },
-  certTitle: {
-    fontSize: "1.05rem",
-    fontWeight: 600,
-    color: "#ffffff",
-    marginBottom: "6px",
-    lineHeight: 1.4,
-  },
-  certIssuer: {
-    fontSize: "0.9rem",
-    color: "#6366f1",
-    fontWeight: 600,
-    margin: "0 0 4px",
-  },
-  certDate: {
-    fontSize: "0.85rem",
-    color: "#6b7280",
-    margin: "0 0 12px",
-  },
-  certBadgeLink: {
-    color: "#6366f1",
-    textDecoration: "none",
-    fontWeight: 600,
-    fontSize: "0.9rem",
-    transition: "color 0.2s ease",
   },
   aboutSection: {
     backgroundColor: "rgba(99, 102, 241, 0.02)",
