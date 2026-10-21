@@ -345,9 +345,14 @@ body {
 
 @media (max-width: 768px) {
   .scroll-button { display: none !important; }
-  .tech-icon     { display: none !important; }
-  .navbar { padding: 12px 20px; }
-  .nav-links { display: none; }
+  /* These override inline styles set in PortfolioPage, so they need the
+     !important — without it the nav links overflow off-screen on a phone. */
+  .navbar { padding: 12px 20px !important; }
+  .nav-links { display: none !important; }
+
+  /* The particle field sits beside the hero text on desktop but directly
+     behind it at phone width, where it competes with the copy. */
+  .hero-canvas { opacity: 0.35; }
 
   .hero {
     min-height: auto !important;
@@ -381,4 +386,122 @@ body {
     font-size: 0.95rem !important;
     line-height: 1.7 !important;
   }
+}
+
+/* =========================
+   MOBILE NAV
+   ========================= */
+
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 44px;
+  height: 44px;
+  padding: 0 10px;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.nav-toggle-bar {
+  display: block;
+  height: 2px;
+  width: 100%;
+  background: #fff;
+  border-radius: 2px;
+  transition: transform 0.25s ease, opacity 0.2s ease;
+}
+
+.nav-toggle-bar.is-open-top { transform: translateY(7px) rotate(45deg); }
+.nav-toggle-bar.is-open-mid { opacity: 0; }
+.nav-toggle-bar.is-open-bot { transform: translateY(-7px) rotate(-45deg); }
+
+.mobile-menu {
+  position: fixed;
+  top: 68px;
+  left: 0;
+  right: 0;
+  z-index: 99;
+  display: flex;
+  flex-direction: column;
+  padding: 12px 20px 20px;
+  background: rgba(10, 10, 10, 0.97);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.mobile-menu-link {
+  padding: 14px 4px;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  color: #e5e7eb;
+  font-size: 1rem;
+  font-weight: 500;
+  text-align: left;
+  cursor: pointer;
+}
+
+.mobile-menu-link:active { color: #a5b4fc; }
+
+.mobile-menu-resume {
+  margin-top: 16px;
+  padding: 12px 18px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-align: center;
+  text-decoration: none;
+}
+
+/* =========================
+   REDUCED MOTION
+   =========================
+   Scroll reveals are driven by inline styles in PortfolioPage and are handled
+   in that component; this covers the CSS-declared keyframes and transitions. */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  /* `both` fill on the hero entrance would otherwise leave it at opacity 0. */
+  .hero-badge,
+  .hero-name,
+  .hero-subtitle,
+  .hero-desc,
+  .hero-links {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .animate-on-scroll {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  /* The drifting particle field is the most motion-heavy element on the page. */
+  .hero-canvas { display: none !important; }
+}
+
+.skill-chip:hover {
+  border-color: rgba(99, 102, 241, 0.5);
+  background-color: rgba(99, 102, 241, 0.09);
+}
+
+/* Must come after `.nav-toggle { display: none }` above — equal specificity,
+   so source order decides. */
+@media (max-width: 768px) {
+  .nav-toggle { display: inline-flex; }
 }

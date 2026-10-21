@@ -10,13 +10,15 @@
       "badges": null,
       "lang": "Python",
       "tags": [
-        "Kafka"
+        "Kafka",
+        "Spark Streaming",
+        "Isolation Forest"
       ]
     },
     {
       "repoName": "distributed-cluster-monitoring-system",
       "title": "Fault-Tolerant Distributed Key-Value Store",
-      "desc": "Fault-tolerant replicated key-value store in C++ supporting concurrent reads/writes across a 5-node cluster. Implemented RAFT consensus from scratch — leader election, log replication, state machine replication — achieving 8,000+ ops/sec under 30% node failure. Reduced failover recovery to under 200ms.",
+      "desc": "Fault-tolerant replicated key-value store in C++ supporting concurrent reads/writes across a 5-node cluster. Implemented RAFT consensus from scratch \u2014 leader election, log replication, state machine replication \u2014 achieving 8,000+ ops/sec under 30% node failure. Reduced failover recovery to under 200ms.",
       "category": "systems-cloud",
       "badge": "Distributed Systems",
       "badgeStyle": null,
@@ -31,29 +33,32 @@
     {
       "repoName": "secure-payment-microservices",
       "title": "Secure Payment Microservice",
-      "desc": "Dual-service microservices architecture — Spring Boot REST API for transaction management and Django fraud-scoring service — containerized with Docker, orchestrated via docker-compose. OAuth2/JWT auth, MySQL for transactions, MongoDB for session/audit logs, deployed on AWS EC2.",
+      "desc": "Dual-service microservices architecture \u2014 Spring Boot REST API for transaction management and Django fraud-scoring service \u2014 containerized with Docker, orchestrated via docker-compose. OAuth2/JWT auth, MySQL for transactions, MongoDB for session/audit logs, deployed on AWS EC2.",
       "category": "systems-cloud",
       "badge": "Microservices",
       "badgeStyle": null,
       "badges": null,
-      "lang": "Java · Python",
+      "lang": "Java \u00b7 Python",
       "tags": [
         "Spring Boot",
         "Docker",
-        "AWS EC2",
         "OAuth2/JWT"
       ]
     },
     {
       "repoName": "contractpilot",
-      "title": "Contractpilot",
+      "title": "ContractPilot",
       "desc": " Full-stack contract lifecycle management platform with AI-powered risk analysis, e-signatures, tamper detection, and multi-party signing workflows.",
       "category": "systems-cloud",
-      "badge": "ML, SDLC ",
+      "badge": "ML \u00b7 SDLC",
       "badgeStyle": null,
       "badges": null,
       "lang": "JavaScript",
-      "tags": []
+      "tags": [
+        "Full-Stack",
+        "AI Risk Analysis",
+        "E-Signatures"
+      ]
     },
     {
       "repoName": "Distributed-ClientServer-Performance",
@@ -79,11 +84,7 @@
       "badgeStyle": null,
       "badges": null,
       "lang": "Python",
-      "tags": [
-        "Docker",
-        "Container",
-        "Test"
-      ]
+      "tags": []
     },
     {
       "repoName": "ImageProcessingApplication",
@@ -138,14 +139,18 @@
     },
     {
       "repoName": "trustpaws",
-      "title": "Trustpaws",
-      "desc": "Pet grooming transparency platform for Heads Up For Tails — real-time appointment tracking, service updates & incident reporting for pet parents.",
+      "title": "TrustPaws",
+      "desc": "Pet grooming transparency platform for Heads Up For Tails \u2014 real-time appointment tracking, service updates & incident reporting for pet parents.",
       "category": "systems-cloud",
       "badge": "AI Tracking",
       "badgeStyle": null,
       "badges": null,
       "lang": "JavaScript",
-      "tags": []
+      "tags": [
+        "Real-Time Tracking",
+        "Full-Stack",
+        "Incident Reporting"
+      ]
     },
     {
       "repoName": "Stellar-Classifier",
@@ -185,24 +190,32 @@
     {
       "repoName": "NexLedger",
       "title": "NexLedger",
-      "desc": "Production-grade event-sourced payment ledger with CQRS, idempotent transactions, crash-safe transfer sagas, and real-time XGBoost fraud scoring — built on Spring WebFlux, Kafka, PostgreSQL, and Redis.",
+      "desc": "Production-grade event-sourced payment ledger with CQRS, idempotent transactions, crash-safe transfer sagas, and real-time XGBoost fraud scoring \u2014 built on Spring WebFlux, Kafka, PostgreSQL, and Redis.",
       "category": "systems-cloud",
       "badge": null,
       "badgeStyle": null,
       "badges": null,
       "lang": "Java",
-      "tags": []
+      "tags": [
+        "Event Sourcing",
+        "CQRS",
+        "Spring WebFlux"
+      ]
     },
     {
       "repoName": "raft-kv",
-      "title": "Raft Kv",
+      "title": "Raft KV",
       "desc": "Fault-tolerant key-value store in C++20 with Raft from scratch: 5-node cluster, linearizability-checked under crashes and partitions",
       "category": "systems-cloud",
       "badge": null,
       "badgeStyle": null,
       "badges": null,
       "lang": "C++",
-      "tags": []
+      "tags": [
+        "Raft Consensus",
+        "Linearizability",
+        "C++20"
+      ]
     },
     {
       "repoName": "tideline",
@@ -213,7 +226,11 @@
       "badgeStyle": null,
       "badges": null,
       "lang": "Python",
-      "tags": []
+      "tags": [
+        "Debezium",
+        "Spark Streaming",
+        "Delta Lake"
+      ]
     },
     {
       "repoName": "lodestar",
@@ -224,7 +241,11 @@
       "badgeStyle": null,
       "badges": null,
       "lang": "Python",
-      "tags": []
+      "tags": [
+        "Airflow",
+        "dbt",
+        "Terraform"
+      ]
     }
   ]
 }

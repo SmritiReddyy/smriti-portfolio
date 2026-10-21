@@ -1,8 +1,10 @@
 'use client';
 
-import { useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import type { Project } from '../lib/types';
 import ProjectCard from './ProjectCard';
+
+const GAP = 24;
 
 const TABS = [
   { id: 'systems-cloud',    label: 'Systems & Cloud' },
@@ -14,15 +16,61 @@ type TabId = typeof TABS[number]['id'];
 export default function ProjectsSection({ projects }: { projects: Project[] }) {
   const [activeTab, setActiveTab] = useState<TabId>('systems-cloud');
   const [index, setIndex]         = useState(0);
+  const [maxIndex, setMaxIndex]   = useState(0);
+  const [atEnd, setAtEnd]         = useState(false);
+  const viewportRef               = useRef<HTMLDivElement>(null);
 
   const filtered = projects.filter(p => p.category === activeTab);
   const total    = filtered.length;
-  // show 3 full cards + peek; step by 1
-  const maxIndex = Math.max(0, total - 1);
+
+  const step = () => {
+    const slot = viewportRef.current?.firstElementChild?.firstElementChild as HTMLElement | null;
+    return slot ? slot.offsetWidth + GAP : 1;
+  };
+
+  // Scrolling is native, so the active dot is read back from scrollLeft —
+  // that keeps swiping, clicking and the arrows all in agreement.
+  const sync = useCallback(() => {
+    const el = viewportRef.current;
+    if (!el) return;
+    const s = step();
+    const maxScroll = el.scrollWidth - el.clientWidth;
+    setIndex(Math.round(el.scrollLeft / s));
+    setMaxIndex(maxScroll > 1 ? Math.ceil(maxScroll / s) : 0);
+    setAtEnd(el.scrollLeft >= maxScroll - 1);
+  }, []);
+
+  useEffect(() => {
+    const el = viewportRef.current;
+    if (!el) return;
+    let frame = 0;
+    const onScroll = () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(sync);
+    };
+    sync();
+    el.addEventListener('scroll', onScroll, { passive: true });
+    const ro = new ResizeObserver(sync);
+    ro.observe(el);
+    return () => {
+      cancelAnimationFrame(frame);
+      el.removeEventListener('scroll', onScroll);
+      ro.disconnect();
+    };
+  }, [sync, activeTab]);
+
+  const scrollToIndex = (next: number) => {
+    const el = viewportRef.current;
+    if (!el) return;
+    const clamped = Math.max(0, Math.min(maxIndex, next));
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    el.scrollTo({ left: clamped * step(), behavior: reduced ? 'auto' : 'smooth' });
+  };
 
   const switchTab = (tab: TabId) => {
     setActiveTab(tab);
     setIndex(0);
+    viewportRef.current?.scrollTo({ left: 0, behavior: 'auto' });
   };
 
   return (
@@ -52,24 +100,25 @@ export default function ProjectsSection({ projects }: { projects: Project[] }) {
       <div style={s.carouselWrap}>
         {/* Left arrow */}
         <button
-          onClick={() => setIndex(i => Math.max(0, i - 1))}
+          onClick={() => scrollToIndex(index - 1)}
           disabled={index === 0}
           style={{ ...s.arrow, ...s.arrowLeft, opacity: index === 0 ? 0.2 : 1 }}
-          aria-label="Previous"
+          aria-label="Previous project"
         >
           ‹
         </button>
 
-        {/* Track — overflow hidden so only 3+peek are visible */}
-        <div style={s.viewport}>
-          <div
-            style={{
-              ...s.track,
-              transform: `translateX(calc(-${index} * (var(--card-w) + 24px)))`,
-            }}
-          >
-            {filtered.map((project, i) => (
-              <div key={project.name} style={s.cardSlot}>
+        {/* Native scroll container: trackpad swipe, touch swipe and momentum
+            all come from the browser rather than being reimplemented. */}
+        <div
+          ref={viewportRef}
+          className="projects-viewport"
+          style={{ ...s.viewport, ...(atEnd ? {} : s.viewportFade) }}
+          tabIndex={0}
+        >
+          <div style={s.track}>
+            {filtered.map(project => (
+              <div key={project.name} className="projects-slot" style={s.cardSlot}>
                 <ProjectCard project={project} />
               </div>
             ))}
@@ -81,34 +130,44 @@ export default function ProjectsSection({ projects }: { projects: Project[] }) {
 
         {/* Right arrow */}
         <button
-          onClick={() => setIndex(i => Math.min(maxIndex, i + 1))}
-          disabled={index >= maxIndex}
-          style={{ ...s.arrow, ...s.arrowRight, opacity: index >= maxIndex ? 0.2 : 1 }}
-          aria-label="Next"
+          onClick={() => scrollToIndex(index + 1)}
+          disabled={atEnd}
+          style={{ ...s.arrow, ...s.arrowRight, opacity: atEnd ? 0.2 : 1 }}
+          aria-label="Next project"
         >
           ›
         </button>
       </div>
 
       {/* Dot indicators */}
-      {total > 1 && (
+      {maxIndex > 0 && (
         <div style={s.dots}>
-          {filtered.map((_, i) => (
+          {Array.from({ length: maxIndex + 1 }, (_, i) => (
             <button
               key={i}
-              onClick={() => setIndex(i)}
+              onClick={() => scrollToIndex(i)}
               style={{ ...s.dot, ...(i === index ? s.dotActive : {}) }}
               aria-label={`Go to project ${i + 1}`}
+              aria-current={i === index}
             />
           ))}
         </div>
       )}
 
       <style>{`
-        .carousel-card-slot { flex-shrink: 0; }
-        :root {
-          --card-w: clamp(280px, 30vw, 380px);
+        .projects-viewport {
+          scroll-snap-type: x mandatory;
+          overscroll-behavior-x: contain;
+          scrollbar-width: none;
+          -ms-overflow-style: none;
         }
+        .projects-viewport::-webkit-scrollbar { display: none; }
+        .projects-viewport:focus-visible {
+          outline: 2px solid rgba(99, 102, 241, 0.7);
+          outline-offset: 4px;
+          border-radius: 16px;
+        }
+        .projects-slot { scroll-snap-align: start; }
       `}</style>
     </section>
   );
@@ -178,15 +237,18 @@ const s = {
   },
   viewport: {
     flex: 1,
-    overflow: 'hidden',
-    // show 3 full cards + a peek of the 4th
+    overflowX: 'auto' as const,
+    overflowY: 'hidden' as const,
+  },
+  // Only hint at more cards while there are actually more to the right.
+  viewportFade: {
     maskImage: 'linear-gradient(to right, black 0%, black 88%, transparent 100%)',
     WebkitMaskImage: 'linear-gradient(to right, black 0%, black 88%, transparent 100%)',
   },
   track: {
     display: 'flex',
-    gap: '24px',
-    transition: 'transform 0.45s cubic-bezier(0.4, 0, 0.2, 1)',
+    gap: `${GAP}px`,
+    alignItems: 'stretch',
   },
   cardSlot: {
     flexShrink: 0,

@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 type Certification = {
   title: string;
@@ -49,43 +49,61 @@ const CERTIFICATIONS: Certification[] = [
 
 const GAP = 24;
 
-/** Card width in px, matching the clamp() used for the slot below. */
-function cardWidth(viewportWidth: number): number {
-  return Math.min(460, Math.max(300, viewportWidth * 0.42));
-}
-
+/**
+ * Scrolling is native (overflow-x + scroll-snap) rather than a CSS transform,
+ * so trackpad two-finger swipes, touch swipes and momentum all come from the
+ * browser. The arrows and dots just drive scrollLeft; the active dot is read
+ * back from the scroll position so dragging and clicking stay in agreement.
+ */
 export default function CertificationsCarousel() {
-  const [index, setIndex] = useState(0);
-  const [metrics, setMetrics] = useState({ cardW: 0, viewportW: 0 });
   const viewportRef = useRef<HTMLDivElement>(null);
+  const [index, setIndex] = useState(0);
+  const [maxIndex, setMaxIndex] = useState(0);
+  const [atEnd, setAtEnd] = useState(false);
 
-  useEffect(() => {
-    const measure = () => {
-      const el = viewportRef.current;
-      if (!el) return;
-      setMetrics({ cardW: cardWidth(window.innerWidth), viewportW: el.clientWidth });
-    };
-    measure();
-    window.addEventListener('resize', measure);
-    return () => window.removeEventListener('resize', measure);
+  const step = () => {
+    const slot = viewportRef.current?.firstElementChild?.firstElementChild as HTMLElement | null;
+    return slot ? slot.offsetWidth + GAP : 1;
+  };
+
+  const sync = useCallback(() => {
+    const el = viewportRef.current;
+    if (!el) return;
+    const s = step();
+    const maxScroll = el.scrollWidth - el.clientWidth;
+    setIndex(Math.round(el.scrollLeft / s));
+    setMaxIndex(maxScroll > 1 ? Math.ceil(maxScroll / s) : 0);
+    setAtEnd(el.scrollLeft >= maxScroll - 1);
   }, []);
 
-  const total = CERTIFICATIONS.length;
-  const step = metrics.cardW + GAP;
-  const trackW = total * metrics.cardW + (total - 1) * GAP;
-  // Furthest the track may travel before its right edge clears the viewport.
-  const maxOffset = Math.max(0, trackW - metrics.viewportW);
-  const maxIndex = step > 0 ? Math.ceil(maxOffset / step) : 0;
-  // Clamping in pixels (not index steps) keeps the last slide flush right
-  // instead of overscrolling into blank space when cards fit fractionally.
-  const offset = Math.min(index * step, maxOffset);
-
-  // A narrower window can leave the index past the new last slide.
   useEffect(() => {
-    setIndex(i => Math.min(i, maxIndex));
-  }, [maxIndex]);
+    const el = viewportRef.current;
+    if (!el) return;
 
-  const go = (next: number) => setIndex(Math.max(0, Math.min(maxIndex, next)));
+    let frame = 0;
+    const onScroll = () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(sync);
+    };
+
+    sync();
+    el.addEventListener('scroll', onScroll, { passive: true });
+    const ro = new ResizeObserver(sync);
+    ro.observe(el);
+    return () => {
+      cancelAnimationFrame(frame);
+      el.removeEventListener('scroll', onScroll);
+      ro.disconnect();
+    };
+  }, [sync]);
+
+  const scrollToIndex = (next: number) => {
+    const el = viewportRef.current;
+    if (!el) return;
+    const clamped = Math.max(0, Math.min(maxIndex, next));
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    el.scrollTo({ left: clamped * step(), behavior: reduced ? 'auto' : 'smooth' });
+  };
 
   return (
     <div
@@ -93,13 +111,13 @@ export default function CertificationsCarousel() {
       aria-roledescription="carousel"
       aria-label="Certifications"
       onKeyDown={e => {
-        if (e.key === 'ArrowLeft') { e.preventDefault(); go(index - 1); }
-        if (e.key === 'ArrowRight') { e.preventDefault(); go(index + 1); }
+        if (e.key === 'ArrowLeft') { e.preventDefault(); scrollToIndex(index - 1); }
+        if (e.key === 'ArrowRight') { e.preventDefault(); scrollToIndex(index + 1); }
       }}
     >
       <div style={s.carouselWrap}>
         <button
-          onClick={() => go(index - 1)}
+          onClick={() => scrollToIndex(index - 1)}
           disabled={index === 0}
           style={{ ...s.arrow, ...s.arrowLeft, opacity: index === 0 ? 0.2 : 1 }}
           aria-label="Previous certification"
@@ -107,20 +125,15 @@ export default function CertificationsCarousel() {
           ‹
         </button>
 
-        <div ref={viewportRef} style={{ ...s.viewport, ...(offset < maxOffset ? s.viewportFade : {}) }}>
-          <div
-            className="cert-track"
-            style={{ ...s.track, transform: `translateX(-${offset}px)` }}
-          >
-            {CERTIFICATIONS.map((cert, i) => (
-              <div
-                key={cert.title}
-                style={s.cardSlot}
-                aria-hidden={
-                  metrics.cardW > 0 &&
-                  (i * step + metrics.cardW <= offset || i * step >= offset + metrics.viewportW)
-                }
-              >
+        <div
+          ref={viewportRef}
+          className="cert-viewport"
+          style={{ ...s.viewport, ...(atEnd ? {} : s.viewportFade) }}
+          tabIndex={0}
+        >
+          <div style={s.track}>
+            {CERTIFICATIONS.map(cert => (
+              <div key={cert.title} className="cert-slot" style={s.cardSlot}>
                 <div style={s.certCard} className="cert-card-hover">
                   <img src={cert.icon} alt={cert.iconAlt} style={s.certIcon} />
                   <div style={s.certContent}>
@@ -145,9 +158,9 @@ export default function CertificationsCarousel() {
         </div>
 
         <button
-          onClick={() => go(index + 1)}
-          disabled={index >= maxIndex}
-          style={{ ...s.arrow, ...s.arrowRight, opacity: index >= maxIndex ? 0.2 : 1 }}
+          onClick={() => scrollToIndex(index + 1)}
+          disabled={atEnd}
+          style={{ ...s.arrow, ...s.arrowRight, opacity: atEnd ? 0.2 : 1 }}
           aria-label="Next certification"
         >
           ›
@@ -159,7 +172,7 @@ export default function CertificationsCarousel() {
           {Array.from({ length: maxIndex + 1 }, (_, i) => (
             <button
               key={i}
-              onClick={() => go(i)}
+              onClick={() => scrollToIndex(i)}
               style={{ ...s.dot, ...(i === index ? s.dotActive : {}) }}
               aria-label={`Go to certification ${i + 1}`}
               aria-current={i === index}
@@ -169,10 +182,20 @@ export default function CertificationsCarousel() {
       )}
 
       <style>{`
-        :root { --cert-card-w: clamp(300px, 42vw, 460px); }
-        @media (prefers-reduced-motion: reduce) {
-          .cert-track { transition: none !important; }
+        .cert-viewport {
+          scroll-snap-type: x mandatory;
+          /* Keep the vertical page scroll from being hijacked by the gesture. */
+          overscroll-behavior-x: contain;
+          scrollbar-width: none;
+          -ms-overflow-style: none;
         }
+        .cert-viewport::-webkit-scrollbar { display: none; }
+        .cert-viewport:focus-visible {
+          outline: 2px solid rgba(99, 102, 241, 0.7);
+          outline-offset: 4px;
+          border-radius: 16px;
+        }
+        .cert-slot { scroll-snap-align: start; }
       `}</style>
     </div>
   );
@@ -186,7 +209,8 @@ const s = {
   },
   viewport: {
     flex: 1,
-    overflow: 'hidden',
+    overflowX: 'auto' as const,
+    overflowY: 'hidden' as const,
   },
   // Only hint at more cards when there are actually more to the right.
   viewportFade: {
@@ -196,11 +220,11 @@ const s = {
   track: {
     display: 'flex',
     gap: `${GAP}px`,
-    transition: 'transform 0.45s cubic-bezier(0.4, 0, 0.2, 1)',
+    alignItems: 'stretch',
   },
   cardSlot: {
     flexShrink: 0,
-    width: 'var(--cert-card-w)',
+    width: 'clamp(300px, 42vw, 460px)',
   },
   certCard: {
     display: 'flex',

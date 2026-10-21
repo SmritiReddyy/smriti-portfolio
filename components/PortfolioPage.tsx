@@ -7,37 +7,92 @@ import { asset } from '../lib/basePath';
 import ProjectsSection from './ProjectsSection';
 import CertificationsCarousel from './CertificationsCarousel';
 
-const allSkills = [
-  { name: 'Python',         icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg' },
-  { name: 'Java',           icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg' },
-  { name: 'C++',            icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cplusplus/cplusplus-original.svg' },
-  { name: 'JavaScript',     icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg' },
-  { name: 'TypeScript',     icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg' },
-  { name: 'Node.js',        icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg' },
-  { name: 'SQL',            icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/azuresqldatabase/azuresqldatabase-original.svg' },
-  { name: 'React',          icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg' },
-  { name: 'Spring Boot',    icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/spring/spring-original.svg' },
-  { name: 'Django',         icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/django/django-plain.svg', invert: true },
-  { name: 'FastAPI',        icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/fastapi/fastapi-original.svg' },
-  { name: 'PyTorch',        icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pytorch/pytorch-original.svg' },
-  { name: 'TensorFlow',     icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tensorflow/tensorflow-original.svg' },
-  { name: 'Scikit-Learn',   icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/scikitlearn/scikitlearn-original.svg' },
-  { name: 'Pandas',         icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pandas/pandas-original.svg' },
-  { name: 'NumPy',          icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/numpy/numpy-original.svg' },
-  { name: 'SQLAlchemy',     icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/sqlalchemy/sqlalchemy-original.svg' },
-  { name: 'AWS',            icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg', invert: true },
-  { name: 'GCP',            icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/googlecloud/googlecloud-original.svg' },
-  { name: 'Firebase',       icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/firebase/firebase-plain.svg' },
-  { name: 'Docker',         icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg' },
-  { name: 'Kubernetes',     icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/kubernetes/kubernetes-plain.svg' },
-  { name: 'GitHub Actions', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/githubactions/githubactions-original.svg' },
-  { name: 'MySQL',          icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg' },
-  { name: 'PostgreSQL',     icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg' },
-  { name: 'MongoDB',        icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mongodb/mongodb-original.svg' },
-  { name: 'Redis',          icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/redis/redis-original.svg' },
+type Skill = { name: string; icon?: string; invert?: boolean };
+type SkillGroup = { label: string; items: Skill[] };
+
+const DEV = 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons';
+
+/** Grouped to mirror the resume's skill categories, so a reader can scan for
+ *  one area instead of parsing a single wall of logos. Items without a devicon
+ *  render as text chips. */
+const SKILL_GROUPS: SkillGroup[] = [
+  {
+    label: 'Languages',
+    items: [
+      { name: 'Java',       icon: `${DEV}/java/java-original.svg` },
+      { name: 'Python',     icon: `${DEV}/python/python-original.svg` },
+      { name: 'C++',        icon: `${DEV}/cplusplus/cplusplus-original.svg` },
+      { name: 'JavaScript', icon: `${DEV}/javascript/javascript-original.svg` },
+      { name: 'TypeScript', icon: `${DEV}/typescript/typescript-original.svg` },
+      { name: 'SQL',        icon: `${DEV}/azuresqldatabase/azuresqldatabase-original.svg` },
+    ],
+  },
+  {
+    label: 'Backend & Distributed',
+    items: [
+      { name: 'Spring Boot',     icon: `${DEV}/spring/spring-original.svg` },
+      { name: 'Spring WebFlux' },
+      { name: 'FastAPI',         icon: `${DEV}/fastapi/fastapi-original.svg` },
+      { name: 'Node.js',         icon: `${DEV}/nodejs/nodejs-original.svg` },
+      { name: 'Django',          icon: `${DEV}/django/django-plain.svg`, invert: true },
+      { name: 'Kafka',           icon: `${DEV}/apachekafka/apachekafka-original.svg`, invert: true },
+      { name: 'React',           icon: `${DEV}/react/react-original.svg` },
+      { name: 'REST APIs' },
+      { name: 'Microservices' },
+      { name: 'Raft' },
+    ],
+  },
+  {
+    label: 'Databases',
+    items: [
+      { name: 'PostgreSQL',    icon: `${DEV}/postgresql/postgresql-original.svg` },
+      { name: 'MySQL',         icon: `${DEV}/mysql/mysql-original.svg` },
+      { name: 'MongoDB',       icon: `${DEV}/mongodb/mongodb-original.svg` },
+      { name: 'Redis',         icon: `${DEV}/redis/redis-original.svg` },
+      { name: 'Elasticsearch', icon: `${DEV}/elasticsearch/elasticsearch-original.svg` },
+      { name: 'TimescaleDB' },
+      { name: 'SQLAlchemy',    icon: `${DEV}/sqlalchemy/sqlalchemy-original.svg` },
+    ],
+  },
+  {
+    label: 'Cloud & DevOps',
+    items: [
+      { name: 'AWS',            icon: `${DEV}/amazonwebservices/amazonwebservices-plain-wordmark.svg`, invert: true },
+      { name: 'GCP',            icon: `${DEV}/googlecloud/googlecloud-original.svg` },
+      { name: 'Docker',         icon: `${DEV}/docker/docker-original.svg` },
+      { name: 'Kubernetes',     icon: `${DEV}/kubernetes/kubernetes-plain.svg` },
+      { name: 'GitHub Actions', icon: `${DEV}/githubactions/githubactions-original.svg` },
+      { name: 'Terraform',      icon: `${DEV}/terraform/terraform-original.svg` },
+      { name: 'Git',            icon: `${DEV}/git/git-original.svg` },
+      { name: 'Firebase',       icon: `${DEV}/firebase/firebase-plain.svg` },
+    ],
+  },
+  {
+    label: 'ML & Data',
+    items: [
+      { name: 'PyTorch',      icon: `${DEV}/pytorch/pytorch-original.svg` },
+      { name: 'TensorFlow',   icon: `${DEV}/tensorflow/tensorflow-original.svg` },
+      { name: 'Scikit-Learn', icon: `${DEV}/scikitlearn/scikitlearn-original.svg` },
+      { name: 'Pandas',       icon: `${DEV}/pandas/pandas-original.svg` },
+      { name: 'NumPy',        icon: `${DEV}/numpy/numpy-original.svg` },
+      { name: 'Spark',        icon: `${DEV}/apachespark/apachespark-original.svg` },
+      { name: 'Airflow',      icon: `${DEV}/apacheairflow/apacheairflow-original.svg` },
+      { name: 'MLflow' },
+    ],
+  },
+  {
+    label: 'Testing & Fundamentals',
+    items: [
+      { name: 'pytest',          icon: `${DEV}/pytest/pytest-original.svg` },
+      { name: 'Gatling' },
+      { name: 'Testcontainers' },
+      { name: 'CQRS' },
+      { name: 'Event Sourcing' },
+      { name: 'Sagas' },
+      { name: 'Concurrency' },
+    ],
+  },
 ];
-const row1 = allSkills.slice(0, 13);
-const row2 = allSkills.slice(13);
 
 const KEYFRAMES = `
   @keyframes floatUp {
@@ -76,14 +131,6 @@ const KEYFRAMES = `
   @keyframes heroName {
     from { opacity:0; transform:translateY(30px) scale(0.95); }
     to   { opacity:1; transform:translateY(0) scale(1); }
-  }
-  @keyframes marqueeLeft {
-    from { transform: translateX(0); }
-    to   { transform: translateX(-50%); }
-  }
-  @keyframes marqueeRight {
-    from { transform: translateX(-50%); }
-    to   { transform: translateX(0); }
   }
   @keyframes orbDrift {
     0%   { transform:translate(0,0) scale(1); }
@@ -152,8 +199,17 @@ const FileIcon = ({ size = 20 }: { size?: number }) => (
   </svg>
 );
 
+const NAV_LINKS: [string, string][] = [
+  ['Projects', '#projects-section'],
+  ['Skills', '#skills-section'],
+  ['Certifications', '#certifications-section'],
+  ['Research', '#research-section'],
+  ['Contact', '#contact-section'],
+];
+
 export default function PortfolioPage({ projects }: { projects: Project[] }) {
   const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -162,10 +218,21 @@ export default function PortfolioPage({ projects }: { projects: Project[] }) {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  // Escape closes the mobile menu, matching the expectation set by the overlay.
+  useEffect(() => {
+    if (!menuOpen) return;
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setMenuOpen(false); };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [menuOpen]);
+
   // Canvas particle background
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
+    // CSS hides the canvas under reduced motion; skip the animation loop too
+    // rather than burn a rAF every frame drawing something nobody sees.
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     const ctx = canvas.getContext('2d')!;
     const resize = () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; };
     resize();
@@ -218,6 +285,17 @@ export default function PortfolioPage({ projects }: { projects: Project[] }) {
   useEffect(() => {
     const els = document.querySelectorAll<HTMLElement>('[data-animate]');
 
+    // These hide content with inline opacity, which CSS can't override without
+    // !important — so honour the reduced-motion preference here and simply
+    // leave everything visible.
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      els.forEach(el => {
+        el.style.opacity = '1';
+        el.style.transform = 'none';
+      });
+      return;
+    }
+
     const getHidden = (dir: string | undefined) =>
       dir === 'left' ? 'translateX(-50px)' : dir === 'right' ? 'translateX(50px)' : 'translateY(40px)';
 
@@ -254,20 +332,21 @@ export default function PortfolioPage({ projects }: { projects: Project[] }) {
       <style>{KEYFRAMES}</style>
 
       {/* Navbar */}
-      <nav style={{
+      <nav className="navbar" style={{
         position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100,
         padding: scrolled ? '12px 48px' : '18px 48px',
         display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-        background: scrolled ? 'rgba(10,10,10,0.85)' : 'transparent',
-        backdropFilter: scrolled ? 'blur(20px)' : 'none',
-        borderBottom: scrolled ? '1px solid rgba(255,255,255,0.06)' : 'none',
+        background: scrolled || menuOpen ? 'rgba(10,10,10,0.85)' : 'transparent',
+        backdropFilter: scrolled || menuOpen ? 'blur(20px)' : 'none',
+        borderBottom: scrolled || menuOpen ? '1px solid rgba(255,255,255,0.06)' : 'none',
         transition: 'all 0.3s ease',
       }}>
         <span onClick={() => scrollTo('#hero-section')} style={{
           fontSize: '1.1rem', fontWeight: 700, color: '#fff', cursor: 'pointer', letterSpacing: '-0.5px'
         }}>Smriti Reddy</span>
-        <ul style={{ display: 'flex', gap: '32px', listStyle: 'none', margin: 0, padding: 0, alignItems: 'center' }}>
-          {[['Projects','#projects-section'],['Skills','#skills-section'],['Certifications','#certifications-section'],['Research','#research-section'],['Contact','#contact-section']].map(([label, id]) => (
+
+        <ul className="nav-links" style={{ display: 'flex', gap: '32px', listStyle: 'none', margin: 0, padding: 0, alignItems: 'center' }}>
+          {NAV_LINKS.map(([label, id]) => (
             <li key={id}><span onClick={() => scrollTo(id)} style={{
               color: '#9ca3af', cursor: 'pointer', fontSize: '0.9rem', fontWeight: 500,
               transition: 'color 0.2s', textDecoration: 'none'
@@ -282,11 +361,50 @@ export default function PortfolioPage({ projects }: { projects: Project[] }) {
             color: '#fff', fontWeight: 600, fontSize: '0.875rem', textDecoration: 'none'
           }}>Resume</a></li>
         </ul>
+
+        {/* Mobile: the links above are hidden under 768px, so sections are
+            only reachable through this menu. */}
+        <button
+          className="nav-toggle"
+          onClick={() => setMenuOpen(o => !o)}
+          aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+          aria-expanded={menuOpen}
+          aria-controls="mobile-menu"
+        >
+          <span className={`nav-toggle-bar${menuOpen ? ' is-open-top' : ''}`} />
+          <span className={`nav-toggle-bar${menuOpen ? ' is-open-mid' : ''}`} />
+          <span className={`nav-toggle-bar${menuOpen ? ' is-open-bot' : ''}`} />
+        </button>
       </nav>
+
+      <div
+        id="mobile-menu"
+        className={`mobile-menu${menuOpen ? ' open' : ''}`}
+        hidden={!menuOpen}
+      >
+        {NAV_LINKS.map(([label, id]) => (
+          <button
+            key={id}
+            className="mobile-menu-link"
+            onClick={() => { setMenuOpen(false); scrollTo(id); }}
+          >
+            {label}
+          </button>
+        ))}
+        <a
+          href={asset('/Smriti_Reddy_Resume.pdf')}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mobile-menu-resume"
+          onClick={() => setMenuOpen(false)}
+        >
+          Resume
+        </a>
+      </div>
 
       {/* Hero Section */}
       <section id="hero-section" style={styles.hero} className="hero">
-        <canvas ref={canvasRef} style={{ position: 'absolute', inset: 0, zIndex: 1, pointerEvents: 'none' }} />
+        <canvas ref={canvasRef} className="hero-canvas" style={{ position: 'absolute', inset: 0, zIndex: 1, pointerEvents: 'none' }} aria-hidden="true" />
 
         <div style={styles.heroContent}>
           <div style={{...styles.statusBadge, animation: 'fadeUp 0.6s ease 0.1s both'}}>
@@ -447,26 +565,37 @@ export default function PortfolioPage({ projects }: { projects: Project[] }) {
           </h2>
         </div>
 
-        <div style={styles.marqueeWrapper}>
-          <div style={{ ...styles.marqueeTrack, animation: 'marqueeLeft 28s linear infinite' }}>
-            {[...row1, ...row1].map((item, i) => (
-              <div key={i} style={styles.marqueeCard}>
-                <img src={item.icon} alt={item.name} style={{ width: '36px', height: '36px', objectFit: 'contain', ...(item.invert ? { filter: 'brightness(0) invert(1)' } : {}) }} />
-                <span style={styles.marqueeLabel}>{item.name}</span>
+        <div style={styles.skillGroups}>
+          {SKILL_GROUPS.map((group, gi) => (
+            <div
+              key={group.label}
+              data-animate="up"
+              data-delay={`${0.05 * (gi + 1)}s`}
+              style={styles.skillGroup}
+            >
+              <h3 style={styles.skillGroupLabel}>{group.label}</h3>
+              <div style={styles.skillItems}>
+                {group.items.map(item => (
+                  <div key={item.name} style={styles.skillChip} className="skill-chip">
+                    {item.icon && (
+                      <img
+                        src={item.icon}
+                        alt=""
+                        aria-hidden="true"
+                        style={{
+                          width: '22px',
+                          height: '22px',
+                          objectFit: 'contain',
+                          ...(item.invert ? { filter: 'brightness(0) invert(1)' } : {}),
+                        }}
+                      />
+                    )}
+                    <span style={styles.skillChipLabel}>{item.name}</span>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
-        </div>
-
-        <div style={{ ...styles.marqueeWrapper, marginTop: '16px' }}>
-          <div style={{ ...styles.marqueeTrack, animation: 'marqueeRight 32s linear infinite' }}>
-            {[...row2, ...row2].map((item, i) => (
-              <div key={i} style={styles.marqueeCard}>
-                <img src={item.icon} alt={item.name} style={{ width: '36px', height: '36px', objectFit: 'contain', ...(item.invert ? { filter: 'brightness(0) invert(1)' } : {}) }} />
-                <span style={styles.marqueeLabel}>{item.name}</span>
-              </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
       </section>
 
@@ -708,31 +837,42 @@ const styles = {
     color: "#6366f1",
     fontSize: "2rem",
   },
-  marqueeWrapper: {
-    overflow: "hidden",
-    width: "100%",
-    maskImage: "linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)",
-    WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)",
+  skillGroups: {
+    display: "grid",
+    gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
+    gap: "28px",
   },
-  marqueeTrack: {
-    display: "flex",
-    gap: "16px",
-    width: "max-content",
-  },
-  marqueeCard: {
-    display: "inline-flex",
-    flexDirection: "column" as const,
-    alignItems: "center",
-    gap: "10px",
-    padding: "18px 22px",
+  skillGroup: {
+    padding: "24px",
     borderRadius: "16px",
+    backgroundColor: "rgba(255,255,255,0.03)",
+    border: "1px solid rgba(255,255,255,0.08)",
+  },
+  skillGroupLabel: {
+    margin: "0 0 16px",
+    fontSize: "0.75rem",
+    fontWeight: 700,
+    letterSpacing: "0.12em",
+    textTransform: "uppercase" as const,
+    color: "#818cf8",
+  },
+  skillItems: {
+    display: "flex",
+    flexWrap: "wrap" as const,
+    gap: "10px",
+  },
+  skillChip: {
+    display: "inline-flex",
+    alignItems: "center",
+    gap: "8px",
+    padding: "7px 12px",
+    borderRadius: "10px",
     backgroundColor: "rgba(255,255,255,0.04)",
     border: "1px solid rgba(255,255,255,0.08)",
-    minWidth: "96px",
-    flexShrink: 0,
+    transition: "border-color 0.2s ease, background-color 0.2s ease",
   },
-  marqueeLabel: {
-    fontSize: "0.78rem",
+  skillChipLabel: {
+    fontSize: "0.82rem",
     color: "#d1d5db",
     fontWeight: 500,
     whiteSpace: "nowrap" as const,
