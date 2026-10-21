@@ -181,6 +181,50 @@
         "Unsupervised",
         "Computer Vision"
       ]
+    },
+    {
+      "repoName": "NexLedger",
+      "title": "NexLedger",
+      "desc": "Production-grade event-sourced payment ledger with CQRS, idempotent transactions, crash-safe transfer sagas, and real-time XGBoost fraud scoring — built on Spring WebFlux, Kafka, PostgreSQL, and Redis.",
+      "category": "systems-cloud",
+      "badge": null,
+      "badgeStyle": null,
+      "badges": null,
+      "lang": "Java",
+      "tags": []
+    },
+    {
+      "repoName": "raft-kv",
+      "title": "Raft Kv",
+      "desc": "Fault-tolerant key-value store in C++20 with Raft from scratch: 5-node cluster, linearizability-checked under crashes and partitions",
+      "category": "systems-cloud",
+      "badge": null,
+      "badgeStyle": null,
+      "badges": null,
+      "lang": "C++",
+      "tags": []
+    },
+    {
+      "repoName": "tideline",
+      "title": "Tideline",
+      "desc": "CDC streaming lakehouse: Debezium, Kafka, Spark Structured Streaming, Delta Lake",
+      "category": "ml-data-science",
+      "badge": null,
+      "badgeStyle": null,
+      "badges": null,
+      "lang": "Python",
+      "tags": []
+    },
+    {
+      "repoName": "lodestar",
+      "title": "Lodestar",
+      "desc": "ELT analytics platform: Airflow, dbt, BigQuery/DuckDB, Terraform, Great Expectations",
+      "category": "ml-data-science",
+      "badge": null,
+      "badgeStyle": null,
+      "badges": null,
+      "lang": "Python",
+      "tags": []
     }
   ]
 }
