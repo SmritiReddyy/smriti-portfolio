@@ -20,6 +20,13 @@ export default function ProjectsSection({ projects }: { projects: Project[] }) {
   const [atEnd, setAtEnd]         = useState(false);
   const viewportRef               = useRef<HTMLDivElement>(null);
 
+  // Auto-advance: on until the visitor takes over, and only while the carousel
+  // is actually on screen and the tab is in the foreground.
+  const [autoPlay, setAutoPlay]   = useState(true);
+  const [paused, setPaused]       = useState(false);
+  const [inView, setInView]       = useState(false);
+  const directionRef              = useRef(1);
+
   const filtered = projects.filter(p => p.category === activeTab);
   const total    = filtered.length;
 
@@ -67,9 +74,50 @@ export default function ProjectsSection({ projects }: { projects: Project[] }) {
     el.scrollTo({ left: clamped * step(), behavior: reduced ? 'auto' : 'smooth' });
   };
 
+  // Only stop on a deliberate gesture. Scroll events fire for our own
+  // programmatic scrolling too, so they can't be used to detect intent.
+  const stopAutoPlay = () => setAutoPlay(false);
+
+  // Advancing off screen would mean arriving at a carousel already mid-way
+  // through, and burning timers in a background tab.
+  useEffect(() => {
+    const el = viewportRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      ([entry]) => setInView(entry.isIntersecting),
+      { threshold: 0.35 },
+    );
+    io.observe(el);
+    const onVisibility = () => setPaused(document.hidden);
+    document.addEventListener('visibilitychange', onVisibility);
+    return () => {
+      io.disconnect();
+      document.removeEventListener('visibilitychange', onVisibility);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!autoPlay || paused || !inView || maxIndex <= 0) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const id = window.setInterval(() => {
+      const el = viewportRef.current;
+      if (!el) return;
+      // Reverse at the ends rather than rewinding the whole track, which
+      // would be a long, jarring sweep back past every card.
+      if (index >= maxIndex) directionRef.current = -1;
+      if (index <= 0) directionRef.current = 1;
+      const next = Math.max(0, Math.min(maxIndex, index + directionRef.current));
+      el.scrollTo({ left: next * step(), behavior: 'smooth' });
+    }, 4500);
+
+    return () => window.clearInterval(id);
+  }, [autoPlay, paused, inView, index, maxIndex]);
+
   const switchTab = (tab: TabId) => {
     setActiveTab(tab);
     setIndex(0);
+    directionRef.current = 1;
     viewportRef.current?.scrollTo({ left: 0, behavior: 'auto' });
   };
 
@@ -100,7 +148,7 @@ export default function ProjectsSection({ projects }: { projects: Project[] }) {
       <div style={s.carouselWrap}>
         {/* Left arrow */}
         <button
-          onClick={() => scrollToIndex(index - 1)}
+          onClick={() => { stopAutoPlay(); scrollToIndex(index - 1); }}
           disabled={index === 0}
           style={{ ...s.arrow, ...s.arrowLeft, opacity: index === 0 ? 0.2 : 1 }}
           aria-label="Previous project"
@@ -115,6 +163,14 @@ export default function ProjectsSection({ projects }: { projects: Project[] }) {
           className="projects-viewport"
           style={{ ...s.viewport, ...(atEnd ? {} : s.viewportFade) }}
           tabIndex={0}
+          onMouseEnter={() => setPaused(true)}
+          onMouseLeave={() => setPaused(false)}
+          onFocusCapture={() => setPaused(true)}
+          onBlurCapture={() => setPaused(false)}
+          onPointerDown={stopAutoPlay}
+          onWheel={stopAutoPlay}
+          onTouchStart={stopAutoPlay}
+          onKeyDown={stopAutoPlay}
         >
           <div style={s.track}>
             {filtered.map(project => (
@@ -130,7 +186,7 @@ export default function ProjectsSection({ projects }: { projects: Project[] }) {
 
         {/* Right arrow */}
         <button
-          onClick={() => scrollToIndex(index + 1)}
+          onClick={() => { stopAutoPlay(); scrollToIndex(index + 1); }}
           disabled={atEnd}
           style={{ ...s.arrow, ...s.arrowRight, opacity: atEnd ? 0.2 : 1 }}
           aria-label="Next project"
@@ -145,7 +201,7 @@ export default function ProjectsSection({ projects }: { projects: Project[] }) {
           {Array.from({ length: maxIndex + 1 }, (_, i) => (
             <button
               key={i}
-              onClick={() => scrollToIndex(i)}
+              onClick={() => { stopAutoPlay(); scrollToIndex(i); }}
               style={{ ...s.dot, ...(i === index ? s.dotActive : {}) }}
               aria-label={`Go to project ${i + 1}`}
               aria-current={i === index}
