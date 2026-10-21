@@ -66,7 +66,10 @@ if git diff --quiet && git diff --cached --quiet && [[ -z "$(git status --porcel
 fi
 
 echo "==> Changes to publish:"
-git --no-pager diff --stat HEAD
+# Stage first: `git diff` alone omits new files, which makes it look like a
+# newly added component never synced.
+git add -A
+git --no-pager diff --cached --stat HEAD
 
 if $DRY_RUN; then
   echo "==> --dry-run given; leaving the mirror checkout dirty and not pushing."
