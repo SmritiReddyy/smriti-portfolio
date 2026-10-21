@@ -495,6 +495,14 @@ export default function PortfolioPage({ projects }: { projects: Project[] }) {
                   <a href="https://www.credly.com/org/amazon-web-services/badge/aws-academy-graduate-aws-academy-cloud-foundations" target="_blank" rel="noopener noreferrer" style={styles.certBadgeLink} onMouseEnter={e=>e.currentTarget.style.color='#818cf8'} onMouseLeave={e=>e.currentTarget.style.color='#6366f1'}>View Badge →</a>
                 </div>
               </div>
+              <div data-animate="up" data-delay="0.3s" style={styles.certCard} className="cert-card-hover">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/googlecloud/googlecloud-plain-wordmark.svg" alt="Google Cloud" style={{width:'52px',height:'52px',flexShrink:0,filter:'brightness(0) invert(1)'}} />
+                <div style={styles.certContent}>
+                  <h3 style={styles.certTitle}>The Basics of Google Cloud Compute — Skill Badge</h3>
+                  <p style={styles.certIssuer}>Google Cloud</p>
+                  <a href="https://www.credly.com/org/google-cloud/badge/the-basics-of-google-cloud-compute-skill-badge" target="_blank" rel="noopener noreferrer" style={styles.certBadgeLink} onMouseEnter={e=>e.currentTarget.style.color='#818cf8'} onMouseLeave={e=>e.currentTarget.style.color='#6366f1'}>View Badge →</a>
+                </div>
+              </div>
             </div>
           </div>
         </div>
