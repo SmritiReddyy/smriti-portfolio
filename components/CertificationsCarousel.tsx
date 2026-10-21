@@ -39,6 +39,7 @@ const CERTIFICATIONS: Certification[] = [
   {
     title: 'The Basics of Google Cloud Compute — Skill Badge',
     issuer: 'Google Cloud',
+    date: 'July 2026',
     badgeUrl:
       'https://www.credly.com/org/google-cloud/badge/the-basics-of-google-cloud-compute-skill-badge',
     icon: GCP_ICON,
