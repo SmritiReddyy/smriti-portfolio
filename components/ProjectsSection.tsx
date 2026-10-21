@@ -103,16 +103,19 @@ export default function ProjectsSection({ projects }: { projects: Project[] }) {
     const id = window.setInterval(() => {
       const el = viewportRef.current;
       if (!el) return;
-      // Reverse at the ends rather than rewinding the whole track, which
-      // would be a long, jarring sweep back past every card.
-      if (index >= maxIndex) directionRef.current = -1;
-      if (index <= 0) directionRef.current = 1;
-      const next = Math.max(0, Math.min(maxIndex, index + directionRef.current));
-      el.scrollTo({ left: next * step(), behavior: 'smooth' });
+      // Turn around using the live scroll position, not the derived index:
+      // maxIndex is a ceil() and index a round(), so with a fractional last
+      // step index never reaches maxIndex and the carousel parks at the end.
+      const maxScroll = el.scrollWidth - el.clientWidth;
+      if (maxScroll <= 1) return;
+      if (el.scrollLeft >= maxScroll - 1) directionRef.current = -1;
+      if (el.scrollLeft <= 1) directionRef.current = 1;
+      const target = el.scrollLeft + directionRef.current * step();
+      el.scrollTo({ left: Math.max(0, Math.min(maxScroll, target)), behavior: 'smooth' });
     }, 4500);
 
     return () => window.clearInterval(id);
-  }, [autoPlay, paused, inView, index, maxIndex]);
+  }, [autoPlay, paused, inView, maxIndex]);
 
   const switchTab = (tab: TabId) => {
     setActiveTab(tab);
@@ -168,7 +171,10 @@ export default function ProjectsSection({ projects }: { projects: Project[] }) {
           onFocusCapture={() => setPaused(true)}
           onBlurCapture={() => setPaused(false)}
           onPointerDown={stopAutoPlay}
-          onWheel={stopAutoPlay}
+          // Only a sideways wheel means "I'm driving this carousel". Scrolling
+          // the page vertically with the cursor over it is not intent, and
+          // treating it as such killed auto-advance before it was ever seen.
+          onWheel={e => { if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) stopAutoPlay(); }}
           onTouchStart={stopAutoPlay}
           onKeyDown={stopAutoPlay}
         >
