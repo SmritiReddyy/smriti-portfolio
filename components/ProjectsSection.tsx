@@ -185,7 +185,7 @@ export default function ProjectsSection({ projects }: { projects: Project[] }) {
               </div>
             ))}
             {filtered.length === 0 && (
-              <p style={{ color: '#9ca3af', padding: '48px 0' }}>No projects in this category yet.</p>
+              <p style={{ color: 'var(--text-2)', padding: '48px 0' }}>No projects in this category yet.</p>
             )}
           </div>
         </div>
@@ -244,7 +244,7 @@ const s = {
   title: {
     fontSize: 'clamp(2rem, 4vw, 3rem)',
     fontWeight: 800,
-    background: 'linear-gradient(135deg, #ffffff 0%, #a5b4fc 100%)',
+    background: 'linear-gradient(135deg, var(--text) 0%, var(--indigo-soft) 100%)',
     WebkitBackgroundClip: 'text',
     WebkitTextFillColor: 'transparent',
     backgroundClip: 'text',
@@ -266,9 +266,9 @@ const s = {
     gap: '8px',
     padding: '10px 24px',
     borderRadius: '24px',
-    backgroundColor: 'rgba(255,255,255,0.05)',
-    border: '1px solid rgba(255,255,255,0.1)',
-    color: '#9ca3af',
+    backgroundColor: 'rgb(var(--fg-rgb) / 0.05)',
+    border: '1px solid rgb(var(--fg-rgb) / 0.1)',
+    color: 'var(--text-2)',
     fontSize: '0.95rem',
     fontWeight: 500,
     cursor: 'pointer',
@@ -282,14 +282,14 @@ const s = {
   tabCount: {
     padding: '1px 8px',
     borderRadius: '10px',
-    backgroundColor: 'rgba(255,255,255,0.07)',
-    color: '#6b7280',
+    backgroundColor: 'rgb(var(--fg-rgb) / 0.07)',
+    color: 'var(--text-3)',
     fontSize: '0.75rem',
     fontWeight: 600,
   },
   tabCountActive: {
     backgroundColor: 'rgba(99,102,241,0.2)',
-    color: '#a5b4fc',
+    color: 'var(--indigo-soft)',
   },
   carouselWrap: {
     position: 'relative' as const,
@@ -320,9 +320,9 @@ const s = {
     width: '44px',
     height: '44px',
     borderRadius: '50%',
-    backgroundColor: 'rgba(255,255,255,0.05)',
-    border: '1px solid rgba(255,255,255,0.1)',
-    color: '#fff',
+    backgroundColor: 'rgb(var(--fg-rgb) / 0.05)',
+    border: '1px solid rgb(var(--fg-rgb) / 0.1)',
+    color: 'var(--text)',
     fontSize: '1.6rem',
     lineHeight: 1,
     cursor: 'pointer',
@@ -345,7 +345,7 @@ const s = {
     width: '8px',
     height: '8px',
     borderRadius: '50%',
-    backgroundColor: 'rgba(255,255,255,0.15)',
+    backgroundColor: 'rgb(var(--fg-rgb) / 0.15)',
     border: 'none',
     cursor: 'pointer',
     padding: 0,

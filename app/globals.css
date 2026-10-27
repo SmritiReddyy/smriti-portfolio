@@ -1,27 +1,49 @@
 @import "tailwindcss";
 
+/* Theme tokens. Dark is the default; the toggle sets data-theme="light" on
+   <html>. --fg-rgb / --bg-rgb are bare channels so translucent overlays can
+   be written as rgb(var(--fg-rgb) / 0.08) and flip with the theme. */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg: #0a0a0a;
+  --bg-rgb: 10 10 10;
+  --fg-rgb: 255 255 255;
+  --text: #ffffff;
+  --text-1: #e2e8f0;
+  --text-2: #9ca3af;
+  --text-3: #6b7280;
+  --indigo-soft: #a5b4fc;
+  --indigo-mid: #818cf8;
+  --violet-soft: #c4b5fd;
+  --green: #34d399;
+  --logo-filter: brightness(0) invert(1);
+  color-scheme: dark;
+}
+
+:root[data-theme="light"] {
+  --bg: #f7f6fb;
+  --bg-rgb: 247 246 251;
+  --fg-rgb: 20 18 32;
+  --text: #14121c;
+  --text-1: #2b2838;
+  --text-2: #55516a;
+  --text-3: #77738a;
+  --indigo-soft: #4f46e5;
+  --indigo-mid: #4338ca;
+  --violet-soft: #7c3aed;
+  --green: #059669;
+  --logo-filter: brightness(0);
+  color-scheme: light;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: var(--bg);
+  color: var(--text);
+  transition: background-color 0.3s ease;
   font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -148,16 +170,16 @@ body {
 }
 
 .navbar.scrolled {
-  background: rgba(10, 10, 10, 0.85);
+  background: rgb(var(--bg-rgb) / 0.85);
   backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid rgb(var(--fg-rgb) / 0.06);
   padding: 12px 40px;
 }
 
 .nav-logo {
   font-size: 1.1rem;
   font-weight: 700;
-  color: #ffffff;
+  color: var(--text);
   text-decoration: none;
   letter-spacing: -0.5px;
 }
@@ -171,7 +193,7 @@ body {
 }
 
 .nav-links a {
-  color: #9ca3af;
+  color: var(--text-2);
   text-decoration: none;
   font-size: 0.9rem;
   font-weight: 500;
@@ -180,7 +202,7 @@ body {
 }
 
 .nav-links a:hover {
-  color: #ffffff;
+  color: var(--text);
 }
 
 .nav-cta {
@@ -227,7 +249,7 @@ body {
   justify-content: center;
   font-size: 1.6rem;
   font-weight: 700;
-  border: 1px solid rgba(255,255,255,0.12);
+  border: 1px solid rgb(var(--fg-rgb) / 0.12);
   backdrop-filter: blur(8px);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
@@ -239,7 +261,7 @@ body {
 .tech-icon-label {
   font-size: 0.72rem;
   font-weight: 600;
-  color: rgba(255,255,255,0.55);
+  color: rgb(var(--fg-rgb) / 0.55);
   letter-spacing: 0.5px;
 }
 
@@ -292,15 +314,16 @@ body {
 .animated-gradient-bg {
   background: linear-gradient(
     135deg,
-    #0a0a0a 0%,
+    var(--bg) 0%,
     #0d0b1a 25%,
     #0a0f1a 50%,
     #0d0b1a 75%,
-    #0a0a0a 100%
+    var(--bg) 100%
   );
   background-size: 400% 400%;
   animation: gradientShift 12s ease infinite;
 }
+
 
 /* =========================
    ORB ANIMATIONS
@@ -401,7 +424,7 @@ body {
   height: 44px;
   padding: 0 10px;
   background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid rgb(var(--fg-rgb) / 0.12);
   border-radius: 10px;
   cursor: pointer;
 }
@@ -410,7 +433,7 @@ body {
   display: block;
   height: 2px;
   width: 100%;
-  background: #fff;
+  background: var(--text);
   border-radius: 2px;
   transition: transform 0.25s ease, opacity 0.2s ease;
 }
@@ -428,31 +451,31 @@ body {
   display: flex;
   flex-direction: column;
   padding: 12px 20px 20px;
-  background: rgba(10, 10, 10, 0.97);
+  background: rgb(var(--bg-rgb) / 0.97);
   backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgb(var(--fg-rgb) / 0.08);
 }
 
 .mobile-menu-link {
   padding: 14px 4px;
   background: transparent;
   border: none;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-  color: #e5e7eb;
+  border-bottom: 1px solid rgb(var(--fg-rgb) / 0.06);
+  color: var(--text-1);
   font-size: 1rem;
   font-weight: 500;
   text-align: left;
   cursor: pointer;
 }
 
-.mobile-menu-link:active { color: #a5b4fc; }
+.mobile-menu-link:active { color: var(--indigo-soft); }
 
 .mobile-menu-resume {
   margin-top: 16px;
   padding: 12px 18px;
   border-radius: 10px;
   background: linear-gradient(135deg, #6366f1, #8b5cf6);
-  color: #fff;
+  color: #ffffff;
   font-weight: 600;
   font-size: 0.95rem;
   text-align: center;
@@ -498,6 +521,30 @@ body {
 .skill-chip:hover {
   border-color: rgba(99, 102, 241, 0.5);
   background-color: rgba(99, 102, 241, 0.09);
+}
+
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  background: transparent;
+  border: 1px solid rgb(var(--fg-rgb) / 0.12);
+  border-radius: 10px;
+  color: var(--text-2);
+  cursor: pointer;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+.theme-toggle:hover { color: var(--text); border-color: rgb(var(--fg-rgb) / 0.25); }
+.theme-toggle-moon,
+:root[data-theme="light"] .theme-toggle-sun { display: none; }
+:root[data-theme="light"] .theme-toggle-moon { display: block; }
+.theme-toggle:focus-visible { outline: 2px solid rgba(99, 102, 241, 0.7); outline-offset: 2px; }
+
+@media (max-width: 768px) {
+  .theme-toggle { width: 44px; height: 44px; }
 }
 
 /* Must come after `.nav-toggle { display: none }` above — equal specificity,

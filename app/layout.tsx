@@ -26,10 +26,11 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        {/* Hide the greeting before first paint on repeat visits this session. */}
+        {/* Before first paint: apply the saved theme, and hide the greeting on
+            repeat visits this session. */}
         <script
           dangerouslySetInnerHTML={{
-            __html: `try{if(sessionStorage.getItem('greeting-seen')==='1')document.documentElement.classList.add('greeting-seen')}catch(e){}`,
+            __html: `try{var d=document.documentElement;if(localStorage.getItem('theme')==='light')d.dataset.theme='light';if(sessionStorage.getItem('greeting-seen')==='1')d.classList.add('greeting-seen')}catch(e){}`,
           }}
         />
       </head>

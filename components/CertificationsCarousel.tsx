@@ -145,7 +145,7 @@ export default function CertificationsCarousel() {
                       target="_blank"
                       rel="noopener noreferrer"
                       style={s.certBadgeLink}
-                      onMouseEnter={e => (e.currentTarget.style.color = '#818cf8')}
+                      onMouseEnter={e => (e.currentTarget.style.color = 'var(--indigo-mid)')}
                       onMouseLeave={e => (e.currentTarget.style.color = '#6366f1')}
                     >
                       View Badge →
@@ -232,8 +232,8 @@ const s = {
     alignItems: 'flex-start',
     padding: '28px',
     borderRadius: '16px',
-    backgroundColor: 'rgba(255, 255, 255, 0.03)',
-    border: '1px solid rgba(255, 255, 255, 0.08)',
+    backgroundColor: 'rgb(var(--fg-rgb) / 0.03)',
+    border: '1px solid rgb(var(--fg-rgb) / 0.08)',
     transition: 'all 0.3s ease',
     height: '100%',
     boxSizing: 'border-box' as const,
@@ -242,13 +242,13 @@ const s = {
     width: '52px',
     height: '52px',
     flexShrink: 0,
-    filter: 'brightness(0) invert(1)',
+    filter: 'var(--logo-filter)',
   },
   certContent: { flex: 1 },
   certTitle: {
     fontSize: '1.05rem',
     fontWeight: 600,
-    color: '#ffffff',
+    color: 'var(--text)',
     marginBottom: '6px',
     lineHeight: 1.4,
   },
@@ -260,7 +260,7 @@ const s = {
   },
   certDate: {
     fontSize: '0.85rem',
-    color: '#6b7280',
+    color: 'var(--text-3)',
     margin: '0 0 12px',
   },
   certBadgeLink: {
@@ -274,9 +274,9 @@ const s = {
     width: '44px',
     height: '44px',
     borderRadius: '50%',
-    backgroundColor: 'rgba(255,255,255,0.05)',
-    border: '1px solid rgba(255,255,255,0.1)',
-    color: '#fff',
+    backgroundColor: 'rgb(var(--fg-rgb) / 0.05)',
+    border: '1px solid rgb(var(--fg-rgb) / 0.1)',
+    color: 'var(--text)',
     fontSize: '1.6rem',
     lineHeight: 1,
     cursor: 'pointer',
@@ -299,7 +299,7 @@ const s = {
     width: '8px',
     height: '8px',
     borderRadius: '50%',
-    backgroundColor: 'rgba(255,255,255,0.15)',
+    backgroundColor: 'rgb(var(--fg-rgb) / 0.15)',
     border: 'none',
     cursor: 'pointer',
     padding: 0,

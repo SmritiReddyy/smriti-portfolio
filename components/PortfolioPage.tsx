@@ -6,6 +6,7 @@ import type { Project } from '../lib/types';
 import { asset } from '../lib/basePath';
 import ProjectsSection from './ProjectsSection';
 import CertificationsCarousel from './CertificationsCarousel';
+import ThemeToggle from './ThemeToggle';
 
 type Skill = { name: string; icon?: string; invert?: boolean };
 type SkillGroup = { label: string; items: Skill[] };
@@ -336,23 +337,24 @@ export default function PortfolioPage({ projects }: { projects: Project[] }) {
         position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100,
         padding: scrolled ? '12px 48px' : '18px 48px',
         display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-        background: scrolled || menuOpen ? 'rgba(10,10,10,0.85)' : 'transparent',
+        background: scrolled || menuOpen ? 'rgb(var(--bg-rgb) / 0.85)' : 'transparent',
         backdropFilter: scrolled || menuOpen ? 'blur(20px)' : 'none',
-        borderBottom: scrolled || menuOpen ? '1px solid rgba(255,255,255,0.06)' : 'none',
+        borderBottom: scrolled || menuOpen ? '1px solid rgb(var(--fg-rgb) / 0.06)' : 'none',
         transition: 'all 0.3s ease',
       }}>
         <span onClick={() => scrollTo('#hero-section')} style={{
-          fontSize: '1.1rem', fontWeight: 700, color: '#fff', cursor: 'pointer', letterSpacing: '-0.5px'
+          fontSize: '1.1rem', fontWeight: 700, color: 'var(--text)', cursor: 'pointer', letterSpacing: '-0.5px'
         }}>Smriti Reddy</span>
 
+        <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
         <ul className="nav-links" style={{ display: 'flex', gap: '32px', listStyle: 'none', margin: 0, padding: 0, alignItems: 'center' }}>
           {NAV_LINKS.map(([label, id]) => (
             <li key={id}><span onClick={() => scrollTo(id)} style={{
-              color: '#9ca3af', cursor: 'pointer', fontSize: '0.9rem', fontWeight: 500,
+              color: 'var(--text-2)', cursor: 'pointer', fontSize: '0.9rem', fontWeight: 500,
               transition: 'color 0.2s', textDecoration: 'none'
             }}
-            onMouseEnter={e => (e.currentTarget.style.color = '#fff')}
-            onMouseLeave={e => (e.currentTarget.style.color = '#9ca3af')}
+            onMouseEnter={e => (e.currentTarget.style.color = 'var(--text)')}
+            onMouseLeave={e => (e.currentTarget.style.color = 'var(--text-2)')}
             >{label}</span></li>
           ))}
           <li><a href={asset('/Smriti_Reddy_Resume.pdf')} target="_blank" style={{
@@ -361,6 +363,8 @@ export default function PortfolioPage({ projects }: { projects: Project[] }) {
             color: '#fff', fontWeight: 600, fontSize: '0.875rem', textDecoration: 'none'
           }}>Resume</a></li>
         </ul>
+
+        <ThemeToggle />
 
         {/* Mobile: the links above are hidden under 768px, so sections are
             only reachable through this menu. */}
@@ -375,6 +379,7 @@ export default function PortfolioPage({ projects }: { projects: Project[] }) {
           <span className={`nav-toggle-bar${menuOpen ? ' is-open-mid' : ''}`} />
           <span className={`nav-toggle-bar${menuOpen ? ' is-open-bot' : ''}`} />
         </button>
+        </div>
       </nav>
 
       <div
@@ -480,7 +485,7 @@ export default function PortfolioPage({ projects }: { projects: Project[] }) {
           }}
           style={styles.scrollButton}
           onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'rgba(99, 102, 241, 0.4)'; }}
-          onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.2)'; }}
+          onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'rgb(var(--fg-rgb) / 0.2)'; }}
         >
           <span style={styles.scrollIcon}>↓</span>
           <span style={styles.scrollText}>Scroll Down</span>
@@ -533,12 +538,12 @@ export default function PortfolioPage({ projects }: { projects: Project[] }) {
               }}>
                 <img src={edu.logo} alt={edu.school} style={{ width: '125%', height: '125%', objectFit: 'contain' }} />
               </div>
-              <div style={{ height: '1px', background: 'rgba(255,255,255,0.08)', margin: '0 -32px' }} />
+              <div style={{ height: '1px', background: 'rgb(var(--fg-rgb) / 0.08)', margin: '0 -32px' }} />
               <div style={{ display: 'flex', flexDirection: 'column' as const, gap: '16px' }}>
                 <div style={{ textAlign: 'center' as const }}>
-                  <h3 style={{ fontSize: '1.3rem', fontWeight: 700, color: '#fff', margin: '0 0 6px' }}>{edu.degree}</h3>
+                  <h3 style={{ fontSize: '1.3rem', fontWeight: 700, color: 'var(--text)', margin: '0 0 6px' }}>{edu.degree}</h3>
                   <p style={{ fontSize: '1rem', fontWeight: 600, color: '#6366f1', margin: '0 0 4px' }}>{edu.field}</p>
-                  <p style={{ fontSize: '0.9rem', color: '#9ca3af', margin: 0 }}>{edu.school} · {edu.location}</p>
+                  <p style={{ fontSize: '0.9rem', color: 'var(--text-2)', margin: 0 }}>{edu.school} · {edu.location}</p>
                 </div>
                 <div style={styles.eduMeta}>
                   <span style={styles.eduMetaItem}>{edu.period}</span>
@@ -586,7 +591,7 @@ export default function PortfolioPage({ projects }: { projects: Project[] }) {
                           width: '22px',
                           height: '22px',
                           objectFit: 'contain',
-                          ...(item.invert ? { filter: 'brightness(0) invert(1)' } : {}),
+                          ...(item.invert ? { filter: 'var(--logo-filter)' } : {}),
                         }}
                       />
                     )}
@@ -692,8 +697,8 @@ export default function PortfolioPage({ projects }: { projects: Project[] }) {
 
 const styles = {
   container: {
-    backgroundColor: "#0a0a0a",
-    color: "#ffffff",
+    backgroundColor: "var(--bg)",
+    color: "var(--text)",
     minHeight: "100vh",
     fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, sans-serif",
   },
@@ -722,7 +727,7 @@ const styles = {
     borderRadius: "20px",
     backgroundColor: "rgba(52, 211, 153, 0.1)",
     border: "1px solid rgba(52, 211, 153, 0.3)",
-    color: "#34d399",
+    color: "var(--green)",
     fontSize: "0.875rem",
     marginBottom: "24px",
     fontWeight: 500,
@@ -731,13 +736,13 @@ const styles = {
     width: "8px",
     height: "8px",
     borderRadius: "50%",
-    backgroundColor: "#34d399",
+    backgroundColor: "var(--green)",
     animation: "pulse 2s ease-in-out infinite",
   },
   name: {
     fontSize: "4rem",
     fontWeight: 700,
-    background: "linear-gradient(135deg, #ffffff 0%, #c4b5fd 50%, #818cf8 100%)",
+    background: "linear-gradient(135deg, var(--text) 0%, var(--violet-soft) 50%, var(--indigo-mid) 100%)",
     WebkitBackgroundClip: "text",
     WebkitTextFillColor: "transparent",
     backgroundClip: "text",
@@ -746,13 +751,13 @@ const styles = {
   },
   subtitle: {
     fontSize: "1.15rem",
-    color: "#9ca3af",
+    color: "var(--text-2)",
     marginBottom: "10px",
     fontWeight: 400,
   },
   tagline: {
     fontSize: "0.9rem",
-    color: "#a5b4fc",
+    color: "var(--indigo-soft)",
     fontWeight: 700,
     letterSpacing: "3px",
     textTransform: "uppercase" as const,
@@ -760,14 +765,14 @@ const styles = {
   },
   description: {
     fontSize: "1.1rem",
-    color: "#e2e8f0",
+    color: "var(--text-1)",
     lineHeight: 1.9,
     maxWidth: "900px",
     margin: "0 auto 16px",
   },
   descriptionSecond: {
     fontSize: "1rem",
-    color: "#e2e8f0",
+    color: "var(--text-1)",
     lineHeight: 1.75,
     maxWidth: "760px",
     margin: "0 auto 40px",
@@ -784,9 +789,9 @@ const styles = {
     gap: "8px",
     padding: "14px 28px",
     borderRadius: "12px",
-    backgroundColor: "rgba(255, 255, 255, 0.05)",
-    border: "1px solid rgba(255, 255, 255, 0.1)",
-    color: "#ffffff",
+    backgroundColor: "rgb(var(--fg-rgb) / 0.05)",
+    border: "1px solid rgb(var(--fg-rgb) / 0.1)",
+    color: "var(--text)",
     textDecoration: "none",
     fontWeight: 600,
     fontSize: "1rem",
@@ -804,9 +809,9 @@ const styles = {
     gap: "4px",
     padding: "8px 16px",
     borderRadius: "10px",
-    backgroundColor: "rgba(255, 255, 255, 0.03)",
-    border: "1px solid rgba(255, 255, 255, 0.12)",
-    color: "#ffffff",
+    backgroundColor: "rgb(var(--fg-rgb) / 0.03)",
+    border: "1px solid rgb(var(--fg-rgb) / 0.12)",
+    color: "var(--text)",
     cursor: "pointer",
     transition: "all 0.3s ease",
     zIndex: 3,
@@ -818,7 +823,7 @@ const styles = {
   scrollText: {
     fontSize: "0.72rem",
     fontWeight: 500,
-    color: "#6b7280",
+    color: "var(--text-3)",
   },
   section: {
     maxWidth: "1200px",
@@ -845,8 +850,8 @@ const styles = {
   skillGroup: {
     padding: "24px",
     borderRadius: "16px",
-    backgroundColor: "rgba(255,255,255,0.03)",
-    border: "1px solid rgba(255,255,255,0.08)",
+    backgroundColor: "rgb(var(--fg-rgb) / 0.03)",
+    border: "1px solid rgb(var(--fg-rgb) / 0.08)",
   },
   skillGroupLabel: {
     margin: "0 0 16px",
@@ -854,7 +859,7 @@ const styles = {
     fontWeight: 700,
     letterSpacing: "0.12em",
     textTransform: "uppercase" as const,
-    color: "#818cf8",
+    color: "var(--indigo-mid)",
   },
   skillItems: {
     display: "flex",
@@ -867,13 +872,13 @@ const styles = {
     gap: "8px",
     padding: "7px 12px",
     borderRadius: "10px",
-    backgroundColor: "rgba(255,255,255,0.04)",
-    border: "1px solid rgba(255,255,255,0.08)",
+    backgroundColor: "rgb(var(--fg-rgb) / 0.04)",
+    border: "1px solid rgb(var(--fg-rgb) / 0.08)",
     transition: "border-color 0.2s ease, background-color 0.2s ease",
   },
   skillChipLabel: {
     fontSize: "0.82rem",
-    color: "#d1d5db",
+    color: "var(--text-1)",
     fontWeight: 500,
     whiteSpace: "nowrap" as const,
   },
@@ -885,8 +890,8 @@ const styles = {
     gap: "24px",
     padding: "32px",
     borderRadius: "20px",
-    backgroundColor: "rgba(255, 255, 255, 0.03)",
-    border: "1px solid rgba(255, 255, 255, 0.08)",
+    backgroundColor: "rgb(var(--fg-rgb) / 0.03)",
+    border: "1px solid rgb(var(--fg-rgb) / 0.08)",
     marginBottom: "24px",
     transition: "all 0.3s ease",
   },
@@ -901,7 +906,7 @@ const styles = {
     fontSize: "1.2rem",
     fontWeight: 600,
     marginBottom: "8px",
-    color: "#ffffff",
+    color: "var(--text)",
   },
   researchVenue: {
     fontSize: "0.9rem",
@@ -911,16 +916,16 @@ const styles = {
   },
   researchDesc: {
     fontSize: "0.95rem",
-    color: "#9ca3af",
+    color: "var(--text-2)",
     lineHeight: 1.7,
   },
   footer: {
-    borderTop: "1px solid rgba(255, 255, 255, 0.08)",
+    borderTop: "1px solid rgb(var(--fg-rgb) / 0.08)",
     padding: "40px 20px",
     textAlign: "center" as const,
   },
   footerText: {
-    color: "#6b7280",
+    color: "var(--text-3)",
     fontSize: "0.9rem",
     lineHeight: 1.6,
   },
@@ -938,14 +943,14 @@ const styles = {
     fontSize: "2.5rem",
     fontWeight: 700,
     marginBottom: "16px",
-    background: "linear-gradient(135deg, #ffffff 0%, #a0a0a0 100%)",
+    background: "linear-gradient(135deg, var(--text) 0%, var(--text-2) 100%)",
     WebkitBackgroundClip: "text",
     WebkitTextFillColor: "transparent",
     backgroundClip: "text",
   },
   contactSubtitle: {
     fontSize: "1.1rem",
-    color: "#9ca3af",
+    color: "var(--text-2)",
     marginBottom: "48px",
     lineHeight: 1.6,
     maxWidth: "700px",
@@ -960,8 +965,8 @@ const styles = {
   contactCard: {
     padding: "32px 24px",
     borderRadius: "16px",
-    backgroundColor: "rgba(255, 255, 255, 0.03)",
-    border: "1px solid rgba(255, 255, 255, 0.1)",
+    backgroundColor: "rgb(var(--fg-rgb) / 0.03)",
+    border: "1px solid rgb(var(--fg-rgb) / 0.1)",
     textDecoration: "none",
     display: "flex",
     flexDirection: "column" as const,
@@ -977,12 +982,12 @@ const styles = {
   contactCardTitle: {
     fontSize: "1.1rem",
     fontWeight: 600,
-    color: "#ffffff",
+    color: "var(--text)",
     margin: 0,
   },
   contactCardText: {
     fontSize: "0.9rem",
-    color: "#9ca3af",
+    color: "var(--text-2)",
     margin: 0,
   },
   locationBadge: {
@@ -993,7 +998,7 @@ const styles = {
     borderRadius: "24px",
     backgroundColor: "rgba(99, 102, 241, 0.1)",
     border: "1px solid rgba(99, 102, 241, 0.2)",
-    color: "#a5b4fc",
+    color: "var(--indigo-soft)",
     fontSize: "0.95rem",
     fontWeight: 500,
   },
@@ -1012,8 +1017,8 @@ const styles = {
   eduCard: {
     padding: "32px",
     borderRadius: "20px",
-    backgroundColor: "rgba(255, 255, 255, 0.03)",
-    border: "1px solid rgba(255, 255, 255, 0.08)",
+    backgroundColor: "rgb(var(--fg-rgb) / 0.03)",
+    border: "1px solid rgb(var(--fg-rgb) / 0.08)",
     display: "flex",
     flexDirection: "column" as const,
     gap: "24px",
@@ -1026,15 +1031,15 @@ const styles = {
     gap: "10px",
     padding: "12px 16px",
     borderRadius: "10px",
-    backgroundColor: "rgba(255, 255, 255, 0.03)",
-    border: "1px solid rgba(255, 255, 255, 0.06)",
+    backgroundColor: "rgb(var(--fg-rgb) / 0.03)",
+    border: "1px solid rgb(var(--fg-rgb) / 0.06)",
   },
   eduMetaItem: {
     fontSize: "0.875rem",
-    color: "#9ca3af",
+    color: "var(--text-2)",
   },
   eduMetaDot: {
-    color: "rgba(255,255,255,0.2)",
+    color: "rgb(var(--fg-rgb) / 0.2)",
     fontSize: "1rem",
   },
   eduCourseWrap: {
@@ -1045,7 +1050,7 @@ const styles = {
   eduCourseLabel: {
     fontSize: "0.72rem",
     fontWeight: 700,
-    color: "#6b7280",
+    color: "var(--text-3)",
     letterSpacing: "1.5px",
     margin: 0,
   },
@@ -1059,7 +1064,7 @@ const styles = {
     borderRadius: "6px",
     backgroundColor: "rgba(99, 102, 241, 0.08)",
     border: "1px solid rgba(99, 102, 241, 0.18)",
-    color: "#a5b4fc",
+    color: "var(--indigo-soft)",
     fontSize: "0.8rem",
     fontWeight: 500,
   },
