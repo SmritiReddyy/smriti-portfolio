@@ -505,3 +505,60 @@ body {
 @media (max-width: 768px) {
   .nav-toggle { display: inline-flex; }
 }
+
+/* =========================
+   GREETING SCREEN
+   ========================= */
+
+.greeting-screen { position: fixed; inset: 0; z-index: 9999; display: flex; }
+.greeting-seen .greeting-screen { display: none; }
+
+/* Each panel shows its quarter of one shared gradient, so the screen reads as
+   a single surface until the panels lift off in sequence. */
+.greeting-panel {
+  flex: 1;
+  height: 100%;
+  background: linear-gradient(135deg, #1e152e, #2a1a40);
+  background-size: 400% 100%;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.greeting-panel + .greeting-panel { margin-left: -1px; }
+.greeting-panel:nth-child(1) { background-position: 0% 0; }
+.greeting-panel:nth-child(2) { background-position: 33.333% 0; }
+.greeting-panel:nth-child(3) { background-position: 66.667% 0; }
+.greeting-panel:nth-child(4) { background-position: 100% 0; }
+
+.greeting-screen--exit { pointer-events: none; }
+.greeting-screen--exit .greeting-panel { transform: translateY(-100%); will-change: transform; }
+.greeting-screen--exit .greeting-panel:nth-child(2) { transition-delay: 0.1s; }
+.greeting-screen--exit .greeting-panel:nth-child(3) { transition-delay: 0.2s; }
+.greeting-screen--exit .greeting-panel:nth-child(4) { transition-delay: 0.3s; }
+
+.greeting-content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.3s;
+}
+.greeting-screen--exit .greeting-content { opacity: 0; }
+
+.greeting-word {
+  font-size: clamp(4rem, 12vw, 8rem);
+  letter-spacing: -0.04em;
+  line-height: 1.2;
+  color: #ddd0f7;
+}
+.greeting-word--indic { font-size: clamp(2.75rem, 8vw, 5.5rem); letter-spacing: 0; }
+
+@keyframes greetingLetterIn {
+  from { opacity: 0; filter: blur(10px); }
+  to   { opacity: 1; filter: blur(0); }
+}
+.greeting-letter { display: inline-block; animation: greetingLetterIn 0.5s ease-out backwards; }
+
+@media (prefers-reduced-motion: reduce) {
+  .greeting-letter { animation: none; }
+  .greeting-panel { transition: none; }
+}
