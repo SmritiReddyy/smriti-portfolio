@@ -16,21 +16,6 @@
       ]
     },
     {
-      "repoName": "distributed-cluster-monitoring-system",
-      "title": "Fault-Tolerant Distributed Key-Value Store",
-      "desc": "Fault-tolerant replicated key-value store in C++ supporting concurrent reads/writes across a 5-node cluster. Implemented RAFT consensus from scratch \u2014 leader election, log replication, state machine replication \u2014 achieving 8,000+ ops/sec under 30% node failure. Reduced failover recovery to under 200ms.",
-      "category": "systems-cloud",
-      "badge": "Distributed Systems",
-      "badgeStyle": null,
-      "badges": null,
-      "lang": "C++",
-      "tags": [
-        "RAFT Consensus",
-        "Fault Tolerance",
-        "Replication"
-      ]
-    },
-    {
       "repoName": "secure-payment-microservices",
       "title": "Secure Payment Microservice",
       "desc": "Dual-service microservices architecture \u2014 Spring Boot REST API for transaction management and Django fraud-scoring service \u2014 containerized with Docker, orchestrated via docker-compose. OAuth2/JWT auth, MySQL for transactions, MongoDB for session/audit logs, deployed on AWS EC2.",
@@ -78,13 +63,21 @@
     {
       "repoName": "meridian",
       "title": "Meridian",
-      "desc": "",
+      "desc": "Multi-agent LLM research assistant: a Planner splits the question, a Researcher gathers sourced evidence, a Critic sends gaps back for more research, and a Synthesizer answers with inline citations. Built on LangGraph and FastAPI; in a RAGAS evaluation the Critic raised faithfulness from 0.80 to 0.87 and cut hallucinations from 20% to 14%.",
       "category": "ml-data-science",
       "badge": null,
       "badgeStyle": null,
-      "badges": null,
+      "badges": [
+        "AI",
+        "LLM Agents"
+      ],
       "lang": "Python",
-      "tags": []
+      "tags": [
+        "LangGraph",
+        "FastAPI",
+        "RAGAS",
+        "Next.js"
+      ]
     },
     {
       "repoName": "ImageProcessingApplication",
@@ -205,15 +198,16 @@
     {
       "repoName": "raft-kv",
       "title": "Raft KV",
-      "desc": "Fault-tolerant key-value store in C++20 with Raft from scratch: 5-node cluster, linearizability-checked under crashes and partitions",
+      "desc": "Fault-tolerant key-value store in C++20 with Raft implemented from scratch: leader election with pre-vote, log replication and a replicated state machine across a 5-node cluster. 1.94M operations verified linearizable under 16 SIGKILLs and 43 network partitions, with leader failover in a median 139 ms.",
       "category": "systems-cloud",
-      "badge": null,
+      "badge": "Distributed Systems",
       "badgeStyle": null,
       "badges": null,
       "lang": "C++",
       "tags": [
         "Raft Consensus",
         "Linearizability",
+        "Fault Tolerance",
         "C++20"
       ]
     },
