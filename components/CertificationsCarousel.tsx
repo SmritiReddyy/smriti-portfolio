@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { asset } from '../lib/basePath';
 
 type Certification = {
   title: string;
@@ -12,10 +13,11 @@ type Certification = {
   iconAlt: string;
 };
 
-const AWS_ICON =
-  'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg';
-const GCP_ICON =
-  'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/googlecloud/googlecloud-plain-wordmark.svg';
+// Self-hosted devicon 2.16.0 wordmarks: devicon dropped the AWS logo and
+// jsDelivr now serves 403 for it. Both viewBoxes are cropped to the artwork,
+// so the two logos fill the same box instead of floating in padding.
+const AWS_ICON = asset('/logos/aws.svg');
+const GCP_ICON = asset('/logos/google-cloud.svg');
 
 const CERTIFICATIONS: Certification[] = [
   {
@@ -239,8 +241,10 @@ const s = {
     boxSizing: 'border-box' as const,
   },
   certIcon: {
-    width: '52px',
-    height: '52px',
+    width: '72px',
+    height: '44px',
+    objectFit: 'contain',
+    objectPosition: 'left center',
     flexShrink: 0,
     filter: 'var(--logo-filter)',
   },
