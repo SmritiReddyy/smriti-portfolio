@@ -432,7 +432,7 @@ export default function PortfolioPage({ projects }: { projects: Project[] }) {
           </div>
 
           <h1 style={{...styles.name, animation: 'heroName 0.8s ease 0.25s both'}} className="hero-name">
-            Smriti Reddy Uravakonda
+            Hi, I&apos;m Smriti.
           </h1>
 
           <p style={{...styles.subtitle, animation: 'fadeUp 0.7s ease 0.45s both'}}>
