@@ -506,7 +506,7 @@ export default function PortfolioPage({ projects }: { projects: Project[] }) {
         </button>
       </section>
 
-      <Highlights />
+      <Highlights projects={projects} />
 
       {/* Projects Section — powered by GitHub */}
       <ProjectsSection projects={projects} />

@@ -1,5 +1,14 @@
 export type ProjectCategory = 'systems-cloud' | 'ml-data-science';
 
+/** Subtopic in the projects list. Optional in the data: projects added through
+ *  the admin panel fall back to a group derived from their category. */
+export type ProjectGroup = 'distributed' | 'fullstack' | 'ai-data' | 'ml';
+
+export interface ProjectMetric {
+  value: string;
+  label: string;
+}
+
 export interface ProjectOverride {
   /** Display title — falls back to formatted repo name */
   title?: string;
@@ -30,4 +39,10 @@ export interface Project {
   badges?: string[];
   category: ProjectCategory;
   tags: string[];
+  group: ProjectGroup;
+  /** One-liner shown on the collapsed row and the Highlights card */
+  tagline: string;
+  metrics: ProjectMetric[];
+  /** Live demo URL, when there is one */
+  live?: string;
 }

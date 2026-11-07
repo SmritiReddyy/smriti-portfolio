@@ -1,6 +1,6 @@
 import { readFileSync } from 'fs';
 import { join } from 'path';
-import type { Project } from './types';
+import type { Project, ProjectGroup, ProjectMetric } from './types';
 
 export const GITHUB_USERNAME = 'SmritiReddyy';
 
@@ -14,6 +14,10 @@ interface StoredProject {
   badges: string[] | null;
   lang: string;
   tags: string[];
+  group?: ProjectGroup;
+  tagline?: string;
+  metrics?: ProjectMetric[];
+  live?: string;
 }
 
 interface PortfolioConfig {
@@ -36,6 +40,10 @@ export function getPortfolioProjects(): Project[] {
     badges: p.badges ?? undefined,
     category: p.category,
     tags: p.tags,
+    group: p.group ?? (p.category === 'ml-data-science' ? 'ml' : 'fullstack'),
+    tagline: p.tagline ?? '',
+    metrics: p.metrics ?? [],
+    live: p.live,
   }));
 }
 

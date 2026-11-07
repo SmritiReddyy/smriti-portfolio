@@ -1,12 +1,11 @@
 'use client';
 
 import { useEffect, useRef, useState, type ReactNode } from 'react';
+import type { Project } from '../lib/types';
 
 type Tone = 'lavender' | 'indigo' | 'plum';
-type Highlight = { name: string; line: string; href: string; tone: Tone; icon: ReactNode };
-
-// lib/github reads the filesystem, so it can't be imported into a client component.
-const gh = (repo: string) => `https://github.com/SmritiReddyy/${repo}`;
+/** Name and tagline come from the project data, so they're edited in one place. */
+type Highlight = { repo: string; tone: Tone; icon: ReactNode };
 
 /** Lucide-style 24px stroke icons, drawn with currentColor. */
 const Icon = ({ children }: { children: ReactNode }) => (
@@ -18,55 +17,59 @@ const Icon = ({ children }: { children: ReactNode }) => (
 /** Tones cycle lavender → indigo → plum so neighbours never match. */
 const HIGHLIGHTS: Highlight[] = [
   {
-    name: 'NexLedger', tone: 'lavender', href: gh('NexLedger'),
-    line: 'A payment ledger where every cent can be replayed.',
+    repo: 'NexLedger', tone: 'lavender',
     icon: <Icon><rect x="2" y="5" width="20" height="14" rx="2" /><path d="M2 10h20M6 15h4" /></Icon>,
   },
   {
-    name: 'Raft KV', tone: 'indigo', href: gh('raft-kv'),
-    line: 'Consensus from scratch in C++, survives SIGKILL.',
+    repo: 'raft-kv', tone: 'indigo',
     icon: <Icon><rect x="9" y="2" width="6" height="6" rx="1" /><rect x="2" y="16" width="6" height="6" rx="1" /><rect x="16" y="16" width="6" height="6" rx="1" /><path d="M5 16v-3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3M12 12V8" /></Icon>,
   },
   {
-    name: 'Argus', tone: 'plum', href: gh('Argus'),
-    line: 'Watches your microservices and flags what looks wrong.',
+    repo: 'Argus', tone: 'plum',
     icon: <Icon><path d="M22 12h-4l-3 9L9 3l-3 9H2" /></Icon>,
   },
   {
-    name: 'Meridian', tone: 'lavender', href: gh('meridian'),
-    line: 'Research agents that cite their sources and check each other.',
+    repo: 'meridian', tone: 'lavender',
     icon: <Icon><circle cx="12" cy="12" r="10" /><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20" /></Icon>,
   },
   {
-    name: 'Tideline', tone: 'indigo', href: gh('tideline'),
-    line: 'Production data, streamed into a lakehouse seconds behind.',
+    repo: 'tideline', tone: 'indigo',
     icon: <Icon><path d="M2 6c.6.5 1.2 1 2.5 1C7 7 7 5 9.5 5c2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1M2 12c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1M2 18c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1" /></Icon>,
   },
   {
-    name: 'ContractPilot', tone: 'plum', href: 'https://contractpilot-sooty.vercel.app',
-    line: 'Contracts that get read, risk-checked and signed.',
+    repo: 'contractpilot', tone: 'plum',
     icon: <Icon><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" /><path d="M14 2v6h6M8 13h8M8 17h5" /></Icon>,
   },
   {
-    name: 'Lodestar', tone: 'lavender', href: gh('lodestar'),
-    line: 'Messy CSVs in, a tested warehouse out.',
+    repo: 'lodestar', tone: 'lavender',
     icon: <Icon><circle cx="12" cy="12" r="10" /><path d="m16.24 7.76-2.12 6.36-6.36 2.12 2.12-6.36z" /></Icon>,
   },
   {
-    name: 'TrustPaws', tone: 'indigo', href: 'https://smritireddyy.github.io/trustpaws',
-    line: 'Live updates from your pet’s spa visit.',
+    repo: 'trustpaws', tone: 'indigo',
     icon: <Icon><circle cx="11" cy="4" r="2" /><circle cx="18" cy="8" r="2" /><circle cx="20" cy="16" r="2" /><path d="M9 10a5 5 0 0 1 5 5v3.5a3.5 3.5 0 0 1-6.84 1.05Q6.52 17.48 4.46 16.84A3.5 3.5 0 0 1 5.5 10Z" /></Icon>,
   },
 ];
 
-const N = HIGHLIGHTS.length;
+export const FEATURED_REPOS = HIGHLIGHTS.map(h => h.repo);
+/** Id of a project's row in the projects list, which a card links to. */
+export const projectAnchor = (repo: string) => `project-${repo}`;
+
 const COPIES = 3;           // middle copy is "home"; the outer two let it loop
 const OVERLAP = 28;         // px each card tucks under the next
 const AUTO_MS = 2800;
 const QUIET_MS = 6000;      // pause after the visitor drives it
 const DRAG_THRESHOLD = 6;
 
-export default function Highlights() {
+export default function Highlights({ projects }: { projects: Project[] }) {
+  // Skip a featured repo that's been removed from the data, so the loop maths
+  // only ever counts cards that exist.
+  const byRepo = new Map(projects.map(p => [p.name, p]));
+  const items = HIGHLIGHTS.flatMap(h => {
+    const p = byRepo.get(h.repo);
+    return p ? [{ ...h, p }] : [];
+  });
+  const N = items.length;
+
   const deckRef = useRef<HTMLDivElement>(null);
   const [cardW, setCardW] = useState(300);
   const [index, setIndex] = useState(N);
@@ -135,7 +138,7 @@ export default function Highlights() {
     go(shift);
   };
 
-  const cards = Array.from({ length: N * COPIES }, (_, i) => ({ h: HIGHLIGHTS[i % N], clone: i < N || i >= 2 * N, i }));
+  const cards = Array.from({ length: N * COPIES }, (_, i) => ({ ...items[i % N], clone: i < N || i >= 2 * N, i }));
 
   return (
     <section id="highlights-section" className="hl-section">
@@ -176,23 +179,24 @@ export default function Highlights() {
               transition: animate ? 'transform 0.6s cubic-bezier(0.22, 1, 0.36, 1)' : 'none',
             }}
           >
-            {cards.map(({ h, clone, i }) => (
+            {cards.map(({ tone, icon, p, clone, i }) => (
               <a
                 key={i}
-                href={h.href}
-                target="_blank"
-                rel="noopener noreferrer"
+                href={`#${projectAnchor(p.name)}`}
                 className="hl-card"
                 draggable={false}
                 tabIndex={clone ? -1 : undefined}
                 aria-hidden={clone || undefined}
+                aria-label={`${p.title}: ${p.tagline} Show project details.`}
                 onFocus={() => { quiet(); setAnimate(true); setIndex(i); }}
+                // Re-clicking the card already in the URL fires no hashchange.
+                onClick={() => { if (location.hash === `#${projectAnchor(p.name)}`) window.dispatchEvent(new HashChangeEvent('hashchange')); }}
                 style={{ width: cardW, left: i * step }}
               >
-                <span className={`hl-card-in hl-tone-${h.tone}`}>
-                  <span className="hl-card-name">{h.name}</span>
-                  <span className="hl-card-line">{h.line}</span>
-                  <span className="hl-card-icon">{h.icon}</span>
+                <span className={`hl-card-in hl-tone-${tone}`}>
+                  <span className="hl-card-name">{p.title}</span>
+                  <span className="hl-card-line">{p.tagline}</span>
+                  <span className="hl-card-icon">{icon}</span>
                 </span>
               </a>
             ))}

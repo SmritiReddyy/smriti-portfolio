@@ -13,6 +13,22 @@
         "Kafka",
         "Spark Streaming",
         "Isolation Forest"
+      ],
+      "group": "distributed",
+      "tagline": "Watches your microservices and flags what looks wrong.",
+      "metrics": [
+        {
+          "value": "12 / 12",
+          "label": "injected faults caught live"
+        },
+        {
+          "value": "9.9 s",
+          "label": "median detection delay"
+        },
+        {
+          "value": "0.99",
+          "label": "incident recall in benchmark"
+        }
       ]
     },
     {
@@ -28,7 +44,9 @@
         "Spring Boot",
         "Docker",
         "OAuth2/JWT"
-      ]
+      ],
+      "group": "fullstack",
+      "tagline": "Payments API with a separate fraud-scoring service."
     },
     {
       "repoName": "contractpilot",
@@ -43,7 +61,10 @@
         "Full-Stack",
         "AI Risk Analysis",
         "E-Signatures"
-      ]
+      ],
+      "group": "fullstack",
+      "tagline": "Contracts that get read, risk-checked and signed.",
+      "live": "https://contractpilot-sooty.vercel.app"
     },
     {
       "repoName": "Distributed-ClientServer-Performance",
@@ -58,7 +79,9 @@
         "Benchmarking",
         "Load Testing",
         "Optimization"
-      ]
+      ],
+      "group": "distributed",
+      "tagline": "How a client-server system holds up as load grows."
     },
     {
       "repoName": "meridian",
@@ -77,6 +100,22 @@
         "FastAPI",
         "RAGAS",
         "Next.js"
+      ],
+      "group": "ai-data",
+      "tagline": "Research agents that cite their sources and check each other.",
+      "metrics": [
+        {
+          "value": "0.87",
+          "label": "faithfulness, up from 0.80"
+        },
+        {
+          "value": "13.8%",
+          "label": "hallucination rate, down from 20.3%"
+        },
+        {
+          "value": "25",
+          "label": "evaluation questions"
+        }
       ]
     },
     {
@@ -92,7 +131,9 @@
         "MVC",
         "Design Patterns",
         "GUI"
-      ]
+      ],
+      "group": "fullstack",
+      "tagline": "An image editor with CLI, GUI and batch modes."
     },
     {
       "repoName": "Alzheimer-s-Disease-Detection-with-ML",
@@ -110,7 +151,9 @@
         "Classification",
         "Healthcare Analytics",
         "Model Comparison"
-      ]
+      ],
+      "group": "ml",
+      "tagline": "Flagging early-stage Alzheimer\u2019s from clinical data."
     },
     {
       "repoName": "Cardio-Risk-Predictor",
@@ -128,7 +171,9 @@
         "Ensemble Methods",
         "Feature Engineering",
         "Predictive Analytics"
-      ]
+      ],
+      "group": "ml",
+      "tagline": "Heart-disease risk from ensemble models."
     },
     {
       "repoName": "trustpaws",
@@ -143,7 +188,10 @@
         "Real-Time Tracking",
         "Full-Stack",
         "Incident Reporting"
-      ]
+      ],
+      "group": "fullstack",
+      "tagline": "Live updates from your pet\u2019s spa visit.",
+      "live": "https://smritireddyy.github.io/trustpaws"
     },
     {
       "repoName": "Stellar-Classifier",
@@ -161,7 +209,9 @@
         "Multi-class Classification",
         "Scientific Data",
         "Data Analysis"
-      ]
+      ],
+      "group": "ml",
+      "tagline": "Sorting stars into types from their measurements."
     },
     {
       "repoName": "ConvolutionalAutoEncoders",
@@ -178,14 +228,16 @@
         "Deep Learning",
         "Unsupervised",
         "Computer Vision"
-      ]
+      ],
+      "group": "ml",
+      "tagline": "Learning compact image features without labels."
     },
     {
       "repoName": "NexLedger",
       "title": "NexLedger",
       "desc": "Production-grade event-sourced payment ledger with CQRS, idempotent transactions, crash-safe transfer sagas, and real-time XGBoost fraud scoring \u2014 built on Spring WebFlux, Kafka, PostgreSQL, and Redis.",
       "category": "systems-cloud",
-      "badge": null,
+      "badge": "Event Sourcing",
       "badgeStyle": null,
       "badges": null,
       "lang": "Java",
@@ -193,6 +245,22 @@
         "Event Sourcing",
         "CQRS",
         "Spring WebFlux"
+      ],
+      "group": "distributed",
+      "tagline": "A payment ledger where every cent can be replayed.",
+      "metrics": [
+        {
+          "value": "537 req/s",
+          "label": "sustained, 0 failures"
+        },
+        {
+          "value": "0",
+          "label": "replay mismatches in 39k events"
+        },
+        {
+          "value": "6.2 ms",
+          "label": "p95 fraud scoring"
+        }
       ]
     },
     {
@@ -209,14 +277,30 @@
         "Linearizability",
         "Fault Tolerance",
         "C++20"
+      ],
+      "group": "distributed",
+      "tagline": "Consensus from scratch in C++, survives SIGKILL.",
+      "metrics": [
+        {
+          "value": "1.94M",
+          "label": "operations checked linearizable"
+        },
+        {
+          "value": "139 ms",
+          "label": "median leader failover"
+        },
+        {
+          "value": "5",
+          "label": "node cluster"
+        }
       ]
     },
     {
       "repoName": "tideline",
       "title": "Tideline",
-      "desc": "CDC streaming lakehouse: Debezium, Kafka, Spark Structured Streaming, Delta Lake",
+      "desc": "Streaming pipeline that keeps a Delta Lake lakehouse in sync with production Postgres, row by row: Debezium reads the write-ahead log, Kafka carries the changes, and Spark merges upserts, deletes and schema changes as they happen.",
       "category": "ml-data-science",
-      "badge": null,
+      "badge": "Data Engineering",
       "badgeStyle": null,
       "badges": null,
       "lang": "Python",
@@ -224,14 +308,30 @@
         "Debezium",
         "Spark Streaming",
         "Delta Lake"
+      ],
+      "group": "ai-data",
+      "tagline": "Production data, streamed into a lakehouse seconds behind.",
+      "metrics": [
+        {
+          "value": "7.5 s",
+          "label": "median commit to queryable"
+        },
+        {
+          "value": "0",
+          "label": "mismatches against Postgres"
+        },
+        {
+          "value": "1.59\u00d7",
+          "label": "faster queries after compaction"
+        }
       ]
     },
     {
       "repoName": "lodestar",
       "title": "Lodestar",
-      "desc": "ELT analytics platform: Airflow, dbt, BigQuery/DuckDB, Terraform, Great Expectations",
+      "desc": "Batch analytics platform that turns raw e-commerce CSVs into a tested star-schema warehouse: dbt models and tests every step, Airflow runs it daily, and Terraform provisions it. Runs on DuckDB locally and BigQuery in production from one codebase.",
       "category": "ml-data-science",
-      "badge": null,
+      "badge": "Data Engineering",
       "badgeStyle": null,
       "badges": null,
       "lang": "Python",
@@ -239,6 +339,22 @@
         "Airflow",
         "dbt",
         "Terraform"
+      ],
+      "group": "ai-data",
+      "tagline": "Messy CSVs in, a tested warehouse out.",
+      "metrics": [
+        {
+          "value": "100k",
+          "label": "orders through the pipeline"
+        },
+        {
+          "value": "155",
+          "label": "dbt tests"
+        },
+        {
+          "value": "2.65\u00d7",
+          "label": "faster dashboard queries"
+        }
       ]
     }
   ]
