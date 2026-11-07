@@ -554,6 +554,72 @@ body {
 }
 
 /* =========================
+   HIGHLIGHTS DECK
+   ========================= */
+
+.hl-section { max-width: 1200px; margin: 0 auto; padding: 80px 48px 40px; }
+.hl-heading { display: flex; flex-direction: column; align-items: center; text-align: center; margin-bottom: 40px; }
+.hl-title {
+  display: flex; align-items: flex-start; gap: 6px; margin: 0;
+  font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; color: var(--text);
+}
+.hl-spark { margin-top: 0.35em; color: #8b5cf6; }
+.hl-sub { margin: 12px 0 0; font-size: 1rem; color: var(--text-2); }
+
+.hl-stage { display: flex; align-items: center; gap: 8px; }
+.hl-arrow {
+  flex-shrink: 0; padding: 4px 8px; background: none; border: 0; cursor: pointer;
+  font-size: 2.2rem; line-height: 1; color: var(--text-3); transition: color 0.2s ease;
+}
+.hl-arrow:hover { color: var(--text); }
+
+.hl-deck {
+  position: relative; flex: 1; min-width: 0; overflow: hidden;
+  touch-action: pan-y; cursor: grab; user-select: none;
+  mask-image: linear-gradient(90deg, transparent, #000 3%, #000 97%, transparent);
+}
+.hl-deck:active { cursor: grabbing; }
+.hl-track { position: absolute; inset: 0; will-change: transform; }
+
+/* Later cards sit on top and cast their shadow left onto the one before. */
+.hl-card { position: absolute; top: 12px; display: flex; border-radius: 18px; outline: none; text-decoration: none; -webkit-user-drag: none; }
+.hl-card-in {
+  --hl-shadow: -2px 3px 3px rgba(0, 0, 0, 0.45), -10px 14px 22px rgba(0, 0, 0, 0.55);
+  display: flex; flex-direction: column; width: 100%; aspect-ratio: 1 / 0.92;
+  padding: 22px 20% 20px 22px; border-radius: 18px;
+  background: var(--panel); color: var(--panel-text); box-shadow: var(--hl-shadow);
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+:root[data-theme="light"] .hl-card-in {
+  --hl-shadow: -2px 3px 4px rgba(30, 21, 46, 0.12), -10px 14px 24px rgba(30, 21, 46, 0.16);
+}
+.hl-card-name { font-size: 1.3rem; font-weight: 700; letter-spacing: -0.03em; line-height: 1.1; }
+.hl-card-line { margin-top: 8px; font-size: 0.92rem; line-height: 1.4; color: var(--panel-sub); }
+.hl-card-icon {
+  display: grid; place-items: center; width: 48px; height: 48px; margin-top: auto;
+  border-radius: 13px; background: var(--icon-bg); color: var(--icon-fg);
+}
+@media (hover: hover) {
+  .hl-card:hover .hl-card-in { transform: translateY(-10px); }
+  .hl-card:hover .hl-card-icon { animation: hl-hop 0.6s ease-in-out; }
+}
+@keyframes hl-hop { 50% { transform: translateY(-4px); } }
+.hl-card:focus-visible .hl-card-in { box-shadow: inset 0 0 0 2px #8b5cf6, var(--hl-shadow); }
+
+.hl-tone-lavender { --panel: #ddd0f7; --panel-text: #1e152e; --panel-sub: rgba(30, 21, 46, 0.68); --icon-bg: #1e152e; --icon-fg: #ddd0f7; }
+.hl-tone-indigo   { --panel: #6366f1; --panel-text: #ffffff; --panel-sub: rgba(255, 255, 255, 0.82); --icon-bg: #1e152e; --icon-fg: #c4b5fd; }
+.hl-tone-plum     { --panel: #2a1a40; --panel-text: #ede6fb; --panel-sub: #b3a6cc; --icon-bg: #ddd0f7; --icon-fg: #2a1a40; }
+
+@media (max-width: 768px) {
+  .hl-section { padding: 56px 16px 24px; }
+  .hl-arrow { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hl-card-in { transition: none; }
+  .hl-card-icon { animation: none !important; }
+}
+
+/* =========================
    GREETING SCREEN
    ========================= */
 

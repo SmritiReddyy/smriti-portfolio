@@ -7,11 +7,14 @@ import { asset } from '../lib/basePath';
 import ProjectsSection from './ProjectsSection';
 import CertificationsCarousel from './CertificationsCarousel';
 import ThemeToggle from './ThemeToggle';
+import Highlights from './Highlights';
 
 type Skill = { name: string; icon?: string; invert?: boolean };
 type SkillGroup = { label: string; items: Skill[] };
 
 const DEV = 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons';
+/** Devicon has no AI-tool logos; LobeHub does. Pinned so a release can't swap them. */
+const LOBE = 'https://cdn.jsdelivr.net/npm/@lobehub/icons-static-svg@1.101.0/icons';
 
 /** Grouped to mirror the resume's skill categories, so a reader can scan for
  *  one area instead of parsing a single wall of logos. Items without a devicon
@@ -79,6 +82,17 @@ const SKILL_GROUPS: SkillGroup[] = [
       { name: 'Spark',        icon: `${DEV}/apachespark/apachespark-original.svg` },
       { name: 'Airflow',      icon: `${DEV}/apacheairflow/apacheairflow-original.svg` },
       { name: 'MLflow' },
+    ],
+  },
+  {
+    label: 'AI',
+    items: [
+      { name: 'Claude Code', icon: `${LOBE}/claudecode-color.svg` },
+      { name: 'Codex',       icon: `${LOBE}/codex-color.svg` },
+      { name: 'Antigravity', icon: `${LOBE}/antigravity-color.svg` },
+      { name: 'Gemini',      icon: `${LOBE}/gemini-color.svg` },
+      { name: 'Copilot',     icon: `${LOBE}/githubcopilot.svg`, invert: true },
+      { name: 'Hermes',      icon: `${LOBE}/nousresearch.svg`, invert: true },
     ],
   },
   {
@@ -492,8 +506,52 @@ export default function PortfolioPage({ projects }: { projects: Project[] }) {
         </button>
       </section>
 
+      <Highlights />
+
       {/* Projects Section — powered by GitHub */}
       <ProjectsSection projects={projects} />
+
+      {/* Skills Section */}
+      <section id="skills-section" style={styles.section}>
+        <div data-animate="up">
+          <h2 style={styles.sectionTitle}>
+            <span style={styles.titleAccent}></span> Tech Stack
+          </h2>
+        </div>
+
+        <div style={styles.skillGroups}>
+          {SKILL_GROUPS.map((group, gi) => (
+            <div
+              key={group.label}
+              data-animate="up"
+              data-delay={`${0.05 * (gi + 1)}s`}
+              style={styles.skillGroup}
+            >
+              <h3 style={styles.skillGroupLabel}>{group.label}</h3>
+              <div style={styles.skillItems}>
+                {group.items.map(item => (
+                  <div key={item.name} style={styles.skillChip} className="skill-chip">
+                    {item.icon && (
+                      <img
+                        src={item.icon}
+                        alt=""
+                        aria-hidden="true"
+                        style={{
+                          width: '22px',
+                          height: '22px',
+                          objectFit: 'contain',
+                          ...(item.invert ? { filter: 'var(--logo-filter)' } : {}),
+                        }}
+                      />
+                    )}
+                    <span style={styles.skillChipLabel}>{item.name}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
 
       {/* Education Section */}
       <section id="education-section" style={styles.section}>
@@ -556,48 +614,6 @@ export default function PortfolioPage({ projects }: { projects: Project[] }) {
                     {edu.courses.map(c => <span key={c} style={styles.eduCourseTag}>{c}</span>)}
                   </div>
                 </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Skills Section */}
-      <section id="skills-section" style={styles.section}>
-        <div data-animate="up">
-          <h2 style={styles.sectionTitle}>
-            <span style={styles.titleAccent}></span> Tech Stack
-          </h2>
-        </div>
-
-        <div style={styles.skillGroups}>
-          {SKILL_GROUPS.map((group, gi) => (
-            <div
-              key={group.label}
-              data-animate="up"
-              data-delay={`${0.05 * (gi + 1)}s`}
-              style={styles.skillGroup}
-            >
-              <h3 style={styles.skillGroupLabel}>{group.label}</h3>
-              <div style={styles.skillItems}>
-                {group.items.map(item => (
-                  <div key={item.name} style={styles.skillChip} className="skill-chip">
-                    {item.icon && (
-                      <img
-                        src={item.icon}
-                        alt=""
-                        aria-hidden="true"
-                        style={{
-                          width: '22px',
-                          height: '22px',
-                          objectFit: 'contain',
-                          ...(item.invert ? { filter: 'var(--logo-filter)' } : {}),
-                        }}
-                      />
-                    )}
-                    <span style={styles.skillChipLabel}>{item.name}</span>
-                  </div>
-                ))}
               </div>
             </div>
           ))}
