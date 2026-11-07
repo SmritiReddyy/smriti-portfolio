@@ -556,6 +556,61 @@ body {
   .theme-toggle { width: 44px; height: 44px; }
 }
 
+/* =========================
+   FALLING STARS
+   ========================= */
+
+.star-button {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 40px; height: 40px; padding: 0;
+  background: transparent; border: 1px solid rgb(var(--fg-rgb) / 0.12); border-radius: 10px;
+  color: #a78bfa; cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+.star-button svg { transition: transform 0.5s ease; }
+.star-button:hover { color: #c4b5fd; border-color: rgba(139, 92, 246, 0.45); }
+.star-button:hover svg { transform: rotate(180deg); }
+.star-button:active svg { transform: rotate(180deg) scale(0.85); }
+.star-button:focus-visible { outline: 2px solid rgba(99, 102, 241, 0.7); outline-offset: 2px; }
+:root[data-theme="light"] .star-button { color: #7c3aed; }
+:root[data-theme="light"] .star-button:hover { color: #5b21b6; }
+@media (max-width: 768px) {
+  .star-button { width: 44px; height: 44px; }
+}
+
+@keyframes starFall {
+  0%   { opacity: 0; transform: translateY(0) rotate(0deg); }
+  10%  { opacity: 1; }
+  90%  { opacity: 1; }
+  100% { opacity: 0; transform: translateY(110vh) rotate(720deg); }
+}
+/* Above the navbar (z-index 100), below the greeting screen. */
+.falling-star {
+  position: fixed; top: -40px; z-index: 150; pointer-events: none; line-height: 0;
+  filter: drop-shadow(0 0 6px rgba(167, 139, 250, 0.75));
+  animation-name: starFall; animation-timing-function: linear; animation-fill-mode: both;
+}
+.falling-star--0 { color: #8b5cf6; }
+.falling-star--1 { color: #a78bfa; }
+.falling-star--2 { color: #c4b5fd; }
+.falling-star--3 { color: #ddd0f7; }
+/* Pale lavender disappears on the light background, so go deeper there. */
+:root[data-theme="light"] .falling-star { filter: drop-shadow(0 0 4px rgba(124, 58, 237, 0.4)); }
+:root[data-theme="light"] .falling-star--0 { color: #6d28d9; }
+:root[data-theme="light"] .falling-star--1 { color: #7c3aed; }
+:root[data-theme="light"] .falling-star--2 { color: #8b5cf6; }
+:root[data-theme="light"] .falling-star--3 { color: #a78bfa; }
+
+/* Reduced motion: the stars twinkle in place instead of falling. */
+@keyframes starTwinkle {
+  0%, 100% { opacity: 0; transform: scale(0.6); }
+  30%, 70% { opacity: 1; transform: scale(1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .falling-star { top: var(--star-top); animation-name: starTwinkle; }
+  .star-button svg { transition: none; }
+}
+
 /* Must come after `.nav-toggle { display: none }` above — equal specificity,
    so source order decides. */
 @media (max-width: 768px) {

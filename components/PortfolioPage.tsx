@@ -7,6 +7,7 @@ import { asset } from '../lib/basePath';
 import ProjectsSection from './ProjectsSection';
 import CertificationsCarousel from './CertificationsCarousel';
 import ThemeToggle from './ThemeToggle';
+import StarButton from './StarButton';
 import Highlights from './Highlights';
 
 type SkillGroup = { label: string; items: string[] };
@@ -330,7 +331,10 @@ export default function PortfolioPage({ projects }: { projects: Project[] }) {
           }}>Resume</a></li>
         </ul>
 
-        <ThemeToggle />
+        <div style={{ display: 'flex', gap: '8px' }}>
+          <StarButton />
+          <ThemeToggle />
+        </div>
 
         {/* Mobile: the links above are hidden under 768px, so sections are
             only reachable through this menu. */}
