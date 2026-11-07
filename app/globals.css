@@ -523,6 +523,15 @@ body {
   background-color: rgba(99, 102, 241, 0.09);
 }
 
+/* Three columns on a laptop, two on a tablet, one on a phone. !important
+   because the column count is set inline in PortfolioPage. */
+@media (max-width: 1024px) {
+  .skill-groups { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+}
+@media (max-width: 640px) {
+  .skill-groups { grid-template-columns: minmax(0, 1fr) !important; gap: 12px !important; }
+}
+
 .theme-toggle {
   display: inline-flex;
   align-items: center;

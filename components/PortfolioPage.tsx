@@ -9,102 +9,54 @@ import CertificationsCarousel from './CertificationsCarousel';
 import ThemeToggle from './ThemeToggle';
 import Highlights from './Highlights';
 
-type Skill = { name: string; icon?: string; invert?: boolean };
-type SkillGroup = { label: string; items: Skill[] };
-
-const DEV = 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons';
-/** Devicon has no AI-tool logos; LobeHub does. Pinned so a release can't swap them. */
-const LOBE = 'https://cdn.jsdelivr.net/npm/@lobehub/icons-static-svg@1.101.0/icons';
+type SkillGroup = { label: string; items: string[] };
 
 /** Grouped to mirror the resume's skill categories, so a reader can scan for
- *  one area instead of parsing a single wall of logos. Items without a devicon
- *  render as text chips. */
+ *  one area instead of parsing a single wall of names. Six groups so they sit
+ *  in a 3 × 2 grid that fits on one screen. */
 const SKILL_GROUPS: SkillGroup[] = [
   {
     label: 'Languages',
     items: [
-      { name: 'Java',       icon: `${DEV}/java/java-original.svg` },
-      { name: 'Python',     icon: `${DEV}/python/python-original.svg` },
-      { name: 'C++',        icon: `${DEV}/cplusplus/cplusplus-original.svg` },
-      { name: 'JavaScript', icon: `${DEV}/javascript/javascript-original.svg` },
-      { name: 'TypeScript', icon: `${DEV}/typescript/typescript-original.svg` },
-      { name: 'SQL',        icon: `${DEV}/azuresqldatabase/azuresqldatabase-original.svg` },
+      'Java', 'Python', 'C++', 'JavaScript', 'TypeScript',
+      'SQL',
     ],
   },
   {
     label: 'Backend & Distributed',
     items: [
-      { name: 'Spring Boot',     icon: `${DEV}/spring/spring-original.svg` },
-      { name: 'Spring WebFlux' },
-      { name: 'FastAPI',         icon: `${DEV}/fastapi/fastapi-original.svg` },
-      { name: 'Node.js',         icon: `${DEV}/nodejs/nodejs-original.svg` },
-      { name: 'Django',          icon: `${DEV}/django/django-plain.svg`, invert: true },
-      { name: 'Kafka',           icon: `${DEV}/apachekafka/apachekafka-original.svg`, invert: true },
-      { name: 'React',           icon: `${DEV}/react/react-original.svg` },
-      { name: 'REST APIs' },
-      { name: 'Microservices' },
-      { name: 'Raft' },
+      'Spring Boot', 'Spring WebFlux', 'FastAPI', 'Node.js', 'Django',
+      'Kafka', 'React', 'REST APIs', 'Microservices', 'Raft',
+      'CQRS', 'Event Sourcing', 'Sagas', 'Concurrency',
     ],
   },
   {
     label: 'Databases',
     items: [
-      { name: 'PostgreSQL',    icon: `${DEV}/postgresql/postgresql-original.svg` },
-      { name: 'MySQL',         icon: `${DEV}/mysql/mysql-original.svg` },
-      { name: 'MongoDB',       icon: `${DEV}/mongodb/mongodb-original.svg` },
-      { name: 'Redis',         icon: `${DEV}/redis/redis-original.svg` },
-      { name: 'Elasticsearch', icon: `${DEV}/elasticsearch/elasticsearch-original.svg` },
-      { name: 'TimescaleDB' },
-      { name: 'SQLAlchemy',    icon: `${DEV}/sqlalchemy/sqlalchemy-original.svg` },
+      'PostgreSQL', 'MySQL', 'MongoDB', 'Redis', 'Elasticsearch',
+      'TimescaleDB', 'SQLAlchemy',
     ],
   },
   {
-    label: 'Cloud & DevOps',
+    label: 'Cloud, DevOps & Testing',
     items: [
-      { name: 'AWS',            icon: `${DEV}/amazonwebservices/amazonwebservices-plain-wordmark.svg`, invert: true },
-      { name: 'GCP',            icon: `${DEV}/googlecloud/googlecloud-original.svg` },
-      { name: 'Docker',         icon: `${DEV}/docker/docker-original.svg` },
-      { name: 'Kubernetes',     icon: `${DEV}/kubernetes/kubernetes-plain.svg` },
-      { name: 'GitHub Actions', icon: `${DEV}/githubactions/githubactions-original.svg` },
-      { name: 'Terraform',      icon: `${DEV}/terraform/terraform-original.svg` },
-      { name: 'Git',            icon: `${DEV}/git/git-original.svg` },
-      { name: 'Firebase',       icon: `${DEV}/firebase/firebase-plain.svg` },
+      'AWS', 'GCP', 'Docker', 'Kubernetes', 'GitHub Actions',
+      'Terraform', 'Git', 'Firebase', 'pytest', 'Gatling',
+      'Testcontainers',
     ],
   },
   {
     label: 'ML & Data',
     items: [
-      { name: 'PyTorch',      icon: `${DEV}/pytorch/pytorch-original.svg` },
-      { name: 'TensorFlow',   icon: `${DEV}/tensorflow/tensorflow-original.svg` },
-      { name: 'Scikit-Learn', icon: `${DEV}/scikitlearn/scikitlearn-original.svg` },
-      { name: 'Pandas',       icon: `${DEV}/pandas/pandas-original.svg` },
-      { name: 'NumPy',        icon: `${DEV}/numpy/numpy-original.svg` },
-      { name: 'Spark',        icon: `${DEV}/apachespark/apachespark-original.svg` },
-      { name: 'Airflow',      icon: `${DEV}/apacheairflow/apacheairflow-original.svg` },
-      { name: 'MLflow' },
+      'PyTorch', 'TensorFlow', 'Scikit-Learn', 'Pandas', 'NumPy',
+      'Spark', 'Airflow', 'MLflow',
     ],
   },
   {
     label: 'AI',
     items: [
-      { name: 'Claude Code', icon: `${LOBE}/claudecode-color.svg` },
-      { name: 'Codex',       icon: `${LOBE}/codex-color.svg` },
-      { name: 'Antigravity', icon: `${LOBE}/antigravity-color.svg` },
-      { name: 'Gemini',      icon: `${LOBE}/gemini-color.svg` },
-      { name: 'Copilot',     icon: `${LOBE}/githubcopilot.svg`, invert: true },
-      { name: 'Hermes',      icon: `${LOBE}/nousresearch.svg`, invert: true },
-    ],
-  },
-  {
-    label: 'Testing & Fundamentals',
-    items: [
-      { name: 'pytest',          icon: `${DEV}/pytest/pytest-original.svg` },
-      { name: 'Gatling' },
-      { name: 'Testcontainers' },
-      { name: 'CQRS' },
-      { name: 'Event Sourcing' },
-      { name: 'Sagas' },
-      { name: 'Concurrency' },
+      'Claude Code', 'Codex', 'Antigravity', 'Gemini', 'Copilot',
+      'Hermes',
     ],
   },
 ];
@@ -519,7 +471,7 @@ export default function PortfolioPage({ projects }: { projects: Project[] }) {
           </h2>
         </div>
 
-        <div style={styles.skillGroups}>
+        <div style={styles.skillGroups} className="skill-groups">
           {SKILL_GROUPS.map((group, gi) => (
             <div
               key={group.label}
@@ -530,22 +482,7 @@ export default function PortfolioPage({ projects }: { projects: Project[] }) {
               <h3 style={styles.skillGroupLabel}>{group.label}</h3>
               <div style={styles.skillItems}>
                 {group.items.map(item => (
-                  <div key={item.name} style={styles.skillChip} className="skill-chip">
-                    {item.icon && (
-                      <img
-                        src={item.icon}
-                        alt=""
-                        aria-hidden="true"
-                        style={{
-                          width: '22px',
-                          height: '22px',
-                          objectFit: 'contain',
-                          ...(item.invert ? { filter: 'var(--logo-filter)' } : {}),
-                        }}
-                      />
-                    )}
-                    <span style={styles.skillChipLabel}>{item.name}</span>
-                  </div>
+                  <span key={item} style={styles.skillChip} className="skill-chip">{item}</span>
                 ))}
               </div>
             </div>
@@ -860,18 +797,18 @@ const styles = {
   },
   skillGroups: {
     display: "grid",
-    gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
-    gap: "28px",
+    gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
+    gap: "16px",
   },
   skillGroup: {
-    padding: "24px",
-    borderRadius: "16px",
+    padding: "18px 20px",
+    borderRadius: "14px",
     backgroundColor: "rgb(var(--fg-rgb) / 0.03)",
     border: "1px solid rgb(var(--fg-rgb) / 0.08)",
   },
   skillGroupLabel: {
-    margin: "0 0 16px",
-    fontSize: "0.75rem",
+    margin: "0 0 12px",
+    fontSize: "0.72rem",
     fontWeight: 700,
     letterSpacing: "0.12em",
     textTransform: "uppercase" as const,
@@ -880,23 +817,18 @@ const styles = {
   skillItems: {
     display: "flex",
     flexWrap: "wrap" as const,
-    gap: "10px",
+    gap: "6px",
   },
   skillChip: {
-    display: "inline-flex",
-    alignItems: "center",
-    gap: "8px",
-    padding: "7px 12px",
-    borderRadius: "10px",
+    padding: "5px 10px",
+    borderRadius: "8px",
+    fontSize: "0.8rem",
+    fontWeight: 500,
+    color: "var(--text-1)",
+    whiteSpace: "nowrap" as const,
     backgroundColor: "rgb(var(--fg-rgb) / 0.04)",
     border: "1px solid rgb(var(--fg-rgb) / 0.08)",
     transition: "border-color 0.2s ease, background-color 0.2s ease",
-  },
-  skillChipLabel: {
-    fontSize: "0.82rem",
-    color: "var(--text-1)",
-    fontWeight: 500,
-    whiteSpace: "nowrap" as const,
   },
   researchSection: {
     marginTop: "48px",
